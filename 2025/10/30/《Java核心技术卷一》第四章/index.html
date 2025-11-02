@@ -30,8 +30,10 @@
 <meta property="og:image" content="http://example.com/2025/10/30/%E3%80%8AJava%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7%E4%B8%80%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0/image-20251101155157478.png">
 <meta property="og:image" content="http://example.com/2025/10/30/%E3%80%8AJava%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7%E4%B8%80%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0/image-20251101163412352.png">
 <meta property="og:image" content="http://example.com/2025/10/30/%E3%80%8AJava%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7%E4%B8%80%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0/image-20251102103557869.png">
+<meta property="og:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E5%9B%9B%E7%AB%A0/image-20251102225551589.png">
+<meta property="og:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E5%9B%9B%E7%AB%A0/image-20251102231655672.png">
 <meta property="article:published_time" content="2025-10-30T10:52:39.000Z">
-<meta property="article:modified_time" content="2025-11-02T02:36:06.696Z">
+<meta property="article:modified_time" content="2025-11-02T15:19:17.691Z">
 <meta property="article:author" content="Under1ines">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
@@ -265,7 +267,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          12k 字
+          13k 字
         
       </span>
     
@@ -276,7 +278,7 @@
         
         
         
-          99 分钟
+          105 分钟
         
       </span>
     
@@ -767,8 +769,48 @@
 
 <p>具体的执行过程为：</p>
 <ol>
-<li>x 初始化为 harry 值的一个副本，这里就是一个对象引用。</li>
+<li><p>x 初始化为 harry 值的一个副本，这里就是一个对象引用。</p>
+</li>
+<li><p>raiseSalary 方法应用于这个对象引用。x 和 harry 同时引用的那个 Employee 对象的工资提高了 200%。</p>
+</li>
+<li><p>方法结束后，参数变量 x 不再使用。当然，对象变量 harry 继续引用那个工资增至 3 倍的员工对象（如图 4-7 所示）。</p>
+<p> <img src="/2025/05/04/hello-world/%E7%AC%AC%E5%9B%9B%E7%AB%A0/image-20251102225551589.png" srcset="/img/loading.gif" lazyload alt="image-20251102225551589"></p>
+<p> ​                                <strong>图 4-7 修改参数引用的对象有持续效果</strong></p>
+</li>
 </ol>
+<p>可以看到，实现方法改变对象参数的状态是完全可以的，实际上也相当常见。理由很简单，方法得到的是对象引用的副本，原来的对象引用和这个副本都引用同一个对象。</p>
+<p>很多程序设计语言（特别是 C++ 和 Pascal）提供了两种参数传递方式：按值调用和按引用调用。有些程序员（甚至有些书的作者）声称 Java 对对象采用的是按引用调用，实际上，这是不对的。由于这种误解很常见，所以很有必要给出一个反例来详细地说明这个问题。</p>
+<p>下面来编写一个交换两个 Employee 对象的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">swap</span><span class="hljs-params">(Employee x, Employee y)</span> <span class="hljs-comment">// doesn&#x27;t work</span><br>&#123;<br>    <span class="hljs-type">Employee</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> x;<br>    x = y;<br>    y = temp;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果 Java 对对象采用的是按引用调用，那么这个方法就应该能够实现交换：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">var</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Employee</span>(<span class="hljs-string">&quot;Alice&quot;</span>, . . .);<br><span class="hljs-type">var</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Employee</span>(<span class="hljs-string">&quot;Bob&quot;</span>, . . .);<br>swap(a, b);<br><span class="hljs-comment">// does a now refer to Bob, b to Alice?</span><br></code></pre></td></tr></table></figure>
+
+<p>但是，这个方法并没有改变存储在变量 a 和 b 中的对象引用。swap 方法的参数 x 和 y 初始化为两个对象引用的副本，这个方法交换的是这两个副本。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// x refers to Alice, y to Bob</span><br><span class="hljs-type">Employee</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> x;<br>x = y;<br>y = temp;<br><span class="hljs-comment">// now x refers to Bob, y to Alice</span><br></code></pre></td></tr></table></figure>
+
+<p>方法结束时，参数变量 x 和 y 被丢弃了。原来的变量 a 和 b 仍然引用这个方法调用之前所引用的对象（如图4-8所示）。</p>
+<p><img src="/2025/05/04/hello-world/%E7%AC%AC%E5%9B%9B%E7%AB%A0/image-20251102231655672.png" srcset="/img/loading.gif" lazyload alt="image-20251102231655672"></p>
+<p>​								<strong>图 4-8 交换参数变量没有持续效果</strong></p>
+<p>这说明：Java程序设计语言对对象采用的不是按引用调用。实际上，<strong>对象引用（object reference）是按值传递的</strong>。</p>
+<p>下面来总结在Java中对方法参数能做什么和不能做什么：</p>
+<ul>
+<li>方法不能修改基本数据类型的参数（即数值型或布尔型）。</li>
+<li>方法可以改变对象参数的状态。</li>
+<li>方法不能让一个对象参数引用一个新对象。</li>
+</ul>
+<p>程序清单4-4 中的程序展示了这几点。在这个程序中，首先试图将一个数值参数的值增至3倍，但没有成功：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs oxygene">Testing tripleValue:<br>Before: percent=<span class="hljs-number">10.0</span><br><span class="hljs-keyword">End</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">method</span>: x=<span class="hljs-number">30.0</span><br>After: percent=<span class="hljs-number">10.0</span><br></code></pre></td></tr></table></figure>
+
+<p>随后，成功地将一个员工的工资增至3倍：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs oxygene">Testing tripleSalary:<br>Before: salary=<span class="hljs-number">50000.0</span><br><span class="hljs-keyword">End</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">method</span>: salary=<span class="hljs-number">150000.0</span><br>After: salary=<span class="hljs-number">150000.0</span><br></code></pre></td></tr></table></figure>
+
+<p>方法结束之后，harry 引用的对象的状态发生了改变。这是因为这个方法可以通过对象引用的副本修改所引用对象的状态。</p>
+<p>最后，程序演示了 swap 方法的失败结果：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs oxygene">Testing swap:<br>Before: a=Alice<br>Before: b=Bob<br><span class="hljs-keyword">End</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">method</span>: x=Bob<br><span class="hljs-keyword">End</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">method</span>: y=Alice<br>After: a=Alice<br>After: b=Bob<br></code></pre></td></tr></table></figure>
+
+<p>可以看出，参数变量 x 和 y 交换了，但是变量 a 和 b 没有受到影响。</p>
+<p>p126</p>
 
                 
               </div>
