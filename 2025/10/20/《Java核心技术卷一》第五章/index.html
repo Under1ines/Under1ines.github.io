@@ -1,0 +1,936 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Under1ines">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1234public class Manager extends Employee&#123;    added methods and fields&#125;  在Java中，所有的继承都是公共继承。 关键字extends指示正在构造的新类派生于一个已存在的类。 这个已存在的类称为超类、基类或父类；新类称为子类或派生类。 子类比超类拥有的功能更多。所有员工组成的集合包含所有经理组成的集合，员工">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Java核心技术卷一》第五章">
+<meta property="og:url" content="http://example.com/2025/10/20/%E3%80%8AJava%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7%E4%B8%80%E3%80%8B%E7%AC%AC%E4%BA%94%E7%AB%A0/index.html">
+<meta property="og:site_name" content="Under1ines">
+<meta property="og:description" content="1234public class Manager extends Employee&#123;    added methods and fields&#125;  在Java中，所有的继承都是公共继承。 关键字extends指示正在构造的新类派生于一个已存在的类。 这个已存在的类称为超类、基类或父类；新类称为子类或派生类。 子类比超类拥有的功能更多。所有员工组成的集合包含所有经理组成的集合，员工">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-10-20T07:50:33.000Z">
+<meta property="article:modified_time" content="2025-10-30T10:53:18.930Z">
+<meta property="article:author" content="Under1ines">
+<meta property="article:tag" content="原创">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>《Java核心技术卷一》第五章 - Under1ines</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/overflow.css">
+<link rel="stylesheet" href="/css/macpanel.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/mk.css">
+<link rel="stylesheet" href="/css/overflow-x.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/galssbg.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/read-progress.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"emn3PvyiOCx6egBxwdtmWVVQ-gzGzoHsz","app_key":"zGrReu0ZhBUMcc7YzNOvfEd3","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Under1ines</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/none.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="《Java核心技术卷一》第五章"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-10-20 15:50" pubdate>
+          2025年10月20日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          41 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">《Java核心技术卷一》第五章</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Manager</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Employee</span><br>&#123;<br>    added methods and fields<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在Java中，所有的继承都是公共继承。</p>
+<p>关键字extends指示正在构造的新类派生于一个已存在的类。</p>
+<p>这个已存在的类称为超类、基类或父类；新类称为子类或派生类。</p>
+<p>子类比超类拥有的功能更多。所有员工组成的集合包含所有经理组成的集合，员工集合是经理集合的超集，经理集合是员工集合的子集。</p>
+<p>声明为私有的类成员不会被这个类的子类继承。（私有字段不会继承，因为子类不能直接访问这些私有字段，子类拥有这些字段）</p>
+<p>记录，就是状态完全由构造器参数定义的类，不能扩展记录，而且记录也不能扩展其他类。</p>
+<p>关键字super 指示编译器调用超类方法</p>
+<p>super(name, salary,…);  “调用超类中带有name，salary等参数的构造器的简写形式”</p>
+<p>由于子类的构造器不能访问超类的私有字段，所以必须通过一个构造器来初始化这些私有字段，可以利用特殊的super语法调用这个构造器，使用super调用构造器的语句必须是子类构造器的第一条语句。</p>
+<p>如果构造子类对象时没有显式的调用超类的构造器，那么超类必须有一个无参数构造器，这个构造器要在子类构造之前调用。</p>
+<p> this 的两个含义：一是指示隐式参数的引用；二是调用该类的其他构造器</p>
+<p> super 的两个含义：一是调用超类的方法；二是调用超类的构造器</p>
+<p>总结：核心逻辑链</p>
+<p>创建子类对象 → 需初始化父类 + 子类 → 子类无法直接初始化父类私有字段 → 必须通过“调用父类构造器”完成父类初始化 →  super(参数列表) 是调用父类构造器的语法 → 该语句必须是子类构造器第一条语句 → 若子类没显式调用，编译器自动插  super() → 要求父类必须有无参构造器。</p>
+<p>一个对象变量可以指示多种实际类型，这一点称为多态，在运行时能够自动地选择适当的方法，这称为动态绑定。</p>
+<p>继承并不仅限于一个层次。</p>
+<p>由一个公共超类派生出来的所有类的集合称为继承层次结构，在继承层次结构中，从某个特定的类到其祖先的路径称为该类的继承链。</p>
+<p>Java不支持多重继承。（多重继承允许一个类同时继承多个父类的属性和方法）</p>
+<p>有一个简单的规则可以用来判断是否应该将数据设计为继承关系，这就是“is－a”规则，它指出子类的每个对象也是超类的对象。</p>
+<p>“is－a”规则的另一种表述是替换原则。它指出程序中需要超类对象的任何地方都可以使用子类对象替换。</p>
+<p>在java中，对象变量是多态的。一个Employee类型的变量既可以引用一个Employee类型的对象，也可以引用Employee类的任何一个子类的对象。</p>
+<p>不能将超类的引用赋给子类变量。</p>
+<p>在java中，子类引用数组可以转换成超类引用数组，而不需要使用强制类型转换。（存在风险）</p>
+<h2 id="理解方法调用"><a href="#理解方法调用" class="headerlink" title="理解方法调用"></a>理解方法调用</h2><p>准确地理解如何在对象上应用方法调用非常重要。下面假设要调用x.f(args)，隐式参数</p>
+<p>x声明为类C的一个对象。下面是调用过程的详细描述：</p>
+<ol>
+<li><p>编译器查看对象的声明类型和方法名。需要注意的是：有可能存在多个名字为f（参数类类型不一样）的方法。例如，可能存在方法f(int)和方法f(string)。编译器将会一一访问。接下来，编译器已知所有可能调用的候选方法。</p>
+<p> 至此，编译器已知所有可能调用的候选方法。</p>
+</li>
+<li><p>接下来，编译器要确定方法调用中提供的参数类型。如果在所有名为f的方法中存在一个与所提供参数类型完全匹配的方法，就选择这个方法。这个过程称为<strong>重载解析</strong>(overloading resolution)。例如，对于调用x.f(“Hello”)，编译器将会挑选f(string)，而不是f(int)。由于允许类型转换（int可以转换成double，Manager可以转换成Employee，等等），所以情况可能会变得很复杂。如果编译器没有找到与参数类型匹配的方法，或者发现经过类型转换后有多个方法与之匹配，编译器就会报告一个错误。</p>
+<p> 至此，编译器已经知道需要调用的方法的名字和参数类型。</p>
+</li>
+</ol>
+<p>注释：前面曾经说过，方法的名字和参数列表称为方法的<strong>签名</strong>(signature)。例如，f(int)和f(string)是两个有相同名字、不同签名的方法。如果在子类中定义了一个与超类签名相同的方法，那么子类中的这个方法就会覆盖(override)超类中有相同签名的方法。</p>
+<p>返回类型不是签名的一部分。不过在覆盖一个方法时，需要保证返回类型的兼容性。允许子类将覆盖方法的返回类型改为原返回类型的子类型。例如，假设Employee类型有以下方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Employee <span class="hljs-title function_">getBuddy</span><span class="hljs-params">()</span> &#123;...&#125;<br></code></pre></td></tr></table></figure>
+
+<p>经理不会想找底层员作为工作搭档。为了反映这一点，在子类Manager中，可以如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Manager <span class="hljs-title function_">getBuddy</span><span class="hljs-params">()</span> &#123;...&#125;<span class="hljs-comment">//ok to change return type</span><br></code></pre></td></tr></table></figure>
+
+<p>我们说，这两个getBuddy方法有<strong>协变</strong>(covariant)的返回类型。</p>
+<ol start="3">
+<li>如果是private方法、static方法、final方法（final修饰符将在下一节解释）或者构造器，那么编译器可以准确地知道应该调用哪个方法。这称为<strong>静态绑定</strong>(static binding)。与此对应的是，如果要调用的方法依赖于隐式参数的实际类型，那么必须在运行时使用动态绑定。在我们的示例中，编译器会利用动态绑定生成一个调用f(string)的指令。</li>
+<li>程序运行并且采用动态绑定调用方法时，虚拟机必须调用与x所引用对象的实际类型对应的那个方法。假设x的实际类型是D，它是C类的子类。如果D类定义了方法f(string)，就会调用这个方法；否则，将在D类的超类中寻找f(string)，依此类推。每次调用方法都要完成这个搜索，时间开销相当大。因此，虚拟机预先为每个类计算了一个<strong>方法表</strong>(method table)，其中列出了所有方法的签名和要调用的实际方法。虚拟机加载一个类之后可以构建这个方法表，为此要结合它在类文件中找到的方法以及超类的方法表。</li>
+</ol>
+<p>这样一来，真正调用方法的时候，虚拟机仅查找这个表就行了。在前面的例子中，虚拟机搜索D类的方法表，寻找与f(String)相匹配的方法。这个方法既有可能是D.f(String)，也有可能是X.f(String)，这里的X是D的某个超类。这种情况下需要提醒一点，如果调用是super.f(param)，那么编译器将搜索超类的方法表。</p>
+<p>现在来详细分析程序清单5-1中调用e.getSalary()的过程。e声明为Employee类型。Employee类只有一个名叫getSalary的方法，这个方法没有参数。因此，在这里不必担心重载解析的问题。</p>
+<p>由于getSalary不是private方法、static方法或final方法，所以将采用动态绑定。虚拟机为Employee和Manager类生成方法表。在Employee的方法表中列出了这个Employee类本身定义的所有方法:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">Employee:<br><br>	getName() -&gt; Employee.getName()<br><br>	getSalary() -&gt; Employee.getSalary()<br><br>	getHireDay() -&gt; Employee.getHireDay()<br><br>	raiseSalary(<span class="hljs-type">double</span>) -&gt; Employee.raiseSalary(<span class="hljs-type">double</span>)<br></code></pre></td></tr></table></figure>
+
+<p>实际上，上面列出的方法并不完整，稍后会看到Employee类有一个超类Object，Employee类从这个超类中还继承了大量方法，在此，我们略去了Object方法。</p>
+<p>Manager方法表稍微有些不同。其中有三个方法是继承而来的，一个方法是重新定义的，还有一个方法是新增的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">Manager:<br><br>getName() -&gt; Employee.getName()<br><br>getSalary() -&gt; Manager.getSalary()<br><br>getHireDay() -&gt; Employee.getHireDay()<br><br>setBonus(<span class="hljs-type">double</span>) -&gt; Manager.setBonus(<span class="hljs-type">double</span>)<br></code></pre></td></tr></table></figure>
+
+<p>在运行时，调用e.getSalary()的解析过程为:</p>
+<ol>
+<li>首先，虚拟机获取e的实际类型的方法表。这可能是Employee、Manager的方法表，也可能是Employee类的其他子类的方法表。</li>
+<li>接下来，虚拟机查找定义了getSalary()签名的类。此时，虚拟机已经知道应该调用哪个方法。</li>
+<li>最后，虚拟机调用这个方法。</li>
+</ol>
+<p>动态绑定有一个非常重要的特性:无须修改现有的代码就可以对程序进行<strong>扩展</strong>。假设增加一个新类Executive，并且变量e有可能引用这个类的对象，我们不需要对包含调用e.getSalary()的代码重新进行编译。如果e恰好引用一个Executive类的对象，就会自动地调用Executive.getSalary()方法。</p>
+<p>警告:在覆盖一个方法的时候，子类方法<strong>不能低于</strong>超类方法的<strong>可见性</strong>。具体地，如果不小心遗漏了public修饰符。此时，编译器就会报错，指出你试图提供更严格的访问权限。</p>
+<p>不允许扩展的类称为final类。</p>
+<p>如果在类定义中使用了final修饰符，就表明这个类是fianl类，final类中的方法自动地称为final方法。可以将类中的某个特定方法声明为fianl，如果这样做，那么所有子类都不能覆盖这个方法。字段也可以声明为final，对于final字段来说，构造对象之后就不允许改变了。不过将一个类声明为final，只有其中的方法自动地成为final，不包括字段。</p>
+<p>将方法或类声明为final只有一个原因：确保他们不会在子类中改变语义。</p>
+<p>如果一个方法没有被覆盖并且很短，编译器就能够对它进行优化处理，则这个过程称为<strong>内联</strong>（inlining）。</p>
+<p>枚举和记录总是final，它们不允许扩展。</p>
+<p>要完成对象引用的强制类型转换，转换语法与数值表达式的强制类型转换类似。用一对圆括号将目标类名括起来，并放置在需要转换的对象引用之前。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">var</span> <span class="hljs-variable">staff</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Employee</span>[<span class="hljs-number">3</span>];<br>staff[<span class="hljs-number">0</span>] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Manager</span>(<span class="hljs-string">&quot;...&quot;</span>);<br>staff[<span class="hljs-number">1</span>] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Employee</span>(<span class="hljs-string">&quot;.....&quot;</span>);<br><span class="hljs-type">Manager</span> <span class="hljs-variable">boss</span> <span class="hljs-operator">=</span> (Manager) staff[<span class="hljs-number">0</span>];<br><span class="hljs-type">Manager</span> <span class="hljs-variable">boss</span> <span class="hljs-operator">=</span> (Manager) staff[<span class="hljs-number">1</span>];  <span class="hljs-comment">//error</span><br></code></pre></td></tr></table></figure>
+
+<p>进行强制类型转换的唯一原因是：要在暂时忘记对象的实际类型之后使用对象的全部功能。 （编译器只认编译时类型，无法访问子类的特有方法）</p>
+<p>instanceof操作符，判断是否能够成功进行强制类型转换。(如果x为null  那么  x  instanceof C 不会产生异常，只是返回false。因为null没有引用任何对象，当然也不会引用C类型的对象)        例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (staff[i] <span class="hljs-keyword">instanceof</span> Manager)<br>&#123;<br>	boss = (Manager) staff[i];<br>	...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>综上所述：</p>
+<p>只能在继承层次结构内进行强制类型转换。</p>
+<p>在将超类强制转换成子类之前，应该使用instanceof进行检查。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (staff[i] <span class="hljs-keyword">instanceof</span> Manager)<br>&#123;<br>	(Manager) boss = (Manager) staff[i];<br>	boss.setBouns(<span class="hljs-number">5000</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在java16中可以简化，可以直接在instanceof测试中声明子类变量：（在instanceof判读的同时直接完成类型转换，并声明一个对应的子类变量）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (staff[i] <span class="hljs-keyword">instanceof</span> Manager boss)<br>&#123;<br>	boss.setBouns(<span class="hljs-number">5000</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当instanceof模式引入一个变量时，可以立即在同一个表达式中使用这个变量（前提是instanceof结果为true）</p>
+<p>声明变量的instanceof形式称为“模式匹配”，这是因为它类似于switch中的类型模式，这是java17的一个“预览”特性。</p>
+<p>类似于其他局部变量，instanceof模式定义的局部变量会遮蔽字段。</p>
+<p>可以将一个类特性（方法或字段）声明为受保护（protected）</p>
+<p>在Java中，受保护字段只能由同一个包中的类访问。</p>
+<p>1.仅本类可以访问——private</p>
+<p>2.可由外部访问——public</p>
+<p>3.本包和所有子类可以访问——protected</p>
+<p>4.本包中可以访问——默认，不需要修饰符</p>
+<h3 id="Object类：所有类的超类"><a href="#Object类：所有类的超类" class="headerlink" title="Object类：所有类的超类"></a>Object类：所有类的超类</h3><p>Java中的每一个类都扩展了Object，如果没有明确地指出超类，那么理所当然Object就是这个类的超类。</p>
+<p>可以使用Object类型的变量引用任何类型的对象，当然，Object类型的变量只能用于作为任意值的一个泛型容器。</p>
+<p>在Java中，只有<strong>基本类型</strong>（primitive type）不是对象，例如，数值、字符和布尔类型的值都不是对象，</p>
+<p>所有的数组类型（不管是对象数组还是基本类型的数组）都扩展了Object类的类类型</p>
+<p>Object类中的equals方法用于检测一个对象是否等于另外一个对象。Object类中实现的equals方法将确定两个对象引用是否相同。（即如果两个对象相同，则这两个对象肯定就相等）不过，经常需要基于状态检测对象的相等性。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">return</span> name.equals(name, other.name)<br>	&amp;&amp; salary == other.salary<br>	&amp;&amp; hireDay.equals(other.hireDay);<br></code></pre></td></tr></table></figure>
+
+<p>为了防止name或hireDay可能为null的情况，需要使用Objects.equals方法。如果两个参数都为null，Objects.equals(a,b)调用将返回true；如果其中一个参数为null，则返回false；如果两个参数都不为null，则调用a.equals(b)。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">return</span> Objects.equals(name, other.name)<br>	&amp;&amp; salary == other.salary<br>	&amp;&amp; Objects.equals(hireDay, other.hireDay);<br></code></pre></td></tr></table></figure>
+
+<p>在子类中定义equals方法时，首先调用超类的equals。若检测失败，那么对象就不可能相等。如果超类中的字段都相等，则可以继续比较子类中的实例字段。</p>
+<p>注释：记录是一种特殊形式的不可变类，其状态完全由“标准”构造器中设置的字段来定义。记录会自动定义一个比较字段的equals方法。两个记录实例中相应字段值相等时，这两个记录实例就相等。</p>
+<h4 id="Java语言规范要求equals方法具有下述性质。"><a href="#Java语言规范要求equals方法具有下述性质。" class="headerlink" title="Java语言规范要求equals方法具有下述性质。"></a>Java语言规范要求equals方法具有下述性质。</h4><p>1.自反性：对于任何非null引用x，x.equals(x)应该返回true。</p>
+<p>2.对称性：对于任何引用x和y，当且仅当y.equals(x)返回true时，x.equals(y)返回true。</p>
+<p>3.传递性：对于任何引用x、y和z，如果x.equals(y)返回true，y.equals(z)返回true，则x.equals(z)也应该返回true。</p>
+<p>4.一致性：如果x和y引用的对象没有发生变化，则反复调用x.equals(y)应该返回同样的结果。</p>
+<p>5.对于任意非null引用x，x.equals(null)应该返回false。</p>
+<h4 id="下面给出编写完美-equals-方法的技巧："><a href="#下面给出编写完美-equals-方法的技巧：" class="headerlink" title="下面给出编写完美 equals 方法的技巧："></a>下面给出编写完美 equals 方法的技巧：</h4><ol>
+<li><p>将显式参数命名为 otherObject，稍后需要将它强制转换成另一个名为 other 的变量。</p>
+</li>
+<li><p>检测 this 与 otherObject 是否相同：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span> == otherObject) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br></code></pre></td></tr></table></figure>
+
+<p> 这条语句只是一个优化。实际上，这种情况很常见，因为检查同一性要比逐个比较字段开销小。</p>
+</li>
+<li><p>检测 otherObject 是否为 null，如果为 null，则返回 false。这个检测是必要的。</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (otherObject == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>比较 this 与 otherObject 的类。如果 equals 的语义可以在子类中改变，就使用 getClass 检测：</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (getClass() != otherObject.getClass()) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br><br><span class="hljs-type">ClassName</span> <span class="hljs-variable">other</span> <span class="hljs-operator">=</span> (ClassName) otherObject;<br></code></pre></td></tr></table></figure>
+
+<p>如果所有的子类都有相同的相等性语义，则可以使用 instanceof 检测：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (!(otherObject <span class="hljs-keyword">instanceof</span> ClassName other)) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br></code></pre></td></tr></table></figure>
+
+<p>注意，如果 instanceof 检测成功，它会把 other 设置为 otherObject。不再需要强制类型转换。</p>
+<p>5.现在根据相等性概念的要求来比较字段。使用 &#x3D;&#x3D; 比较基本类型字段，使用 Objects.equals 比较对象字段。如果所有的字段都匹配，就返回 true；否则，返回 false。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">return</span> field1 == other.field1<br><br>	&amp;&amp; Objects.equals(field2, other.field2)<br><br>	&amp;&amp; ... ;<br></code></pre></td></tr></table></figure>
+
+<p>如果在子类中重新定义 equals，就要在其中包含一个 super.equals(other) 调用。</p>
+<p>提示：对于数组类型的字段，可以使用静态的Arrays.equals方法检查相应的数组元素是否相等。对于多维数组，可以使用Arrays.deepEquals方法。</p>
+<p>可以使用 @Override 标记要覆盖超类方法的那些子类方法，如果犯了错误，没有覆盖方法而是在定义一个新方法，编译器就会报告一个错误。</p>
+<p>散列码（hash code）是由对象导出的一个整型值。散列码是没有规律的。如果x和y是两个不同的对象，那么 x.hashCode()与y.hashCode()基本上不会相同。</p>
+<p>由于hashCode方法定义在 Object 类中，因此每个对象都有一个默认的散列码，其值由对象的存储地址得出。</p>
+<p>字符串的散列码是由<strong>内容</strong>导出的。</p>
+<p>String 类使用以下算法计算散列码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">int</span> <span class="hljs-built_in">hash</span> = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span> ; i&lt; length(); i++)<br>	<span class="hljs-built_in">hash</span> = <span class="hljs-number">31</span> * <span class="hljs-built_in">hash</span> + charAt(i);<br></code></pre></td></tr></table></figure>
+
+<p>hashCode方法应该返回一个整数（可以是负数）</p>
+<p>equals 与 hashCode 的定义必须相容：如果 x.equals(y) 返回 true，那么 x.hashCode() 就必须返回与 y.hashCode() 相同的值，</p>
+<p>如果有数组类型的字段，那么可以使用静态的 Arrays.hashCode 方法计算一个散列码，这个散列码由数组元素的散列码组成。</p>
+<p>record 类型会自动提供一个 hashCode 方法，它会由字段值的散列码得出一个散列码。</p>
+<p>Object中的 toString 方法，它会返回一个字符串，表示这个对象的值。</p>
+<p>绝大多数（非全部）toString 方法都遵循这样的格式：首先是类名，随后是一对方括号括起来的字段值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span><br>&#123;<br>	<span class="hljs-keyword">return</span> getClass().getName() + <span class="hljs-string">&quot;[name=&quot;</span> + name + <span class="hljs-string">&quot;, salary=&quot;</span> + salary + <span class="hljs-string">&quot;,hireDay= &quot;</span> + hireDay + <span class="hljs-string">&quot;]&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>只要对象与一个字符串通过操作符“+”拼接起来，Java编译器就会自动地调用toStirng 方法来获得这个对象的字符串描述。</p>
+<p>提示：可以不写为 <code>x.toString()</code>，而写作 <code>&quot;&quot;+x</code>。这条语句将一个空串与 <code>x</code>的字符串表示（也就是 <code>x.toString()</code>）拼接起来。与 <code>toString</code>不同是，即使 <code>x</code>是基本类型，这条语句也能正常工作。</p>
+<p>如果 <code>x</code>是一个任意对象，并调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">System.out.println(x);<br></code></pre></td></tr></table></figure>
+
+<p><code>println</code>方法就会简单地调用 <code>x.toString()</code>，并打印得到的字符串。</p>
+<p><code>Object</code>类定义了 <code>toString</code>方法，会打印对象的<strong>类名</strong>和<strong>散列码</strong>。例如，调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">System.out.println(System.out)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">java.io.PrintStream@2f6684<br></code></pre></td></tr></table></figure>
+
+<p>之所以得到这样的结果，是因为 <code>PrintStream</code>类的实现者没有覆盖 <code>toString</code>方法。</p>
+<p>警告：令人烦恼的是，数组继承了 <code>Object</code>类的 <code>toString</code>方法，更有甚者，数组类型将采用一种古老的格式打印。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span>[] luckyNumbers = &#123; <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">13</span> &#125;;<br><span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span> + luckyNumbers;<br></code></pre></td></tr></table></figure>
+
+<p>会生成字符串 <code>“[I@1a46e30”</code>（前缀 <code>[I</code>表示这是一个整型数组）。补救方法是调用静态方法<code>Arrays.toString</code>。以下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> Arrays.toString(luckyNumbers);<br></code></pre></td></tr></table></figure>
+
+<p>将生成字符串<code>&quot;[2,3,5,7,11,13]&quot;</code>。</p>
+<p>要想正确地打印多维数组（即数组的数组），则需要调用<code>Arrays.deepToString</code>方法。</p>
+<p><strong>提示</strong>：强烈建议为你自定义的每一个类添加<code>toString</code>方法。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8E%9F%E5%88%9B/" class="print-no-link">#原创</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>《Java核心技术卷一》第五章</div>
+      <div>http://example.com/2025/10/20/《Java核心技术卷一》第五章/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Under1ines</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年10月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/10/30/%E3%80%8AJava%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7%E4%B8%80%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0/" title="《Java核心技术卷一》第四章">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">《Java核心技术卷一》第四章</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/08/29/%E3%80%8AJava%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7%E4%B8%80%E3%80%8B%E7%AC%AC%E4%B8%89%E7%AB%A0/" title="《Java核心技术卷一》第三章">
+                        <span class="hidden-mobile">《Java核心技术卷一》第三章</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"emn3PvyiOCx6egBxwdtmWVVQ-gzGzoHsz","appKey":"zGrReu0ZhBUMcc7YzNOvfEd3","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/stars.js"></script>
+<script src="/js/love.js"></script>
+<script src="/js/read-progress.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/love.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
+
+
