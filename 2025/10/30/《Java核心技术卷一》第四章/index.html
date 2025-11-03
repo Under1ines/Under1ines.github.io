@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E5%9B%9B%E7%AB%A0/image-20251102225551589.png">
 <meta property="og:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E5%9B%9B%E7%AB%A0/image-20251102231655672.png">
 <meta property="article:published_time" content="2025-10-30T10:52:39.000Z">
-<meta property="article:modified_time" content="2025-11-02T15:19:17.691Z">
+<meta property="article:modified_time" content="2025-11-03T07:46:16.333Z">
 <meta property="article:author" content="Under1ines">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
@@ -267,7 +267,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          13k 字
+          19k 字
         
       </span>
     
@@ -278,7 +278,7 @@
         
         
         
-          105 分钟
+          157 分钟
         
       </span>
     
@@ -810,7 +810,228 @@
 <figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs oxygene">Testing swap:<br>Before: a=Alice<br>Before: b=Bob<br><span class="hljs-keyword">End</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">method</span>: x=Bob<br><span class="hljs-keyword">End</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">method</span>: y=Alice<br>After: a=Alice<br>After: b=Bob<br></code></pre></td></tr></table></figure>
 
 <p>可以看出，参数变量 x 和 y 交换了，但是变量 a 和 b 没有受到影响。</p>
-<p>p126</p>
+<h3 id="4-6-对象构造"><a href="#4-6-对象构造" class="headerlink" title="4.6 对象构造"></a>4.6 对象构造</h3><h4 id="4-6-1-重载"><a href="#4-6-1-重载" class="headerlink" title="4.6.1 重载"></a>4.6.1 重载</h4><p>有些类有多个构造器。例如，可以如下构造一个空的StringBuilder对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">var</span> <span class="hljs-variable">messages</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br></code></pre></td></tr></table></figure>
+<p>或者，可以指定一个初始字符串：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">var</span> <span class="hljs-variable">todoList</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>(<span class="hljs-string">&quot;To do:\n&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>这种功能叫作<strong>重载</strong>（overloading）。如果多个方法（比如，StringBuilder构造器方法）有相同的方法名但有不同的参数，便出现了重载。编译器必须挑选出具体调用哪个方法。它用各个方法首部中的参数类型与特定方法调用中所使用的值类型进行匹配，来选出正确的方法。如果编译器无法匹配参数，就会产生编译时错误，这可能因为根本不存在匹配，或者所有重载方法中没有一个相对更好的方法（这个查找匹配的过程称为<strong>重载解析</strong>（overloading resolution））。</p>
+<p><strong>注释：</strong> Java允许重载任何方法，而不只是构造器方法。因此，要完整地描述一个方法，需要指定方法名以及参数类型，这叫作方法的<strong>签名</strong>（signature）。例如，String类有4个名为indexOf的公共方法。它们的签名是</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">indexOf</span><span class="hljs-params">(int)</span></span><br><span class="hljs-function"><span class="hljs-title">indexOf</span><span class="hljs-params">(int, int)</span></span><br><span class="hljs-function"><span class="hljs-title">indexOf</span><span class="hljs-params">(String)</span></span><br><span class="hljs-function"><span class="hljs-title">indexOf</span><span class="hljs-params">(String, int)</span></span><br></code></pre></td></tr></table></figure>
+
+<p>返回类型不是方法签名的一部分。也就是说，不能有两个名字相同、参数类型也相同却有不同返回类型的方法。</p>
+<h4 id="4-6-2-默认字段初始化"><a href="#4-6-2-默认字段初始化" class="headerlink" title="4.6.2 默认字段初始化"></a>4.6.2 默认字段初始化</h4><p>如果在构造器中没有显式地为一个字段设置初始值，就会将它自动设置为默认值：数值将设置为0，布尔值为false，对象引用为null。有些人认为依赖默认值的做法是一种不好的编程实践。确实，如果不明确地对字段进行初始化，就会影响程序代码的可读性。</p>
+<p><strong>注释：</strong> 这是字段与局部变量的一个重要区别。方法中的局部变量必须明确地初始化。但是在类中，如果没有初始化类中的字段，将会自动初始化为默认值（0、false 或 null）。</p>
+<p>例如，考虑 Employee 类。假定没有在构造器中指定如何初始化某些字段，默认情况下，就会将 salary 字段初始化为0，将 name 和 hireDay 字段初始化为 null 。</p>
+<p>但是，这并不是一个好主意。如果有人调用 getName 方法或 getHireDay 方法，就会得到一个 null 引用，这可能不是他们想要的结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">LocalDate</span> <span class="hljs-variable">h</span> <span class="hljs-operator">=</span> harry.getHireDay();<br><span class="hljs-type">int</span> <span class="hljs-variable">year</span> <span class="hljs-operator">=</span> h.getYear(); <span class="hljs-comment">// throws exception if h is null</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="4-6-3-无参数的构造器"><a href="#4-6-3-无参数的构造器" class="headerlink" title="4.6.3 无参数的构造器"></a>4.6.3 无参数的构造器</h4><p>很多类都包含无参数的构造器，由无参数构造器创建对象时，对象的状态会设置为适当的默认值。例如，以下是 Employee 类的一个无参数构造器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">Employee</span><span class="hljs-params">()</span><br>&#123;<br>    name = <span class="hljs-string">&quot;&quot;</span>;<br>    salary = <span class="hljs-number">0</span>;<br>    hireDay = LocalDate.now();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果你写的类没有构造器，就会为你提供一个无参数构造器。这个构造器将所有的实例字段设置为相应的默认值。所以，实例字段中的所有数值型数据会设置为 0，所有布尔值设置为 false，所有对象变量将设置为 null。</p>
+<p>如果类中提供了至少一个构造器，但是没有提供无参数构造器，那么构造对象时就必须提供参数，否则就是不合格的。例如，程序清单 4-2 中的 Employee 类提供了一个构造器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">Employee</span><span class="hljs-params">(String n, <span class="hljs-type">double</span> s, <span class="hljs-type">int</span> year, <span class="hljs-type">int</span> month, <span class="hljs-type">int</span> day)</span><br></code></pre></td></tr></table></figure>
+
+<p>对于这个类，构造默认的员工就是不合格的。也就是说，以下调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">e = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Employee</span>();<br></code></pre></td></tr></table></figure>
+
+<p>将产生错误。</p>
+<p><strong>警告：</strong> 请记住，仅当类没有任何其他构造器的时候，你才会得到一个默认的无参数构造器。编写类的时候，如果写了一个你自己的构造器，要想让这个类的使用者能够通过以下调用创建一个实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">new</span> <span class="hljs-title class_">ClassName</span>()<br></code></pre></td></tr></table></figure>
+
+<p>你就必须提供一个无参数的构造器。当然，如果接受所有字段设置为默认值，则只需要提供以下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">ClassName</span><span class="hljs-params">()</span><br>&#123;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="4-6-4-显式字段初始化"><a href="#4-6-4-显式字段初始化" class="headerlink" title="4.6.4 显式字段初始化"></a>4.6.4 显式字段初始化</h4><p>通过重载类的构造器方法，可以采用多种形式设置类实例字段的初始状态。不论调用哪个构造器，每个实例字段都要设置为一个有意义的初始值，确保这一点总是一个好主意。</p>
+<p>可以在类定义中直接为任何字段赋值。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span><br>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">String</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span>;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在执行构造器之前完成这个赋值。如果一个类的所有构造器都需要把某个特定的实例字段设置为同一个值，那么这个语法尤其有用。</p>
+<p>初始值不一定是常量值。在下面的例子中，就是利用方法调用初始化一个字段。考虑以下Employee类，其中每个员工有一个id字段。可以使用以下方式进行初始化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span><br>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> nextId;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">id</span> <span class="hljs-operator">=</span> assignId();<br>    ...<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">assignId</span><span class="hljs-params">()</span><br>    &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">r</span> <span class="hljs-operator">=</span> nextId;<br>        nextId++;<br>        <span class="hljs-keyword">return</span> r;<br>    &#125;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="4-6-5-参数名"><a href="#4-6-5-参数名" class="headerlink" title="4.6.5 参数名"></a>4.6.5 参数名</h4><p>在编写很小的构造器时（这十分常见），在为参数命名时可能有些困惑。<br>我们通常喜欢用单个字母作为参数名：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">Employee</span><span class="hljs-params">(String n, <span class="hljs-type">double</span> s)</span><br>&#123;<br>    name = n;<br>    salary = s;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>但这样做有一个缺点：只有阅读代码才能够了解参数n和参数s的含义。</p>
+<p>有些程序员在每个参数前面加上一个前缀”a”：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">Employee</span><span class="hljs-params">(String aName, <span class="hljs-type">double</span> aSalary)</span><br>&#123;<br>    name = aName;<br>    salary = aSalary;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样更好一些。读者一眼就能够看懂参数的含义。</p>
+<p>还有一种常用的技巧，它基于这样的事实：参数变量会遮蔽同名的实例字段。例如，如果将参数命名为salary，那么salary将指示这个参数，而不是实例字段。但是，还是可以用this.salary访问实例字段。回想一下，this指示隐式参数，也就是所构造的对象。下面来看一个示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">Employee</span><span class="hljs-params">(String name, <span class="hljs-type">double</span> salary)</span><br>&#123;<br>    <span class="hljs-built_in">this</span>.name = name;<br>    <span class="hljs-built_in">this</span>.salary = salary;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="4-6-6-调用另一个构造器"><a href="#4-6-6-调用另一个构造器" class="headerlink" title="4.6.6 调用另一个构造器"></a>4.6.6 调用另一个构造器</h4><p>关键字 this 指示一个方法的隐式参数。不过，这个关键字还有另外一个含义。<br>如果构造器的第一个语句形如 this( … )，这个构造器将调用同一个类的另一个构造器。<br>下面是一个典型的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">Employee</span><span class="hljs-params">(<span class="hljs-type">double</span> s)</span><br>&#123;<br>    <span class="hljs-comment">// calls Employee(String, double)</span><br>    <span class="hljs-built_in">this</span>(<span class="hljs-string">&quot;Employee #&quot;</span> + nextId, s);<br>    nextId++;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当调用 new Employee(60000) 时，Employee(double) 构造器将调用 Employee(String, double) 构造器。<br>采用这种方式使用 this 关键字非常有用，这样只需要写一次公共构造代码。</p>
+<h4 id="4-6-7-初始化块"><a href="#4-6-7-初始化块" class="headerlink" title="4.6.7 初始化块"></a>4.6.7 初始化块</h4><p>前面已经介绍过两种初始化实例字段的方法：</p>
+<ul>
+<li>在构造器中设置值；</li>
+<li>在声明中赋值。</li>
+</ul>
+<p>实际上，Java 还有第三种机制，称为<strong>初始化块</strong>（initialization block）。在一个类的声明中，可以包含任意的代码块。构造这个类的对象时，这些块就会执行。例如，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span><br>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> nextId;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> id;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">double</span> salary;<br>    <br>    <span class="hljs-comment">// object initialization block</span><br>    &#123;<br>    id = nextId;<br>    nextId++;<br>	&#125;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-title function_">Employee</span><span class="hljs-params">(String n, <span class="hljs-type">double</span> s)</span><br>	&#123;<br>    	name = n;<br>    	salary = s;<br>	&#125;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-title function_">Employee</span><span class="hljs-params">()</span><br>	&#123;<br>    	name = <span class="hljs-string">&quot;&quot;</span>;<br>    	salary = <span class="hljs-number">0</span>;<br>	&#125;<br>    . . .<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在这个示例中，无论使用哪个构造器构造对象，id 字段都会在对象初始化块中初始化。首先运行初始化块，然后才运行构造器的主体部分。<br>这种机制不是必需的，也不常见。通常会直接将初始化代码放在构造器中。</p>
+<p><strong>注释：</strong> 可以在初始化块中设置字段，即使这些字段在类后面才定义，这是合法的。但是，为了避免循环定义，不允许读取在后面初始化的字段。具体规则请参见 Java 语言规范的 8.3.3 节（<a target="_blank" rel="noopener" href="http://docs.oracle.com/javase/specs%EF%BC%89%E3%80%82%E8%BF%99%E4%BA%9B%E8%A7%84%E5%88%99%E5%A4%AA%E8%BF%87%E5%A4%8D%E6%9D%82%EF%BC%8C%E8%AE%A9%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E8%80%85%E9%83%BD%E5%BE%88%E5%A4%B4%E7%96%BC%EF%BC%8C%E6%89%80%E4%BB%A5%E8%BE%83%E6%97%A9%E7%9A%84">http://docs.oracle.com/javase/specs）。这些规则太过复杂，让编译器的实现者都很头疼，所以较早的</a> Java 版本中这些规则的实现存在一些小错误。因此，建议总是将初始化块放在字段定义之后。</p>
+<p>由于初始化实例字段有多种途径，所以列出构造过程的所有路径可能让人很费解。下面是调用构造器时的具体处理步骤：</p>
+<ol>
+<li>如果构造器的第一行调用了另一个构造器，则基于所提供的参数执行第二个构造器。</li>
+<li>否则，<br>a) 所有实例字段初始化为其默认值（0、false 或 null）。<br>b) 按照在类声明中出现的顺序，执行所有字段初始化方法和初始化块。</li>
+<li>执行构造器主体代码。</li>
+</ol>
+<p>可以通过提供一个初始值，或者使用一个静态的初始化块来初始化静态字段。前面已经介绍过第一种机制：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-variable">nextId</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+
+<p>如果类的静态字段需要复杂的初始化代码，那么可以使用静态的初始化块。<br>将代码放在一个块中，并标记关键字 static。下面是一个示例。我们希望将员工 ID 的起始值赋为一个小于 10000 的随机整数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">Random</span> <span class="hljs-variable">generator</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Random</span>();<br><span class="hljs-comment">// static initialization block</span><br><span class="hljs-keyword">static</span><br>&#123;<br>    nextId = generator.nextInt(<span class="hljs-number">10000</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在类第一次加载的时候，会完成静态字段的初始化。与实例字段一样，除非将静态字段显式地设置成其他值，否则默认的初始值为0、false或null。所有的静态字段初始化方法以及静态初始化块都将依照类声明中出现的顺序执行。</p>
+<p><strong>注释：</strong> 让人惊讶的是，在JDK 6之前，完全可以用Java编写一个没有main方法的”Hello, World”程序。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Hello</span><br>&#123;<br>    <span class="hljs-keyword">static</span><br>    &#123;<br>        System.out.println(<span class="hljs-string">&quot;Hello, World&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当用 java Hello 调用这个类时，就会加载这个类，静态初始化块将会打印 “Hello, World”。在此之后才会显示一个消息指出 main 未定义。从 Java 7 以后，java 程序会首先检查是否有一个 main 方法。</p>
+<p>这个例子使用了 Random 类来生成随机数。从 JDK 17 开始，java.util.random 包提供了考虑多种因素的强算法的实现。阅读 java.util.random 包的API文档，其中对如何选择算法给出了建议。然后通过提供算法名来得到一个实例，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">RandomGenerator</span> <span class="hljs-variable">generator</span> <span class="hljs-operator">=</span> RandomGenerator.of(<span class="hljs-string">&quot;L64X128MixRandom&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>调用 generator.nextInt(n) 或其他 RandomGenerator 方法来生成随机数。（RandomGenerator 是一个接口，第6章将介绍接口概念。Random 类的对象可以使用所有 RandomGenerator 方法。）</p>
+<h4 id="4-6-8-对象析构与-finalize-方法"><a href="#4-6-8-对象析构与-finalize-方法" class="headerlink" title="4.6.8 对象析构与 finalize 方法"></a>4.6.8 对象析构与 finalize 方法</h4><p>有些面向对象的程序设计语言（特别是 C++）有显式的析构器方法，其中放置一些清理代码，当对象不再使用可能需要执行这些清理代码。在析构器中，最常见的操作是回收分配给对象的存储空间。由于 Java 会完成自动的垃圾回收，不需要人工回收内存，所以 Java 不支持析构器。</p>
+<p>当然，某些对象使用了内存之外的其他资源，例如，文件或使用系统资源的另一个对象的句柄。在这种情况下，当资源不再需要时，将其回收和再利用就十分重要。</p>
+<p>如果一个资源一旦使用完就需要立即关闭，那么应当提供一个 close 方法来完成必要的清理工作。可以在对象使用完时调用这个 close 方法。</p>
+<p>如果可以等到虚拟机退出，那么可以用方法 <code>Runtime.addShutdownHook</code> 增加一个”关闭钩”（shutdown hook）。在 Java 9 中，可以使用 Cleaner 类注册一个动作，当对象不再可达时（除了清洁器还能访问，其他对象都无法访问这个对象），就会完成这个动作。在实际中这些情况很少见。可以参见 API 文档来了解这两种方法的详细内容。</p>
+<p><strong>警告：</strong> 不要使用 finalize 方法来完成清理。这个方法原本要在垃圾回收器清理对象之前调用。不过，你并不能知道这个方法到底什么时候调用，而且该方法已经被废弃。</p>
+<h3 id="4-7-记录"><a href="#4-7-记录" class="headerlink" title="4.7 记录"></a>4.7 记录</h3><p>有时，数据就只是数据，而面向对象程序设计提供的数据隐藏有些碍事。考虑一个类 Point，这个类描述平面上的一个点，有 x 和 y 坐标。</p>
+<p>当然，可以如下创建一个类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Point</span><br>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">double</span> x;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">double</span> y;<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Point</span><span class="hljs-params">(<span class="hljs-type">double</span> x, <span class="hljs-type">double</span> y)</span> &#123; <span class="hljs-built_in">this</span>.x = x; <span class="hljs-built_in">this</span>.y = y; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">getX</span><span class="hljs-params">()</span> &#123; <span class="hljs-keyword">return</span> x; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">getY</span><span class="hljs-params">()</span> &#123; <span class="hljs-keyword">return</span> y; &#125;<br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> &#123; <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Point[x=%d, y=%d]&quot;</span>.formatted(x, y); &#125;<br>    <span class="hljs-comment">// More methods . . .</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里隐藏了 x 和 y，然后通过获取方法来获得这些值，不过，这种做法对我们确实有好处吗？</p>
+<p>我们将来想改变 Point 的实现吗？当然，还有极坐标，不过对于图形 API，你可能不会使用极坐标。在实际中，平面上的一点就用 x 和 y 坐标来描述。</p>
+<p>为了更简洁地定义这些类，JDK 14 引入了一个预览特性：”记录”。最终版本在 JDK 16 中发布。</p>
+<h4 id="4-7-1-记录概念"><a href="#4-7-1-记录概念" class="headerlink" title="4.7.1 记录概念"></a>4.7.1 记录概念</h4><p><strong>记录</strong>（record）是一种特殊形式的类，其状态不可变，而且公共可读。可以如下将 Point 定义为一个记录：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">record</span> <span class="hljs-title class_">Point</span><span class="hljs-params">(<span class="hljs-type">double</span> x, <span class="hljs-type">double</span> y)</span> &#123;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>其结果是有以下实例字段的类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">double</span> x;<br><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">double</span> y;<br></code></pre></td></tr></table></figure>
+
+<p>在 Java 语言规范中，一个记录的实例字段称为<strong>组件</strong>（component）。</p>
+<p>这个类有一个构造器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Point(<span class="hljs-type">double</span> x, <span class="hljs-type">double</span> y)<br></code></pre></td></tr></table></figure>
+
+<p>和以下访问方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">x</span><span class="hljs-params">()</span><br><span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">y</span><span class="hljs-params">()</span><br></code></pre></td></tr></table></figure>
+
+<p>注意，访问方法名为 x 和 y，而不是 getX 和 getY。（Java 中实例字段可以与方法同名，这是合法的。）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">var</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Point</span>(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>);<br>System.out.println(p.x() + <span class="hljs-string">&quot; &quot;</span> + p.y());<br></code></pre></td></tr></table></figure>
+
+<p><strong>注释：</strong> Java没有遵循 get 约定，因为那有些麻烦。对于布尔字段，通常使用 is 而不是 get。而且首字母大写可能有问题。如果一个类既有 x 字段又有 X 字段，会发生什么？有些程序员不太满意，因为他们原先的类不能轻松地变为记录。不过实际上，那些遗留类中，很多都是可变的，所以并不适合转换为记录。</p>
+<p>除了字段访问方法，每个记录有3个自动定义的方法：toString、equals和hashCode。下一章会更多地了解这些方法。</p>
+<p><strong>警告：</strong> 对于这些自动提供的方法，也可以定义你自己的版本，只要它们有相同的参数和返回类型。例如，下面的定义就是合法的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">record</span> <span class="hljs-title class_">Point</span><span class="hljs-params">(<span class="hljs-type">double</span> x, <span class="hljs-type">double</span> y)</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">x</span><span class="hljs-params">()</span> &#123; <span class="hljs-keyword">return</span> y; &#125; <span class="hljs-comment">// BAD</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>不过，这并不是一个好主意。</p>
+<p>可以为一个记录增加你自己的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">record</span> <span class="hljs-title class_">Point</span><span class="hljs-params">(<span class="hljs-type">double</span> x, <span class="hljs-type">double</span> y)</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">distanceFromOrigin</span><span class="hljs-params">()</span> &#123; <span class="hljs-keyword">return</span> Math.hypot(x, y); &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>与所有其他类一样，记录可以有静态字段和方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">record</span> <span class="hljs-title class_">Point</span><span class="hljs-params">(<span class="hljs-type">double</span> x, <span class="hljs-type">double</span> y)</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">Point</span> <span class="hljs-variable">ORIGIN</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Point</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">double</span> <span class="hljs-title function_">distance</span><span class="hljs-params">(Point p, Point q)</span><br>    &#123;<br>        <span class="hljs-keyword">return</span> Math.hypot(p.x - q.x, p.y - q.y);<br>    &#125;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>不过，不能为记录增加实例字段：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">record</span> <span class="hljs-title class_">Point</span><span class="hljs-params">(<span class="hljs-type">double</span> x, <span class="hljs-type">double</span> y)</span><br>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">double</span> r; <span class="hljs-comment">// ERROR</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>警告：</strong> 记录的实例字段自动为 final 字段。不过，它们可能是可变对象的引用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">record</span> <span class="hljs-title class_">PointInTime</span><span class="hljs-params">(<span class="hljs-type">double</span> x, <span class="hljs-type">double</span> y, Date <span class="hljs-keyword">when</span>)</span> &#123;&#125;<br></code></pre></td></tr></table></figure>
+<p>这样记录实例将是可变的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">var</span> <span class="hljs-variable">pt</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PointInTime</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>());<br>pt.<span class="hljs-keyword">when</span>().setTime(<span class="hljs-number">0</span>);<br></code></pre></td></tr></table></figure>
+<p>如果希望记录实例是不可变的，那么字段就不能使用可变的类型。</p>
+<p><strong>提示：</strong> 对于完全由一组变量表示的不可变数据，要使用记录而不是类。如果数据是可变的，或者数据表示可能随时间改变，则使用类。记录更易读、更高效，而且在并发程序中更安全。</p>
+<h4 id="4-7-2-构造器：标准、自定义和简洁"><a href="#4-7-2-构造器：标准、自定义和简洁" class="headerlink" title="4.7.2 构造器：标准、自定义和简洁"></a>4.7.2 构造器：标准、自定义和简洁</h4><p>自动定义地设置所有实例字段的构造器称为<strong>标准构造器</strong>（canonical constructor）。还可以定义另外的<strong>自定义构造器</strong>（custom constructor）。这种构造器的第一个语句必须调用另一个构造器，所以最终会调用标准构造器。下面来看一个例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">record</span> <span class="hljs-title class_">Point</span><span class="hljs-params">(<span class="hljs-type">double</span> x, <span class="hljs-type">double</span> y)</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Point</span><span class="hljs-params">()</span> &#123; <span class="hljs-built_in">this</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>); &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个记录有两个构造器：标准构造器和一个生成原点的无参数构造器。如果标准构造器需要完成额外的工作，那么可以提供你自己的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">record</span> <span class="hljs-title class_">Range</span><span class="hljs-params">(<span class="hljs-type">int</span> from, <span class="hljs-type">int</span> to)</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Range</span><span class="hljs-params">(<span class="hljs-type">int</span> from, <span class="hljs-type">int</span> to)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (from &lt;= to)<br>        &#123;<br>            <span class="hljs-built_in">this</span>.from = from;<br>            <span class="hljs-built_in">this</span>.to = to;<br>        &#125;<br>        <span class="hljs-keyword">else</span><br>        &#123;<br>            <span class="hljs-built_in">this</span>.from = to;<br>            <span class="hljs-built_in">this</span>.to = from;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>不过，实现标准构造器时，建议使用一种<strong>简洁</strong>（compact）形式。不用指定参数列表：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">record</span> <span class="hljs-title class_">Range</span><span class="hljs-params">(<span class="hljs-type">int</span> from, <span class="hljs-type">int</span> to)</span><br>&#123;<br>    <span class="hljs-keyword">public</span> Range <span class="hljs-comment">// Compact form</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (from &gt; to) <span class="hljs-comment">// Swap the bounds</span><br>        &#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> from;<br>            from = to;<br>            to = temp;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>简洁形式的主体是标准构造器的”前奏”。它只是在为实例字段 this.from 和 this.to 赋值之前修改参数变量 from 和 to 。不能在简洁构造器的主体中读取或修改实例字段。</p>
+<h3 id="4-8-包"><a href="#4-8-包" class="headerlink" title="4.8 包"></a>4.8 包</h3><p>Java允许使用**包（package）**将类组织在一个集合中。借助包可以方便地组织你的代码，并将你自己的代码与其他人提供的代码库分开。下面我们将介绍如何使用和创建包。</p>
+<h4 id="4-8-1-包名"><a href="#4-8-1-包名" class="headerlink" title="4.8.1 包名"></a>4.8.1 包名</h4><p>**使用包的主要原因是确保类名的唯一性。**假如两个程序员不约而同地提供了 Employee 类，只要他们将自己的类放置在不同的包中，就不会产生冲突。事实上，为了保证包名的绝对唯一性，可以使用一个因特网域名（这显然是唯一的）以逆序的形式作为包名，然后对于不同的项目使用不同的子包。例如，考虑域名 horstmann.com 。如果逆序来写，就得到了包名 com.horstmann 。然后可以追加一个项目名，如 com.horstmann.corejava 。如果再把 Employee 类放在这个包里，那么这个类的”完全限定”名就是 com.horstmann.corejava.Employee 。</p>
+<p><strong>注释：</strong> 从编译器的角度来看，嵌套的包之间没有任何关系。例如，java.util 包与 java.util.jar 包毫无关系。每一个包都是独立的类集合。</p>
+<h4 id="4-8-2-类的导入"><a href="#4-8-2-类的导入" class="headerlink" title="4.8.2 类的导入"></a>4.8.2 类的导入</h4><p>一个类可以使用所属包（这个类所在的包）中的所有类，以及其他包中的公共类（public class）。</p>
+<p>我们可以采用两种方式访问另一个包中的公共类。第一种方式是使用<strong>完全限定名</strong>（fully qualified name），也就是包名后面跟着类名。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">java.time.<span class="hljs-type">LocalDate</span> <span class="hljs-variable">today</span> <span class="hljs-operator">=</span> java.time.LocalDate.now();<br></code></pre></td></tr></table></figure>
+
+<p>这显然很烦琐。更简单且更常用的方式是使用 import 语句。import 语句的关键是可以提供一种简写方式来引用包中各个类。一旦增加了 import 语句，在使用类时，就不必写出类的全名了。</p>
+<p>可以使用 import 语句导入一个特定的类或者整个包。import 语句应该位于源文件的顶部（但位于 package 语句的后面）。例如，可以使用下面这条语句导入 java.time 包中的所有类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.time.*;<br></code></pre></td></tr></table></figure>
+<p>然后，就可以使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">LocalDate</span> <span class="hljs-variable">today</span> <span class="hljs-operator">=</span> LocalDate.now();<br></code></pre></td></tr></table></figure>
+<p>而不需要在前面加上包前缀。还可以导入一个包中的特定类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.time.LocalDate;<br></code></pre></td></tr></table></figure>
+<p>java.time.* 的语法比较简单，对代码的规模也没有任何负面影响。不过，如果能够明确地指出所导入的类，那么代码的读者就能更加准确地知道你使用了哪些类。</p>
+<p><strong>提示：</strong> 在 Eclipse 中，可以使用菜单选项 Source → Organize Imports。诸如 <code>import java.util.*;</code> 等语句将会自动扩展为一组特定的导入语句，如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.Date;<br></code></pre></td></tr></table></figure>
+<p>这是一个十分便捷的特性。</p>
+<p>但是，需要注意的是，只能使用星号 (*) 导入一个包，而不能使用 <code>import java.*</code> 或 <code>import java.*.*</code> 导入以 java 为前缀的所有包。</p>
+<p>在大多数情况下，可以只导入你需要的包，并无须过多考虑。但在发生命名冲突的时候，就要注意包了。例如，java.util 和 java.sql 包都有 Date 类。假设在程序中导入了这两个包：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.*;<br><span class="hljs-keyword">import</span> java.sql.*;<br></code></pre></td></tr></table></figure>
+<p>在程序中使用 Date 类的时候，就会出现一个编译错误：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Date today; <span class="hljs-comment">// ERROR--java.util.Date or java.sql.Date?</span><br></code></pre></td></tr></table></figure>
+<p>此时，编译器无法确定你想使用的是哪一个 Date 类。可以增加一个特定的 import 语句来解决这个问题：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.*;<br><span class="hljs-keyword">import</span> java.sql.*;<br><span class="hljs-keyword">import</span> java.util.Date;<br></code></pre></td></tr></table></figure>
+
+<p>如果这两个 Date 类都需要使用，又该怎么办呢？答案是，在每个类名的前面加上完整的包名。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">var</span> <span class="hljs-variable">startTime</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">java</span>.util.Date();<br><span class="hljs-type">var</span> <span class="hljs-variable">today</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">java</span>.sql.Date(...);<br></code></pre></td></tr></table></figure>
+
+<p>在包中定位类是编译器（compiler）的工作。类文件中的字节码总是使用完整的包名来引用其他类。</p>
+<h4 id="4-8-3-静态导入"><a href="#4-8-3-静态导入" class="headerlink" title="4.8.3 静态导入"></a>4.8.3 静态导入</h4><p>有一种 import 语句允许导入静态方法和静态字段，而不只是类。例如，如果在源文件最上面添加一条指令：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> java.lang.System.*;<br></code></pre></td></tr></table></figure>
+
+<p>就可以使用 System 类的静态方法和静态字段，而不必加类名前缀：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">out.println(<span class="hljs-string">&quot;Goodbye, World!&quot;</span>); <span class="hljs-comment">// i.e., System.out</span><br>exit(<span class="hljs-number">0</span>); <span class="hljs-comment">// i.e., System.exit</span><br></code></pre></td></tr></table></figure>
+
+<p>另外，还可以导入特定的方法或字段：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> java.lang.System.out;<br></code></pre></td></tr></table></figure>
+
+<p>实际上，是否有很多程序员想要用简写 System.out 或 System.exit，这一点很让人怀疑。这样写出的代码看起来不太清晰。不过，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">sqrt(pow(x, <span class="hljs-number">2</span>) + pow(y, <span class="hljs-number">2</span>))<br></code></pre></td></tr></table></figure>
+
+<p>看起来则比</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Math.sqrt(Math.pow(x, <span class="hljs-number">2</span>) + Math.pow(y, <span class="hljs-number">2</span>))<br></code></pre></td></tr></table></figure>
+
+<p>简洁得多。</p>
+<h4 id="4-8-4-在包中增加类"><a href="#4-8-4-在包中增加类" class="headerlink" title="4.8.4 在包中增加类"></a>4.8.4 在包中增加类</h4><p>要想将类放入包中，就必须将包名放在源文件的开头，即放在定义这个包中各个类的代码之前。例如，程序清单 4-8 中的文件 Employee.java 开头是这样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.horstmann.corejava;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span><br>&#123;<br>    ...<br></code></pre></td></tr></table></figure>
+
+<p>如果没有在源文件中放置package语句，那么这个源文件中的类就属于<strong>无名包</strong>（unnamed package）。无名包没有包名。到目前为止，我们定义的所有类都在无名包中。</p>
+<p>将源文件放到与完整包名匹配的子目录中。例如，com.horstmann.corejava 包中的所有源文件应该放置在子目录com&#x2F;horstmann&#x2F;corejava 中（Windows中则是 com\horstmann\corejava ）。编译器将类文件也放在相同的目录结构中。</p>
+<p>程序清单4-7 和程序清单4-8 中的程序分别放在两个包中：PackageTest 类属于无名包；Employee 类属于com.horstmann.corejava 包 。因此，Employee.java文件必须在子目录 com&#x2F;horstmann&#x2F;corejava 中。换句话说，目录结构如下所示：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs axapta">(base directory)<br>  PackageTest.java<br>  PackageTest.<span class="hljs-keyword">class</span><br>  <span class="hljs-title class_">com</span>/<br>    horstmann/<br>      corejava/<br>        Employee.java<br>        Employee.<span class="hljs-keyword">class</span><br></code></pre></td></tr></table></figure>
+
+<p>要想编译这个程序，只需切换到基目录，并运行以下命令</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">javac </span>PackageTest.<span class="hljs-keyword">java</span><br></code></pre></td></tr></table></figure>
+<p>编译器就会自动地查找文件 com&#x2F;horstmann&#x2F;corejava&#x2F;Employee.java 并进行编译。</p>
+<p>下面看一个更加实际的例子。在这里没有使用无名包，而是将类分别放在不同的包中（com.horstmann.corejava 和com.mycompany）。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs nix">(base directory)<br>  com<span class="hljs-symbol">/</span><br>    horstmann<span class="hljs-symbol">/</span><br>      corejava<span class="hljs-symbol">/</span><br>        Employee.java<br>        Employee.class<br>    mycompany<span class="hljs-symbol">/</span><br>      PayrollApp.java<br>      PayrollApp.class<br></code></pre></td></tr></table></figure>
+
+<p>在这种情况下，仍然要从基目录编译和运行类，即包含 com 目录的目录：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">javac <span class="hljs-keyword">com</span>/mycompany/PayrollApp.java<br>java <span class="hljs-keyword">com</span>.mycompany.PayrollApp<br></code></pre></td></tr></table></figure>
+
+<p>再次强调，编译器处理文件（带有文件分隔符和扩展名.java 的文件），而 Java 解释器加载类（带有.分隔符）。</p>
+<p><strong>提示：</strong> 从下一章开始，我们将对源代码使用包。这样一来，就可以为各章建立一个IDE项目，而不是各小节分别建立项目。</p>
+<p><strong>警告：</strong> 编译器在编译源文件的时候不检查目录结构。例如，假设一个源文件开头有以下指令：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.mycompany;<br></code></pre></td></tr></table></figure>
+
+<p>即使这个源文件不在子目录com&#x2F;mycompany下，这个文件也可以编译。如果它不依赖于其他包，就可以通过编译而不会出现编译错误。但是，最终的程序将无法运行，除非先将所有类文件移到正确的位置上。如果包与目录不匹配，虚拟机就找不到这些类。</p>
+<h4 id="4-8-5-包访问"><a href="#4-8-5-包访问" class="headerlink" title="4.8.5 包访问"></a>4.8.5 包访问</h4><p>前面已经见过访问修饰符 public 和 private 。标记为 public 的部分可以由任意类使用；标记为 private 的部分只能由定义它们的类使用。如果没有指定 public 或 private ，这个部分(类、方法或变量)可以由同一个包中的所有方法访问。</p>
+<p>下面再来考虑程序清单4-2。在这个程序中，没有将 Employee 类定义为公共类，因此只有在同一个包(在此是无名包)中的其他类(例如 EmployeeTest )可以访问这个类。对于类来说，这种默认方式是合乎情理的。但是，对于变量来说就有些不适宜了，变量必须显式地标记为 private，不然的话将默认为包可访问。显然，这样会破坏封装性。问题是人们经常忘记键入关键字 private。以 java.awt 包中的 Window 类为例(  java.awt 包是 JDK 提供的源代码的一部分)：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Window</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Container</span><br><br>&#123;<br><br>String warningString;<br><br>...<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>p143</p>
+<div align="center">图4-9 在一个applet窗口中修改警告字符串</div>
+
 
                 
               </div>
