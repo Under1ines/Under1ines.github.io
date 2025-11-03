@@ -27,7 +27,7 @@
 <meta property="og:description" content="1234public class Manager extends Employee&#123;    added methods and fields&#125;  在Java中，所有的继承都是公共继承。 关键字extends指示正在构造的新类派生于一个已存在的类。 这个已存在的类称为超类、基类或父类；新类称为子类或派生类。 子类比超类拥有的功能更多。所有员工组成的集合包含所有经理组成的集合，员工">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-10-20T07:50:33.000Z">
-<meta property="article:modified_time" content="2025-10-30T10:53:18.930Z">
+<meta property="article:modified_time" content="2025-11-03T13:10:01.958Z">
 <meta property="article:author" content="Under1ines">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
@@ -260,7 +260,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.9k 字
+          5k 字
         
       </span>
     
@@ -271,7 +271,7 @@
         
         
         
-          41 分钟
+          42 分钟
         
       </span>
     
@@ -481,6 +481,7 @@
 <p><code>Object</code>类定义了 <code>toString</code>方法，会打印对象的<strong>类名</strong>和<strong>散列码</strong>。例如，调用</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">System.out.println(System.out)<br></code></pre></td></tr></table></figure>
 
+<p>将生成以下输出：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">java.io.PrintStream@2f6684<br></code></pre></td></tr></table></figure>
 
 <p>之所以得到这样的结果，是因为 <code>PrintStream</code>类的实现者没有覆盖 <code>toString</code>方法。</p>
@@ -492,7 +493,11 @@
 
 <p>将生成字符串<code>&quot;[2,3,5,7,11,13]&quot;</code>。</p>
 <p>要想正确地打印多维数组（即数组的数组），则需要调用<code>Arrays.deepToString</code>方法。</p>
+<p>toString 方法是一种非常有用的调试工具。在标准类库中，许多类都定义了 toString 方法，以便用户能够获得有关对象状态的有用信息。这在记录日志消息时尤其有用，</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">System<span class="hljs-selector-class">.out</span><span class="hljs-selector-class">.println</span>(<span class="hljs-string">&quot;Current position = &quot;</span> + <span class="hljs-attribute">position</span>);<br></code></pre></td></tr></table></figure>
+
 <p><strong>提示</strong>：强烈建议为你自定义的每一个类添加<code>toString</code>方法。</p>
+<p>p187</p>
 
                 
               </div>
