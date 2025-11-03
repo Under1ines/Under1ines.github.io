@@ -32,8 +32,9 @@
 <meta property="og:image" content="http://example.com/2025/10/30/%E3%80%8AJava%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7%E4%B8%80%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0/image-20251102103557869.png">
 <meta property="og:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E5%9B%9B%E7%AB%A0/image-20251102225551589.png">
 <meta property="og:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E5%9B%9B%E7%AB%A0/image-20251102231655672.png">
+<meta property="og:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E5%9B%9B%E7%AB%A0/image-20251103163513243.png">
 <meta property="article:published_time" content="2025-10-30T10:52:39.000Z">
-<meta property="article:modified_time" content="2025-11-03T07:46:16.333Z">
+<meta property="article:modified_time" content="2025-11-03T08:55:28.485Z">
 <meta property="article:author" content="Under1ines">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
@@ -267,7 +268,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          19k 字
+          27k 字
         
       </span>
     
@@ -278,7 +279,7 @@
         
         
         
-          157 分钟
+          224 分钟
         
       </span>
     
@@ -1024,14 +1025,353 @@
 <p><strong>警告：</strong> 编译器在编译源文件的时候不检查目录结构。例如，假设一个源文件开头有以下指令：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.mycompany;<br></code></pre></td></tr></table></figure>
 
-<p>即使这个源文件不在子目录com&#x2F;mycompany下，这个文件也可以编译。如果它不依赖于其他包，就可以通过编译而不会出现编译错误。但是，最终的程序将无法运行，除非先将所有类文件移到正确的位置上。如果包与目录不匹配，虚拟机就找不到这些类。</p>
-<h4 id="4-8-5-包访问"><a href="#4-8-5-包访问" class="headerlink" title="4.8.5 包访问"></a>4.8.5 包访问</h4><p>前面已经见过访问修饰符 public 和 private 。标记为 public 的部分可以由任意类使用；标记为 private 的部分只能由定义它们的类使用。如果没有指定 public 或 private ，这个部分(类、方法或变量)可以由同一个包中的所有方法访问。</p>
-<p>下面再来考虑程序清单4-2。在这个程序中，没有将 Employee 类定义为公共类，因此只有在同一个包(在此是无名包)中的其他类(例如 EmployeeTest )可以访问这个类。对于类来说，这种默认方式是合乎情理的。但是，对于变量来说就有些不适宜了，变量必须显式地标记为 private，不然的话将默认为包可访问。显然，这样会破坏封装性。问题是人们经常忘记键入关键字 private。以 java.awt 包中的 Window 类为例(  java.awt 包是 JDK 提供的源代码的一部分)：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Window</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Container</span><br><br>&#123;<br><br>String warningString;<br><br>...<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>即使这个源文件不在子目录 com&#x2F;mycompany下，这个文件也可以编译。如果它不依赖于其他包，就可以通过编译而不会出现编译错误。但是，最终的程序将无法运行，除非先将所有类文件移到正确的位置上。如果包与目录不匹配，虚拟机就找不到这些类。</p>
+<h4 id="4-8-5-包访问"><a href="#4-8-5-包访问" class="headerlink" title="4.8.5 包访问"></a>4.8.5 包访问</h4><p>前面已经见过访问修饰符 public 和 private。标记为 public 的部分可以由任意类使用；标记为 private 的部分只能由定义它们的类使用。如果没有指定 public 或 private，这个部分（类、方法或变量）可以由同一个包中的所有方法访问。</p>
+<p>下面再来考虑程序清单 4-2。在这个程序中，没有将 Employee 类定义为公共类，因此只有在同一个包（在此是无名包）中的其他类（例如 EmployeeTest）可以访问这个类。对于类来说，这种默认方式是合乎情理的。但是，对于变量来说就有些不适宜了，变量必须显式地标记为 private，不然的话将默认为包可访问。显然，这样会破坏封装性。问题是人们经常忘记键入关键字 private。以 java.awt 包中的 Window 类为例（java.awt 包是 JDK 提供的源代码的一部分）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Window</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Container</span><br>&#123;<br>    String warningString;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>p143</p>
-<div align="center">图4-9 在一个applet窗口中修改警告字符串</div>
+<p>请注意，这里的 warningString 变量不是 private！这意味着 java.awt 包中的所有类的方法都可以访问该变量，并将它设置为任意值（例如，”Trust me!”）。实际上，只有 Window 类的方法访问这个变量，因此本应该将它设置为私有变量才合适。可能是程序员敲代码时匆忙之中忘记 private 修饰符了？也可能没有人关心这个问题？已经 20 多年了，这个变量仍然不是私有变量。不仅如此，这个类还陆续增加了一些新的字段，而其中大约有一半也不是私有的。</p>
+<p>这可能会成为一个问题。在默认情况下，包不是封闭的实体。也就是说，任何人都可以向包中添加更多的类。当然，有恶意或糟糕的程序员很可能利用包访问添加一些能够改变变量的代码。例如，在 Java 程序设计语言的早期版本中，只需要将以下这条语句放在类文件的开头，就可以很容易地在 java.awt 包中混入其他类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> java.awt;<br></code></pre></td></tr></table></figure>
+<p>然后，把得到的类文件放置在类路径上某处的 java&#x2F;awt 子目录下，这样就可以访问 java.awt 包的内部了。使用这一手段，完全可以修改警告字符串（如图 4-9 所示）。</p>
+<p>从 1.2 版开始，JDK 的实现者修改了类加载器，明确地禁止加载包名以 “java.” 开头的用户自定义的类！当然，用户自定义的类无法从这种保护中受益。另一种机制是让 JAR 文件声明包为密封的（sealed），以防止第三方修改，但这种机制已经过时。现在应当使用模块封装包。我们会在卷 II 的第 9 章详细讨论模块。</p>
+<p><img src="/2025/05/04/hello-world/%E7%AC%AC%E5%9B%9B%E7%AB%A0/image-20251103163513243.png" srcset="/img/loading.gif" lazyload alt="image-20251103163513243"></p>
+<p>​						<strong>图 4-9 在一个 applet 窗口中修改警告字符串</strong></p>
+<h4 id="4-8-6-类路径"><a href="#4-8-6-类路径" class="headerlink" title="4.8.6 类路径"></a>4.8.6 类路径</h4><p>在前面已经看到，类存储在文件系统的子目录中。类的路径必须与包名匹配。</p>
+<p>另外，类文件也可以存储在 JAR（Java 归档）文件中。在一个 JAR 文件中，可以包含多个压缩格式的类文件和子目录，这样既可以节省空间又可以改善性能。在程序中用到第三方的库时，你通常会得到一个或多个需要包含的 JAR 文件。</p>
+<p><strong>提示：</strong> JAR 文件使用 ZIP 格式组织文件和子目录。可以使用任何 ZIP 工具查看 JAR 文件。</p>
+<p>为了使类能够被多个程序共享，需要做到下面几点：</p>
+<ol>
+<li>把类文件放到一个目录中，例如 &#x2F;home&#x2F;user&#x2F;classdir。需要注意，这个目录是包树状结构的基目录。如果希望增加 com.horstmann.corejava.Employee 类，那么 Employee.class 类文件就必须位于子目录 &#x2F;home&#x2F;user&#x2F;classdir&#x2F;com&#x2F;horstmann&#x2F;corejava 中。</li>
+<li>将 JAR 文件放在一个目录中，例如 &#x2F;home&#x2F;user&#x2F;archives。</li>
+<li>设置类路径（class path）。类路径是所有包含类文件的路径的集合。</li>
+</ol>
+<p>在 UNIX 环境中，类路径中的各项之间用冒号（:）分隔：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elixir">/home/user/<span class="hljs-symbol">classdir:</span>.<span class="hljs-symbol">:/home/user/archives/archive</span>.jar<br></code></pre></td></tr></table></figure>
+<p>而在 Windows 环境中，则以分号（;）分隔：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs r"><span class="hljs-built_in">c</span><span class="hljs-operator">:</span><span class="hljs-punctuation">\</span>classdir;.;<span class="hljs-built_in">c</span><span class="hljs-operator">:</span><span class="hljs-punctuation">\</span>archives<span class="hljs-punctuation">\</span>archive.jar<br></code></pre></td></tr></table></figure>
+<p>不论是 UNIX 还是 Windows，都用句点（.）表示当前目录。</p>
+<p>类路径包括：</p>
+<ul>
+<li>基目录 &#x2F;home&#x2F;user&#x2F;classdir 或 c:\classdir；</li>
+<li>当前目录（.）；</li>
+<li>JAR 文件 &#x2F;home&#x2F;user&#x2F;archives&#x2F;archive.jar 或 c:\archives\archive.jar。</li>
+</ul>
+<p>从 Java 6 开始，可以为 JAR 文件目录指定一个通配符，如下：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elixir">/home/user/<span class="hljs-symbol">classdir:</span>.<span class="hljs-symbol">:/home/user/archives/*</span><br></code></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs r"><span class="hljs-built_in">c</span><span class="hljs-operator">:</span><span class="hljs-punctuation">\</span>classdir;.;<span class="hljs-built_in">c</span><span class="hljs-operator">:</span><span class="hljs-punctuation">\</span>archives<span class="hljs-punctuation">\</span><span class="hljs-operator">*</span><br></code></pre></td></tr></table></figure>
+<p>在 UNIX 中，* 必须转义以防止 shell 扩展。</p>
+<p>archives 目录中的所有 JAR 文件（但不包括 .class 文件）都包含在这个类路径中。</p>
+<p>由于总是会搜索 Java API 的类，所以不必显式地包含在类路径中。</p>
+<p><strong>警告：</strong> javac 编译器总是在当前目录中查找文件，但只有当类路径中包含 “ . “ 目录时，java 虚拟机才会查看当前目录。如果你没有设置类路径，那么没有什么问题，因为默认的类路径会包含 “ . “ 目录。但是如果你设置了类路径却忘记包含 “ . “ 目录，那么尽管你的程序可以没有错误地通过编译，但不能运行。</p>
+<p>类路径所列出的目录和归档文件是搜寻类的起始点。下面看一个类路径示例：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elixir">/home/user/<span class="hljs-symbol">classdir:</span>.<span class="hljs-symbol">:/home/user/archives/archive</span>.jar<br></code></pre></td></tr></table></figure>
+<p>假定虚拟机要搜寻 com.horstmann.corejava.Employee 类的类文件。它首先要查看 Java API 类。显然，在那里找不到相应的类文件，所以转而查看类路径。它会查找以下文件：</p>
+<ul>
+<li>&#x2F;home&#x2F;user&#x2F;classdir&#x2F;com&#x2F;horstmann&#x2F;corejava&#x2F;Employee.class</li>
+<li>com&#x2F;horstmann&#x2F;corejava&#x2F;Employee.class（从当前目录开始）</li>
+<li>com&#x2F;horstmann&#x2F;corejava&#x2F;Employee.class（&#x2F;home&#x2F;user&#x2F;archives&#x2F;archive.jar 中）</li>
+</ul>
+<p>编译器查找文件要比虚拟机复杂得多。如果引用了一个类，而没有指定这个类的包，那么编译器将首先查找包含这个类的包。它会查看所有的 import 指令，确定其中是否包含这个类。例如，假定源文件包含指令：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.*;<br><span class="hljs-keyword">import</span> com.horstmann.corejava.*;<br></code></pre></td></tr></table></figure>
+<p>并且源代码引用了 Employee 类。编译器将尝试查找 java.lang.Employee（因为总是会默认导入 java.lang 包）、java.util.Employee、com.horstmann.corejava.Employee 和当前包中的 Employee。它会在类路径所有位置中搜索以上各个类。如果找到了一个以上的类，就会产生编译时错误（因为完全限定类名必须是唯一的，所以 import 语句的次序并不重要）。</p>
+<p>编译器的任务不止这些，它还要查看源文件是否比类文件新。如果是这样的话，那么源文件就会自动地重新编译。在前面已经知道，只可以导入其他包中的公共类。一个源文件只能包含一个公共类，并且文件名与公共类名必须匹配。因此，编译器很容易找到公共类的源文件。不过，还可以从当前包中导入非公共类。这些类有可能在与类名不同的源文件中定义。如果从当前包中导入一个类，那么编译器就要搜索当前包中的所有源文件，查看哪个源文件定义了这个类。</p>
+<h4 id="4-8-7-设置类路径"><a href="#4-8-7-设置类路径" class="headerlink" title="4.8.7 设置类路径"></a>4.8.7 设置类路径</h4><p>最好使用 -classpath（或 -cp，或者 Java 9 中的 –class-path）选项指定类路径：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elixir">java -classpath /home/user/<span class="hljs-symbol">classdir:</span>.<span class="hljs-symbol">:/home/user/archives/archive</span>.jar <span class="hljs-title class_">MyProg</span><br></code></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs llvm">java -classpath <span class="hljs-keyword">c</span>:\classdir<span class="hljs-comment">;.;c:\archives\archive.jar MyProg</span><br></code></pre></td></tr></table></figure>
+<p>整个指令必须写在一行中。将这样一个很长的命令行放在一个 shell 脚本或一个批处理文件中是个不错的主意。</p>
+<p>利用 -classpath 选项设置类路径是首选的方法，另一种方法是通过设置 CLASSPATH 环境变量来指定类路径。具体细节依赖于所使用的 shell。在 Bourne Again shell（bash）中，命令如下：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elixir">export <span class="hljs-title class_">CLASSPATH</span>=/home/user/<span class="hljs-symbol">classdir:</span>.<span class="hljs-symbol">:/home/user/archives/archive</span>.jar<br></code></pre></td></tr></table></figure>
+<p>在 Windows shell 中，命令如下：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">set</span> <span class="hljs-attribute">CLASSPATH</span>=c:\classdir;.;c:\archives\archive.jar<br></code></pre></td></tr></table></figure>
+<p>直到退出 shell 为止，类路径设置均有效。</p>
+<p><strong>警告：</strong> 有人建议永久地设置 CLASSPATH 环境变量。一般来说这是一个糟糕的想法。人们有可能会忘记全局设置，因此，当他们的类没有正确地加载时，就会感到很奇怪。一个颇受诟病的示例是 Windows 中 Apple QuickTime 安装程序。很多年来，它都将 CLASSPATH 全局设置为指向它需要的一个 JAR 文件，而没有在类路径中包含当前目录。因此，当程序编译后却不能运行时，无数 Java 程序员不得不花费很多精力去解决这个问题。</p>
+<p><strong>警告：</strong> 过去，有人建议完全绕过类路径，将所有的 JAR 文件都放在 jre&#x2F;lib&#x2F;ext 目录中。这种机制在 Java 9 中已经过时，不过不管怎样这都是一个不好的建议。从扩展目录加载一些已经遗忘很久的类时，这会让人非常困惑。</p>
+<p><strong>注释：</strong> 在 Java 9 中，还可以从模块路径加载类。本书卷Ⅱ的第 9 章将讨论模块和模块路径。</p>
+<h2 id="4-9-JAR-文件"><a href="#4-9-JAR-文件" class="headerlink" title="4.9 JAR 文件"></a>4.9 JAR 文件</h2><p>在将应用程序打包时，你希望只向用户提供一个单独的文件，而不是一个包含大量类文件的目录结构，Java 归档（JAR）文件就是为此目的而设计的。JAR 文件既可以包含类文件，也可以包含诸如图像和声音等其他类型的文件。此外，JAR 文件是压缩的，它使用了我们熟悉的 ZIP 压缩格式。</p>
+<h4 id="4-9-1-创建-JAR-文件"><a href="#4-9-1-创建-JAR-文件" class="headerlink" title="4.9.1 创建 JAR 文件"></a>4.9.1 创建 JAR 文件</h4><p>可以使用 jar 工具制作 JAR 文件（在默认的 JDK 安装中，这个工具位于 jdk&#x2F;bin 目录下）。创建一个新 JAR 文件最常用的命令使用以下语法：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-function"><span class="hljs-title">jar</span></span> cvf jarFileName file1 file2 ...<br></code></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">jar cvf CalculatorClasses.jar *.<span class="hljs-keyword">class</span> <span class="hljs-title class_">icon</span>.gif<br></code></pre></td></tr></table></figure>
+<p>通常，jar 命令的格式如下：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-function"><span class="hljs-title">jar</span></span> <span class="hljs-keyword">options</span> file1 file2 ...<br></code></pre></td></tr></table></figure>
+<p>表 4-2 列出了 jar 程序的所有选项。它们类似于 UNIX tar 命令的选项。</p>
+<p>​										<strong>表 4-2 jar 程序选项</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>c</td>
+<td>创建一个新的或者空的存档文件并加入文件。如果指定的文件名是目录，jar 程序将会对它们进行递归处理</td>
+</tr>
+<tr>
+<td>C</td>
+<td>临时改变目录，例如：<br><code>jar cvf jarFileName.jar -C classes *.class</code><br>切换到 classes 子目录以便增加类文件</td>
+</tr>
+<tr>
+<td>e</td>
+<td>在清单文件中创建一个入口点（请参见 4.9.3 节）</td>
+</tr>
+<tr>
+<td>f</td>
+<td>指定 JAR 文件名作为第二个命令行参数。如果没有这个参数，jar 命令会将结果写至标准输出（在创建 JAR 文件时）或者从标准输入读取输入（在解压或者列出 JAR 文件内容时）</td>
+</tr>
+<tr>
+<td>i</td>
+<td>创建索引文件（用于加快大型归档中的查找）</td>
+</tr>
+<tr>
+<td>m</td>
+<td>将一个清单文件添加到 JAR 文件中。清单文件是对归档内容和来源的一个说明。每个归档有一个默认的清单文件。但是，如果想验证归档文件的内容，可以提供你自己的清单文件</td>
+</tr>
+<tr>
+<td>M</td>
+<td>不为条目创建清单文件</td>
+</tr>
+<tr>
+<td>t</td>
+<td>显示内容表</td>
+</tr>
+<tr>
+<td>u</td>
+<td>更新一个已有的 JAR 文件</td>
+</tr>
+<tr>
+<td>v</td>
+<td>生成详细的输出</td>
+</tr>
+<tr>
+<td>x</td>
+<td>解压文件。如果提供一个或多个文件名，只解压这些文件；否则，解压所有文件</td>
+</tr>
+<tr>
+<td>0</td>
+<td>存储，但不进行 ZIP 压缩</td>
+</tr>
+</tbody></table>
+<p>可以将应用程序和代码库打包在 JAR 文件中。例如，如果想在一个 Java 程序中发送邮件，可以使用打包在文件 javax.mail.jar 中的一个库。</p>
+<h4 id="4-9-2-清单文件"><a href="#4-9-2-清单文件" class="headerlink" title="4.9.2 清单文件"></a>4.9.2 清单文件</h4><p>除了类文件、图像和其他资源外，每个 JAR 文件还包含一个清单文件（manifest），用于描述归档文件的特殊特性。</p>
+<p>清单文件被命名为 MANIFEST.MF，它位于 JAR 文件的一个特殊的 META-INF 子目录中。合法的最小清单文件极其简单：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Manifest</span>-Version: <span class="hljs-number">1</span>.<span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+<p>复杂的清单文件可能包含更多条目。这些清单条目被分组为多个节。第一节被称为<strong>主节</strong>（main section）。它作用于整个 JAR 文件。随后的条目可以指定命名实体的属性，如单个文件、包或者 URL。它们都必须以一个 Name 条目开始。节与节之间用空行分开。例如：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs gradle">Manifest-Version: <span class="hljs-number">1.0</span><br>lines describing <span class="hljs-keyword">this</span> archive<br><br>Name: Woozle.<span class="hljs-keyword">class</span><br>lines describing <span class="hljs-keyword">this</span> <span class="hljs-keyword">file</span><br>Name: com<span class="hljs-regexp">/mycompany/my</span>pkg/<br>lines describing <span class="hljs-keyword">this</span> <span class="hljs-keyword">package</span><br></code></pre></td></tr></table></figure>
 
+<p>要想编辑清单文件，需要将希望添加到清单文件中的行放到文本文件中，然后运行</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">jar </span>cfm <span class="hljs-keyword">jarFileName </span>manifestFileName . . .<br></code></pre></td></tr></table></figure>
+
+<p>例如，要创建一个包含清单文件的 JAR 文件，应该运行</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript">jar cfm MyArchive.jar manifest.mf com<span class="hljs-regexp">/mycompany/mypkg/</span>*.<span class="hljs-keyword">class</span><br></code></pre></td></tr></table></figure>
+
+<p>要想更新一个已有的 JAR 文件的清单，则需要将增加的部分放置到一个文本文件中，然后执行以下命令：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">jar </span>ufm MyArchive.<span class="hljs-keyword">jar </span>manifest-<span class="hljs-keyword">additions.mf</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>注释：</strong> 请参见 <a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/10/docs/specs/jar/jar.html">https://docs.oracle.com/javase/10/docs/specs/jar/jar.html</a> 获得有关 JAR 文件和清单文件格式的更多信息。</p>
+<h4 id="4-9-3-可执行-JAR-文件"><a href="#4-9-3-可执行-JAR-文件" class="headerlink" title="4.9.3 可执行 JAR 文件"></a>4.9.3 可执行 JAR 文件</h4><p>可以使用 jar 命令中的 e 选项指定程序的入口点，即通常调用 java 执行程序时指定的类：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">jar cvfe MyProgram<span class="hljs-selector-class">.jar</span> com<span class="hljs-selector-class">.mycompany</span><span class="hljs-selector-class">.mypkg</span><span class="hljs-selector-class">.MainAppClass</span> files to add<br></code></pre></td></tr></table></figure>
+
+<p>或者，可以在清单文件中指定程序的主类，包括以下形式的语句：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">Main-Class: com<span class="hljs-selector-class">.mycompany</span><span class="hljs-selector-class">.mypkg</span>.MainAppClass<br></code></pre></td></tr></table></figure>
+<p>不要为主类名加扩展名 .class。</p>
+<p><strong>警告：</strong> 清单文件的最后一行必须以换行符结束。否则，将无法正确地读取清单文件。常见的一个错误是创建了一个只包含 Main-Class 行而没有行结束符的文本文件。</p>
+<p>不论使用哪一种方法，用户都可以简单地通过下面的命令来启动程序：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">java </span>-<span class="hljs-keyword">jar </span>MyProgram.<span class="hljs-keyword">jar</span><br></code></pre></td></tr></table></figure>
+
+<p>取决于操作系统的配置，用户甚至可以通过双击 JAR 文件图标来启动应用程序。下面是各种操作系统的操作方式：</p>
+<ul>
+<li>在 Windows 平台中，Java 运行时安装程序将为 “.jar” 扩展名创建一个文件夹联，会用 javaw -jar 命令启动文件（与 java 命令不同，javaw 命令不打开 shell 窗口）。</li>
+<li>在 Mac OS X 平台中，操作系统能够识别 “.jar” 扩展名文件。双击 JAR 文件时就会执行 Java 程序。</li>
+</ul>
+<p>在 Windows 平台中，可以使用第三方的包装器工具将 JAR 文件转换成 Windows 可执行文件。包装器是一个 Windows 程序，有大家熟悉的扩展名.exe，它可以查找和加载 Java 虚拟机（JVM），或者在没有找到 JVM 时会告诉用户应该做些什么。</p>
+<h4 id="4-9-4-多版本-JAR-文件"><a href="#4-9-4-多版本-JAR-文件" class="headerlink" title="4.9.4 多版本 JAR 文件"></a>4.9.4 多版本 JAR 文件</h4><p>随着模块和包强封装的引入，之前可以访问的一些内部 API 不再可用。这可能要求库提供商为不同 Java 版本发布不同的代码。为此，Java 9 引入了多版本 JAR（multi-release JAR）。为了保证向后兼容，特定于版本的类文件放在 META-INF&#x2F;versions 目录中：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript">Application.<span class="hljs-keyword">class</span><br><span class="hljs-title class_">BuildingBlocks</span>.<span class="hljs-keyword">class</span><br><span class="hljs-title class_">Util</span>.<span class="hljs-keyword">class</span><br><span class="hljs-title class_">META</span>-INF<br> |_   MANIFEST.MF (<span class="hljs-keyword">with</span> line Multi-Release: <span class="hljs-literal">true</span>)<br> |_   versions<br>    |_    <span class="hljs-number">9</span><br>    |     |_    Application.<span class="hljs-keyword">class</span><br>    |     |_    BuildingBlocks.<span class="hljs-keyword">class</span><br>    |_    <span class="hljs-number">10</span><br>        |_    BuildingBlocks.<span class="hljs-keyword">class</span><br></code></pre></td></tr></table></figure>
+
+<p>假设 Application 类使用了 CssParser 类，那么遗留版本的 Application.class 文件可以使用 com.sun.javafx.css.CssParser，而 Java 9 版本可以使用 javafx.css.CssParser。</p>
+<p>Java 8 完全不知道 META-INF&#x2F;versions 目录，它只会加载遗留的类。Java 9 读取这个 JAR 文件时，则会使用新版本。</p>
+<p>要增加不同版本的类文件，可以使用 –release 标志：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">jar uf MyProgram.jar --release <span class="hljs-number">9</span> Application.<span class="hljs-keyword">class</span><br></code></pre></td></tr></table></figure>
+
+<p>要从头构建一个多版本 JAR 文件，可以使用 -C 选项，对应每个版本要切换到一个不同的类文件目录：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">jar </span>cf MyProgram.<span class="hljs-keyword">jar </span>-C <span class="hljs-keyword">bin/8 </span>. --release <span class="hljs-number">9</span> -C <span class="hljs-keyword">bin/9 </span>Application.class<br></code></pre></td></tr></table></figure>
+
+<p>面向不同版本编译时，要使用 –release 标志和 -d 标志来指定输出目录：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">javac</span> -d bin/<span class="hljs-number">8</span> --release <span class="hljs-number">8</span> ...<br></code></pre></td></tr></table></figure>
+
+<p>在 Java 9 中，-d 选项会创建这个目录（如果原先该目录不存在）。<br>–release 标志也是 Java 9 新增的。在较早的版本中，需要使用 -source、-target 和 -bootclasspath 标志。JDK 现在为之前的两个 API 版本提供了符号文件。在 Java 9 中，编译时可以将 –release 设置为 9、8 或 7。</p>
+<p>多版本 JAR 并不适用于不同版本的程序或库。对于不同的版本，所有类的公共 API 都应当是一样的。多版本 JAR 的唯一作用是使你的某个特定版本的程序或库能够使用多个不同的 JDK 版本。如果你增加了功能或者改变了一个 API，就应当提供一个新版本的 JAR。</p>
+<p><strong>注释：</strong> javap 之类的工具并没有改造为可以处理多版本 JAR 文件。如果调用</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle">javap -<span class="hljs-keyword">classpath</span> MyProgram.jar Application.<span class="hljs-keyword">class</span><br></code></pre></td></tr></table></figure>
+<p>你会得到类的基本版本（毕竟，它与更新的版本应该有相同的公共 API）。如果必须查看更新的版本，则可以调用：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle">javap -<span class="hljs-keyword">classpath</span> MyProgram.jar!<span class="hljs-regexp">/META-INF/</span>versions<span class="hljs-regexp">/9/</span>Application.<span class="hljs-keyword">class</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="4-9-5-关于命令行选项的说明"><a href="#4-9-5-关于命令行选项的说明" class="headerlink" title="4.9.5 关于命令行选项的说明"></a>4.9.5 关于命令行选项的说明</h4><p>Java 开发包（JDK）的命令行选项一直以来都使用单个短横线加多字母选项名的形式，如：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">java </span>-<span class="hljs-keyword">jar </span>...<br><span class="hljs-keyword">javac </span>-Xlint:unchecked -classpath ...<br></code></pre></td></tr></table></figure>
+<p>但 jar 命令是个例外，这个命令遵循经典的 tar 命令选项格式，而没有短横线：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-function"><span class="hljs-title">jar</span></span> cvf ...<br></code></pre></td></tr></table></figure>
+
+<p>从 Java 9 开始，Java 工具开始转向一种更常用的选项格式，多字母选项名前面加两个短横线，另外对于常用的选项可以使用单字母快捷方式。例如，调用 Linux ls 命令时可以提供一个”human-readable”选项：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-keyword">ls</span> <span class="hljs-params">--human-readable</span><br></code></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> -h<br></code></pre></td></tr></table></figure>
+
+<p>在 Java 9 中，可以使用 <code>--version</code> 而不是 <code>-version</code>，另外可以使用 <code>--class-path</code> 而不是 <code>-classpath</code>。在本书卷Ⅱ的第 9 章中可以看到，<code>--module-path</code> 选项有一个快捷方式 <code>-p</code>。</p>
+<p>详细内容可以参见 JEP 293 增强请求（<a target="_blank" rel="noopener" href="http://openjdk.java.net/jeps/293%EF%BC%89%E3%80%82%E5%9C%A8%E6%89%80%E6%9C%89%E6%B8%85%E7%90%86%E5%B7%A5%E4%BD%9C%E4%B8%AD%EF%BC%8C%E4%BD%9C%E8%80%85%E8%BF%98%E6%8F%90%E5%87%BA%E8%A6%81%E6%A0%87%E5%87%86%E5%8C%96%E9%80%89%E9%A1%B9%E5%8F%82%E6%95%B0%E3%80%82%E5%B8%A6">http://openjdk.java.net/jeps/293）。在所有清理工作中，作者还提出要标准化选项参数。带</a> <code>--</code> 和多字母选项的参数用空格或者一个等号 (&#x3D;) 分隔：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">javac <span class="hljs-params">--class-path</span> <span class="hljs-string">/home/user/classdir</span> <span class="hljs-string">...</span><br></code></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">javac --<span class="hljs-keyword">class</span>-path=/home/user/classdir ...<br></code></pre></td></tr></table></figure>
+
+<p>单字母选项的参数可以用空格分隔，或者直接跟在选项后面：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-function"><span class="hljs-title">javac</span></span> -p moduledir ...<br></code></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-function"><span class="hljs-title">javac</span></span> -pmoduledir ...<br></code></pre></td></tr></table></figure>
+
+<p><strong>警告：</strong> 后一种方式现在不能使用，而且一般来讲这也不是一个好主意。如果模块目录恰好是 <code>arameters</code> 或 <code>rocessor</code>，这就很容易与遗留的选项（<code>parameters</code> 或 <code>processor</code>）发生冲突，这又何必呢？</p>
+<p>无参数的单字母选项可以组合在一起：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">jar </span>-cvf MyProgram.<span class="hljs-keyword">jar </span>-e mypackage.MyProgram *<span class="hljs-comment">/*.class</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>警告：</strong> 目前不能使用这种方式，这肯定会带来混淆。假设 javac 有一个 -c 选项，那么 javac -cp 是指 javac -c -p 还是 -cp？</p>
+<p>这就会带来一些混乱，希望过段时间能够解决这个问题。尽管我们想要远离这些古老的 jar 选项，但最好还是等到尘埃落定为妙。不过，如果你想做到最现代化，那么可以安全地使用 jar 命令的长选项：</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">jar</span> <span class="hljs-literal">--</span><span class="hljs-comment">create</span> <span class="hljs-literal">--</span><span class="hljs-comment">verbose</span> <span class="hljs-literal">--</span><span class="hljs-comment">file jarFileName file1 file2</span> <span class="hljs-string">.</span> <span class="hljs-string">.</span> <span class="hljs-string">.</span><br></code></pre></td></tr></table></figure>
+
+<p>对于单字母选项，如果不组合，也是可以使用的：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">jar </span>-c -v -f <span class="hljs-keyword">jarFileName </span>file1 file2 . . .<br></code></pre></td></tr></table></figure>
+
+<h2 id="4-10-文档注释"><a href="#4-10-文档注释" class="headerlink" title="4.10 文档注释"></a>4.10 文档注释</h2><p>JDK 包含一个很有用的工具，叫作 javadoc，它可以由源文件生成一个 HTML 文档。事实上，在第 3 章介绍的联机 API 文档就是通过对标准 Java 类库的源代码运行 javadoc 生成的。</p>
+<p>如果在源代码中添加以特殊定界符 &#x2F;** 开始的注释，那么你也可以很容易地生成一个看上去具有专业水准的文档。这是一种很好的方法，因为这样可以将代码与注释放在一个地方。应该知道，如果将文档存放在一个单独的文件中，随着时间的推移，代码和注释很可能出现不一致。不过，如果文档注释与源代码在同一个文件中，就可以很容易地同时修改源代码和注释，然后重新运行 javadoc。</p>
+<h4 id="4-10-1-注释的插入"><a href="#4-10-1-注释的插入" class="headerlink" title="4.10.1 注释的插入"></a>4.10.1 注释的插入</h4><p>javadoc 实用工具从下面几项中抽取信息：</p>
+<ul>
+<li>模块；</li>
+<li>包；</li>
+<li>公共类与接口；</li>
+<li>公共的和受保护的字段；</li>
+<li>公共的和受保护的构造器及方法。</li>
+</ul>
+<p>注释以 &#x2F;** 开始，并以 *&#x2F; 结束。</p>
+<p>每个 &#x2F;** . . . *&#x2F; 文档注释包含标记以及之后紧跟着的自由格式文本（free-form text）。标记以 @ 开始，如 @since 或 @param。</p>
+<p>自由格式文本的第一个句子应该是一个概要陈述。javadoc 工具自动地将这些句子抽取出来生成概要页。</p>
+<p>在自由格式文本中，可以使用 HTML 修饰符，例如，用于强调的 <code>&lt;em&gt;...&lt;/em&gt;</code>、用于着重强调的 <code>&lt;strong&gt;...&lt;/strong&gt;</code>、用于项目符号列表的 <code>&lt;ul&gt;/&lt;li&gt;</code> 以及用于包含图像的 <code>&lt;img .../&gt;</code> 等。要键入等宽代码，需要使用 <code>&#123;@code ... &#125;</code> 而不是 <code>&lt;code&gt;...&lt;/code&gt;</code>——这样一来，就不用操心对代码中的 &lt; 字符转义了。</p>
+<p><strong>注释：</strong> 如果文档中有到其他文件的链接，如图像文件（例如，图表或用户界面组件的图像），就应该将这些文件放到包含源文件目录下的一个子目录 doc-files 中。javadoc 工具将从源目录将 doc-files 目录及其内容复制到文档目录中。在链接中需要使用 doc-files 目录，例如 <code>&lt;img src=&quot;doc-files/uml.png&quot; alt=&quot;UML diagram&quot;/&gt;</code>。</p>
+<h4 id="4-10-2-类注释"><a href="#4-10-2-类注释" class="headerlink" title="4.10.2 类注释"></a>4.10.2 类注释</h4><p>类注释必须放在 import 语句之后，class 定义之前。<br>下面是一个类注释的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * A &#123;<span class="hljs-doctag">@code</span> Card&#125; object represents a playing card, such</span><br><span class="hljs-comment"> * as &quot;Queen of Hearts&quot;. A card has a suit (Diamond, Heart,</span><br><span class="hljs-comment"> * Spade or Club) and a value (1 = Ace, 2 . . . 10, 11 = Jack,</span><br><span class="hljs-comment"> * 12 = Queen, 13 = King)</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Card</span><br>&#123;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>注释：</strong> 没有必要在每一行的开始都添加 *，例如，以下注释同样是合法的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">  A &lt;code&gt;Card&lt;/code&gt; object represents a playing card, such</span><br><span class="hljs-comment">  as &quot;Queen of Hearts&quot;. A card has a suit (Diamond, Heart,</span><br><span class="hljs-comment">  Spade or Club) and a value (1 = Ace, 2 . . . 10, 11 = Jack,</span><br><span class="hljs-comment">  12 = Queen, 13 = King).</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<p>不过，大部分 IDE 会自动提供星号，而且换行改变时，还会重新放置星号。</p>
+<h4 id="4-10-3-方法注释"><a href="#4-10-3-方法注释" class="headerlink" title="4.10.3 方法注释"></a>4.10.3 方法注释</h4><p>每个方法注释必须放在所描述的方法之前。除了通用标记之外，还可以使用下面的标记：</p>
+<ul>
+<li><p><code>@param variable description</code><br>这个标记将给当前方法的”parameters”（参数）部分添加一个条目。这个描述可以占据多行，并且可以使用 HTML 标记。一个方法的所有 @param 标记必须放在一起。</p>
+</li>
+<li><p><code>@return description</code><br>这个标记将给当前方法添加”returns”（返回）部分。这个描述可以跨多行，并且可以使用 HTML 标记。</p>
+</li>
+</ul>
+<ul>
+<li><code>@throws class description</code><br>这个标记将添加一个注释，表示这个方法有可能抛出异常。有关异常的详细内容将在第7章中讨论。</li>
+</ul>
+<p>下面是一个方法注释的示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Raises the salary of an employee.</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> byPercent the percentage by which to raise the salary (e.g., 10 means 10%)</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> the amount of the raise</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">raiseSalary</span><span class="hljs-params">(<span class="hljs-type">double</span> byPercent)</span><br>&#123;<br>    <span class="hljs-type">double</span> <span class="hljs-variable">raise</span> <span class="hljs-operator">=</span> salary * byPercent / <span class="hljs-number">100</span>;<br>    salary += raise;<br>    <span class="hljs-keyword">return</span> raise;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="4-10-4-字段注释"><a href="#4-10-4-字段注释" class="headerlink" title="4.10.4 字段注释"></a>4.10.4 字段注释</h4><p>只需要对公共字段（通常指的是静态常量）增加文档注释。例如，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * The &quot;Hearts&quot; card suit</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">HEARTS</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+
+<h4 id="4-10-5-通用注释"><a href="#4-10-5-通用注释" class="headerlink" title="4.10.5 通用注释"></a>4.10.5 通用注释</h4><p>标记 <code>@since text</code> 会建立一个”since”（始于）条目。text（文本）可以是对引入这个特性的版本的描述。例如，<code>@since 1.7.1</code>。</p>
+<p>类文档注释中可以使用下面的标记：</p>
+<ul>
+<li><p><code>@author name</code><br>这个标记将建立一个”author”（作者）条目。可以有多个@author标记，每个@author标记对应一个作者。并不是非得使用这个标记，你的版本控制系统能够更好地跟踪作者。</p>
+</li>
+<li><p><code>@version text</code><br>这个标记将建立一个”version”（版本）条目。这里的text可以是对当前版本的任何描述。</p>
+</li>
+</ul>
+<p>通过<code>@see</code>和<code>@link</code>标记，可以使用超链接，链接到javadoc文档的相关部分或外部文档。</p>
+<p>标记<code>@see reference</code>将在”see also”（参见）部分增加一个超链接。它可以用于类中，也可以用于方法中。这里的reference（引用）可以有以下选择：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">package.class<span class="hljs-comment">#feature label</span><br>&lt;a href=<span class="hljs-string">&quot;...&quot;</span>&gt;<span class="hljs-keyword">label</span><span class="language-bash">&lt;/a&gt;</span><br><span class="hljs-string">&quot;text&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>第一种情况是最有用的。只要提供类、方法或变量的名字，javadoc就在文档中插入一个超链接。例如，</p>
+<figure class="highlight leaf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs leaf">@see com.horstmann.corejava.Employee<span class="hljs-punctuation">#</span><span class="hljs-keyword">raiseSalary</span><span class="hljs-params">(<span class="hljs-variable">double</span>)</span><br></code></pre></td></tr></table></figure>
+
+<p>会建立一个超链接，链接到 com.horstmann.corejava.Employee 类的 raiseSalary(double) 方法。可以省略包名，甚至把包名和类名都省去，这样一来，这会位于当前包或当前类。</p>
+<p>需要注意，一定要使用井号（#），而不要使用句号（.）分隔类名与方法名（或类名与变量名）。Java 编译器自身可以熟练地确定句点在分隔包、子包、类、内部类以及方法和变量时的不同含义。但是 javadoc 工具就没有这么聪明了，因此必须对它提供帮助。</p>
+<p>如果 @see 标记后面有一个 &lt; 字符，就需要指定一个超链接。可以超链接到任何 URL。例如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">@see <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;www.horstmann.com/corejava.html&quot;</span>&gt;</span>The Core Java home page<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>在上述各种情况下，都可以指定一个可选的标签（label），这会显示为链接锚（link anchor）。如果省略了标签，则用户看到的锚就是目标代码名或 URL。</p>
+<p>如果 @see 标记后面有一个双引号（”）字符，文本就会显示在”see also”部分。例如，</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs aspectj"><span class="hljs-meta">@see</span> <span class="hljs-string">&quot;Core Java 2 volume 2&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>可以为一个特性添加多个 @see 标记，但必须将它们放在一起。</p>
+<p>如果愿意，可以在任何文档注释中放置指向其他类或方法的超链接。可以在注释中的任何位置插入一个形式如下的特殊标记：</p>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ceylon">&#123;<span class="hljs-meta">@link</span> <span class="hljs-keyword">package</span>.<span class="hljs-keyword">class</span><span class="hljs-number">#fea</span>ture label&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里的特性描述规则与 @see 标记的规则相同。</p>
+<p>最后，在 Java 9 中，还可以使用 <code>&#123;@index entry&#125;</code> 标记为搜索框增加一个条目。</p>
+<h4 id="4-10-6-包注释"><a href="#4-10-6-包注释" class="headerlink" title="4.10.6 包注释"></a>4.10.6 包注释</h4><p>可以直接将类、方法和变量的注释放置在 Java 源文件中，只要用 &#x2F;**…*&#x2F; 文档注释界定就可以了。但是，要想产生包注释，就需要在每一个包目录中添加一个单独的文件。可以有如下两个选择：</p>
+<ol>
+<li><p>提供一个名为 package-info.java 的 Java 文件。这个文件必须包含一个初始的 Javadoc 注释，以 &#x2F;** 和 *&#x2F; 界定，后面是一个 package 语句。它不能包含更多的代码或注释。</p>
+</li>
+<li><p>提供一个名为 package.html 的 HTML 文件，抽取标记 <code>&lt;body&gt;...&lt;/body&gt;</code> 之间的所有文本。</p>
+</li>
+</ol>
+<h4 id="4-10-7-注释提取"><a href="#4-10-7-注释提取" class="headerlink" title="4.10.7 注释提取"></a>4.10.7 注释提取</h4><p>在这里，假设你希望 HTML 文件将放在名为 docDirectory 的目录下。执行以下步骤：</p>
+<ol>
+<li><p>切换到源文件目录，其中包含想要生成文档的源文件。如果有嵌套的包要生成文档，例如 com.horstmann.corejava，就必须切换到包含子目录 com 的目录（如果提供 overview.html 文件的话，这就是这个文件所在的目录）。</p>
+</li>
+<li><p>如果是一个包，应该运行命令：</p>
+</li>
+</ol>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">javadoc -d docDirectory nameOfPackage</span><br></code></pre></td></tr></table></figure>
+
+<p>或者，如果要为多个包生成文档，运行：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-function"><span class="hljs-title">javadoc</span></span> -d docDirectory nameOfPackage1 nameOfPackage2...<br></code></pre></td></tr></table></figure>
+
+<p>如果你的文件在无名包中，则应该运行：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">javadoc</span> -d docDirectory <span class="hljs-regexp">*.java</span><br></code></pre></td></tr></table></figure>
+
+<p>如果省略了 -d docDirectory 选项，HTML 文件就会提取到当前目录下。这样可能很混乱，因此我不提倡这种做法。</p>
+<p>可以使用很多命令行选项对 javadoc 程序进行微调。例如，可以使用 -author 和 -version 选项在文档中包含 @author 和 @version 标记（默认情况下，这些标记会被省略）。另一个很有用的选项是 -link，用来为标准类添加超链接。例如，如果使用命令</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">javadoc -link http:<span class="hljs-regexp">//</span>docs.oracle.com<span class="hljs-regexp">/javase/</span><span class="hljs-number">9</span><span class="hljs-regexp">/docs/</span>api *.java<br></code></pre></td></tr></table></figure>
+<p>那么，所有的标准类的类都会自动地链接到 Oracle 网站的文档。</p>
+<p>如果使用 -linksource 选项，那么每个源文件将会转换为 HTML（不对代码着色，但包含符号），并且每个类和方法名称变为指向源代码的超链接。</p>
+<p>还可以为所有源文件提供一个概要注释。把它放在一个类似 overview.html 的文件中，运行 javadoc 工具，并提供命令行选项 -overview filename。将抽取标记 <code>&lt;body&gt;...&lt;/body&gt;</code> 之间的所有文本。当用户从导航栏中选择”Overview”时，就会显示这些内容。</p>
+<p>有关其他的选项，请查阅 javadoc 工具的联机文档 <a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/9/javadoc/javadoc.htm%E3%80%82">https://docs.oracle.com/javase/9/javadoc/javadoc.htm。</a></p>
+<h2 id="4-11-类设计技巧"><a href="#4-11-类设计技巧" class="headerlink" title="4.11 类设计技巧"></a>4.11 类设计技巧</h2><p>我们不会面面俱到，也不希望过于沉闷，所以在这一章结束之前再简单地介绍几点技巧。应用这些技巧可以使你设计的类更能得到专业 OOP 圈子的认可。</p>
+<ol>
+<li><p><strong>一定要保证数据私有。</strong><br>这是最重要的；绝对不要破坏封装性。有时候，可能需要编写一个访问方法或更改器方法，但是最好还是保持实例字段的私有性。很多惨痛的教训告诉我们，数据的表示形式很可能会改变，但它们的使用方式却不会经常变化。当数据保持私有时，表示形式的变化不会对类的使用者产生影响，而且也更容易检测 bug。</p>
+</li>
+<li><p><strong>一定要初始化数据。</strong><br>Java 不会为你初始化局部变量，但是会对对象的实例字段进行初始化。最好不要依赖于系统的默认值，而是应该显式地初始化所有变量，可以提供默认值，也可以在所有构造器中设置默认值。</p>
+</li>
+<li><p><strong>不要在类中使用过多的基本类型。</strong><br>其想法是要用其他的类，而不是使用多个相关的基本类型。这样会使类更易于理解，也更易于修改。例如，可以用一个名为 Address 的新类替换一个 Customer 类中的以下实例字段：</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> String street;<br><span class="hljs-keyword">private</span> String city;<br><span class="hljs-keyword">private</span> String state;<br><span class="hljs-keyword">private</span> <span class="hljs-type">int</span> zip;<br></code></pre></td></tr></table></figure>
+
+<p>这样一来，可以很容易地处理地址的变化，例如，可能需要处理国际地址。</p>
+<ol start="4">
+<li><p><strong>不是所有的字段都需要单独的字段访问器和更改器。</strong><br>你可能需要获得或设置员工的工资。而一旦构造了员工对象，肯定不需要更改雇用日期。另外，在对象中，常常包含一些不希望别人获得或设置的实例字段，例如，Address类中的州缩写数组。</p>
+</li>
+<li><p><strong>分解有过多职责的类。</strong><br>这样说似乎有点含糊，究竟多少算是”过多”？每个人的看法都不同。但是，如果明显地可以将一个复杂的类分解成两个概念上更为简单的类，就应该进行分解。（但另一方面，也不要走极端。如果设计10个类，每个类只有一个方法，显然就有些矫枉过正了。）</p>
+<p>下面是一个反面的设计示例。</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CardDeck</span> <span class="hljs-comment">// bad design</span><br>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span>[] value;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span>[] suit;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">CardDeck</span><span class="hljs-params">()</span> &#123; . . . &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">shuffle</span><span class="hljs-params">()</span> &#123; . . . &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getTopValue</span><span class="hljs-params">()</span> &#123; . . . &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getTopSuit</span><span class="hljs-params">()</span> &#123; . . . &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">draw</span><span class="hljs-params">()</span> &#123; . . . &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>实际上，这个类实现了两个独立的概念：一副牌（包含shuffle方法和draw方法）和一张牌（包含查看面值和花色的方法）。最好引入一个表示一张牌的Card类。现在有两个类，每个类分别完成自己的职责：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CardDeck</span><br>&#123;<br>    <span class="hljs-keyword">private</span> Card[] cards;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">CardDeck</span><span class="hljs-params">()</span> &#123; . . . &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">shuffle</span><span class="hljs-params">()</span> &#123; . . . &#125;<br>    <span class="hljs-keyword">public</span> Card <span class="hljs-title function_">getTop</span><span class="hljs-params">()</span> &#123; . . . &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">draw</span><span class="hljs-params">()</span> &#123; . . . &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Card</span><br>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> value;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> suit;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Card</span><span class="hljs-params">(<span class="hljs-type">int</span> aValue, <span class="hljs-type">int</span> aSuit)</span> &#123; . . . &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getValue</span><span class="hljs-params">()</span> &#123; . . . &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getSuit</span><span class="hljs-params">()</span> &#123; . . . &#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="6">
+<li><p><strong>类名和方法名要能够体现它们的职责。</strong><br>变量应该有一个能够反映其含义的名字，类似地，类也应该如此（在标准类库中，确实存在着一些含义不明确的例子，如 Date 类实际上是一个描述时间的类）。</p>
+<p>对此有一个很好的惯例：类名应当是一个名词（Order），或者是前面有形容词修饰的名词（RushOrder），或者是有动名词（有”-ing”后缀）修饰的名词（例如，BillingAddress）。对于方法来说，要遵循标准惯例：访问器方法用小写 get 开头（getSalary），更改器方法用小写的 set 开头（setSalary）。</p>
+</li>
+<li><p><strong>优先使用不可变的类。</strong><br>LocalDate 类以及 java.time 包中的其他类是不可变的——没有方法能修改对象的状态。类似 plusDays 的方法并不会更改对象，而是会返回状态已修改的新对象。</p>
+<p>更改对象的问题在于，如果多个线程试图同时更新一个对象，就会发生并发更改，其结果是不可预料的。如果类是不可变的，就可以安全地在多个线程间共享其对象。</p>
+<p>因此，要尽可能让类是不可变的，这是一个很好的想法。对于表示值的类，如一个字符串或一个时间点，这尤其容易。计算会生成新值，而不是更新原来的值。</p>
+<p>当然，并不是所有类都应当是不可变的。如果员工加薪时让 raiseSalary 方法返回一个新的 Employee 对象，这会很奇怪。</p>
+</li>
+</ol>
 
                 
               </div>
