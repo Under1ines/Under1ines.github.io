@@ -26,14 +26,14 @@
 <meta property="og:site_name" content="Under1ines">
 <meta property="og:description" content="1234public class Manager extends Employee&#123;    added methods and fields&#125;  在Java中，所有的继承都是公共继承。 关键字extends指示正在构造的新类派生于一个已存在的类。 这个已存在的类称为超类、基类或父类；新类称为子类或派生类。 子类比超类拥有的功能更多。所有员工组成的集合包含所有经理组成的集合，员工">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E4%BA%94%E7%AB%A0/image-20251104162723467.png">
-<meta property="og:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E4%BA%94%E7%AB%A0/image-20251104163123122.png">
+<meta property="og:image" content="http://example.com/2025/10/20/%E3%80%8AJava%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7%E4%B8%80%E3%80%8B%E7%AC%AC%E4%BA%94%E7%AB%A0/image-20251104162723467.png">
+<meta property="og:image" content="http://example.com/2025/10/20/%E3%80%8AJava%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7%E4%B8%80%E3%80%8B%E7%AC%AC%E4%BA%94%E7%AB%A0/image-20251104163123122.png">
 <meta property="article:published_time" content="2025-10-20T07:50:33.000Z">
 <meta property="article:modified_time" content="2025-11-04T10:14:40.100Z">
 <meta property="article:author" content="Under1ines">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E4%BA%94%E7%AB%A0/image-20251104162723467.png">
+<meta name="twitter:image" content="http://example.com/2025/10/20/%E3%80%8AJava%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7%E4%B8%80%E3%80%8B%E7%AC%AC%E4%BA%94%E7%AB%A0/image-20251104162723467.png">
   
   
   
@@ -692,7 +692,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String... args)</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="5-6-抽象类"><a href="#5-6-抽象类" class="headerlink" title="5.6 抽象类"></a>5.6 抽象类</h3><p>如果自下而上在类的继承层次结构中上移，那么位于上层的类更具有一般性，也可能更加抽象。从某种角度看，祖先类更有一般性，人们只将它作为派生其他类的基类，而不是用来构造你想使用的特定实例。例如，考虑扩展 Employee 类层次结构。员工是一个人，学生也是一个人。下面扩展我们的类层次结构来加入类 Person 和类 Student。图 5-2 显示了这三个类之间的继承关系。</p>
-<p><img src="/2025/05/04/hello-world/%E7%AC%AC%E4%BA%94%E7%AB%A0/image-20251104162723467.png" srcset="/img/loading.gif" lazyload alt="image-20251104162723467"></p>
+<p><img src="/2025/10/20/%E3%80%8AJava%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7%E4%B8%80%E3%80%8B%E7%AC%AC%E4%BA%94%E7%AB%A0/image-20251104162723467.png" srcset="/img/loading.gif" lazyload alt="image-20251104162723467"></p>
 <p>为什么要那么麻烦提供这样一个高层次的抽象呢？每个人都有一些属性，如姓名。学生与员工都有姓名，通过引入一个公共的超类，我们就可以把 <code>getName</code> 方法放在继承层次结构中更高的一层。</p>
 <p>现在，再增加一个 <code>getDescription</code> 方法，它可以返回对一个人的简短描述，例如</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">an employee with a salary of $<span class="hljs-number">50</span>,<span class="hljs-number">000.00</span><br>a student majoring in computer science<br></code></pre></td></tr></table></figure>
@@ -785,7 +785,7 @@
 <p>编译器可以检查出这里不需要 default 子句，因为 JSONValue 的所有直接子类都已经出现在 case 分支中。</p>
 <p>注释：前面的 type 方法看起来不太具有面向对象特点。按照 OOP 的精神，这 6 个类应当提供自己的 type 方法，应该依赖多态性而不是一个 switch。对于一个开放性的层次结构，这是一种好方法。不过，对于一组固定的类，通常更方便的做法是在一个方法中处理所有候选类。</p>
 <p>乍一看，似乎密封类的子类必须是 final 类。但对于穷尽测试，我们只需要知道所有直接子类。如果那些类有自己的子类，那么这并没有问题。例如，我们的 JSON 层次结构如图 5-3 所示。</p>
-<p><img src="/2025/05/04/hello-world/%E7%AC%AC%E4%BA%94%E7%AB%A0/image-20251104163123122.png" srcset="/img/loading.gif" lazyload alt="image-20251104163123122"></p>
+<p><img src="/2025/10/20/%E3%80%8AJava%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7%E4%B8%80%E3%80%8B%E7%AC%AC%E4%BA%94%E7%AB%A0/image-20251104163123122.png" srcset="/img/loading.gif" lazyload alt="image-20251104163123122"></p>
 <p>​							<strong>图 5-3 表示 JSON 值的类的完整层次结构</strong></p>
 <p>在这个层次结构中，JSONValue 允许有 3 个子类：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">sealed</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JSONValue</span> <span class="hljs-keyword">permits</span> JSONObject, JSONArray, JSONPrimitive<br>&#123;<br>    . . .<br>&#125;<br></code></pre></td></tr></table></figure>
