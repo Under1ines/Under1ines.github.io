@@ -1,0 +1,787 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Under1ines">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第6章 接口、lambda 表达式与内部类首先介绍第一种技术，即接口（interface），接口用来描述类应该做什么，而不指定它们具体应该如何做。一个类可以实现（implement）一个或多个接口。只要符合所要求的接口，就可以使用实现了这个接口的类（即实现类）的对象。讨论接口以后，我们会继续介绍 lambda 表达式，这是一种简洁的方法，用来创建可以在将来某个时间点执行的代码块。通过使用 lamb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Java核心技术卷一》第六章">
+<meta property="og:url" content="http://example.com/2025/11/11/%E3%80%8AJava%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7%E4%B8%80%E3%80%8B%E7%AC%AC%E5%85%AD%E7%AB%A0/index.html">
+<meta property="og:site_name" content="Under1ines">
+<meta property="og:description" content="第6章 接口、lambda 表达式与内部类首先介绍第一种技术，即接口（interface），接口用来描述类应该做什么，而不指定它们具体应该如何做。一个类可以实现（implement）一个或多个接口。只要符合所要求的接口，就可以使用实现了这个接口的类（即实现类）的对象。讨论接口以后，我们会继续介绍 lambda 表达式，这是一种简洁的方法，用来创建可以在将来某个时间点执行的代码块。通过使用 lamb">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-11-11T12:41:58.000Z">
+<meta property="article:modified_time" content="2025-11-11T13:09:22.299Z">
+<meta property="article:author" content="Under1ines">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>《Java核心技术卷一》第六章 - Under1ines</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/overflow.css">
+<link rel="stylesheet" href="/css/macpanel.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/mk.css">
+<link rel="stylesheet" href="/css/overflow-x.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/galssbg.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/read-progress.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"emn3PvyiOCx6egBxwdtmWVVQ-gzGzoHsz","app_key":"zGrReu0ZhBUMcc7YzNOvfEd3","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Under1ines</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/index.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="《Java核心技术卷一》第六章"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-11-11 20:41" pubdate>
+          2025年11月11日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">《Java核心技术卷一》第六章</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="第6章-接口、lambda-表达式与内部类"><a href="#第6章-接口、lambda-表达式与内部类" class="headerlink" title="第6章 接口、lambda 表达式与内部类"></a>第6章 接口、lambda 表达式与内部类</h2><p>首先介绍第一种技术，即<strong>接口（interface）</strong>，<strong>接口用来描述类应该做什么，而不指定它们具体应该如何做</strong>。一个类可以实现（implement）一个或多个接口。只要符合所要求的接口，就可以使用实现了这个接口的类（即实现类）的对象。讨论接口以后，我们会继续介绍 lambda 表达式，这是一种简洁的方法，用来创建可以在将来某个时间点执行的代码块。通过使用 lambda 表达式，可以用一种精巧而简洁的方式表示使用回调或可变行为的代码。</p>
+<p>接下来，我们将讨论内部类（inner class）机制。理论上讲，内部类有些复杂，内部类定义在另外一个类的内部，它们的方法可以访问其外部类的字段。内部类技术在设计合作类集合时很有用。</p>
+<h3 id="6-1-接口"><a href="#6-1-接口" class="headerlink" title="6.1 接口"></a>6.1 接口</h3><p>在下面的小节中，你会了解 Java 接口是什么以及如何使用，另外还会了解 Java 最新的儿个版本中接口的功能有怎样的提升。</p>
+<h4 id="6-1-1-接口的概念"><a href="#6-1-1-接口的概念" class="headerlink" title="6.1.1 接口的概念"></a>6.1.1 接口的概念</h4><p><strong>在 Java 程序设计语言中，接口不是类，而是对希望符合这个接口的类的一组需求</strong>。</p>
+<p>我们经常听到某个服务的提供商这样说：“如果你的类符合某个特定接口，我就会履行这项服务。”下面给出一个具体的示例。<code>Arrays</code>类中的<code>sort</code>方法承诺可以对对象数组进行排序，但要求满足下面这个条件：对象所属的类必须实现<code>Comparable</code>接口。</p>
+<p>下面是<code>Comparable</code>接口的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Comparable</span> &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-title function_">compareTo</span><span class="hljs-params">(Object other)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>在这个接口中，compareTo 方法是抽象的，它没有具体实现。任何实现 Comparable 接口的类都需要包含一个 compareTo 方法，这个方法必须接受一个 Object 参数，并返回一个整数。否则，这个类也应当是抽象的，也就是说，你不能构造这个类的对象。</strong></p>
+<blockquote>
+<p>注释：在 Java 5 中，Comparable 接口已经提升为一个泛型类型。  </p>
+<p>例如，在实现 <code>Comparable&lt;Employee&gt;</code> 接口的类中，必须提供以下方法：  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Comparable</span>&lt;T&gt; &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-title function_">compareTo</span><span class="hljs-params">(T other)</span>; <span class="hljs-comment">// parameter has type T</span><br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>仍然可以使用不带类型参数的 “ 原始 ” Comparable 类型。这样一来，compareTo 方法就有一个 Object 类型的参数，你必须手动将 compareTo 方法的这个参数强制转换为所希望的类型。稍后我们再做这个工作，所以不用担心同时学习两个新概念。</p>
+</blockquote>
+<p><strong>接口中的所有方法都自动是 public 方法。因此，在接口中声明方法时，不必提供关键字 public 。</strong></p>
+<p>当然，还有一个接口没有明确说明的额外要求：调用 <code>x.compareTo(y)</code> 的时候，这个 compareTo 方法实际上必须能够比较两个对象，并返回比较的结果，即 x 和 y 哪一个更大。当 x 小于 y 时，返回一个负数；当 x 等于 y 时，返回 0 ；否则返回一个正数。</p>
+<p>这个特定接口只有一个方法，而有些接口可能包含多个方法。稍后可以看到，接口还可以定义常量。不过，更重要的是要知道接口不能提供什么。<strong>接口绝不会有实例字段，在 Java 8 之前，接口中的方法都是抽象方法</strong>。（在6.1.4节和6.1.5节中可以看到，现在接口中还可以有其他方法。当然，那些方法不能引用实例字段——接口没有实例。）</p>
+<p>现在，假设希望使用 Arrays 类的 sort 方法对 Employee 对象数组进行排序，Employee 类就必须实现 Comparable 接口。</p>
+<p>为了让类实现一个接口，需要完成下面两个步骤：</p>
+<ol>
+<li><strong>将类声明为实现给定的接口。</strong>  </li>
+<li><strong>对接口中的所有方法提供定义。</strong></li>
+</ol>
+<p>要声明一个类实现某个接口，需要使用关键字 implements：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Comparable</span><br></code></pre></td></tr></table></figure>
+
+<p>当然，现在 Employee 类需要提供 compareTo 方法。假设我们希望根据员工的薪水进行比较。以下是 compareTo 方法的一个实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compareTo</span><span class="hljs-params">(Object otherObject)</span> &#123;<br>    <span class="hljs-type">Employee</span> <span class="hljs-variable">other</span> <span class="hljs-operator">=</span> (Employee) otherObject;<br>    <span class="hljs-keyword">return</span> Double.compare(salary, other.salary);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在这里，我们使用了静态 <code>Double.compare</code> 方法。如果第一个参数小于第二个参数，它会返回一个负值；如果二者相等则返回 0；否则返回一个正值。</p>
+<blockquote>
+<p>⚠️ 警告：在接口声明中，没有将 compareTo 方法声明为 public ，这是因为，接口中的所有方法都自动是 public 方法。不过，在实现接口时，必须把方法声明为 public，否则，编译器将认为这个方法的访问属性是包可访问，这是类中默认的访问属性，之后编译器就会报错，指出你试图提供更严格的访问权限。</p>
+</blockquote>
+<p>我们可以做得更好一些。可以为泛型 Comparable 接口提供一个类型参数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Comparable</span>&lt;Employee&gt; &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compareTo</span><span class="hljs-params">(Employee other)</span> &#123;<br>        <span class="hljs-keyword">return</span> Double.compare(salary, other.salary);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>请注意，对Object参数进行强制类型转换总是让人感觉不太顺眼，但现在已经不见了。</p>
+<blockquote>
+<p>提示：Comparable接口中的compareTo方法将返回一个整数。如果两个对象不相等，返回哪个正值或者负值并不重要。在对两个整数字段进行比较时，这种灵活性非常有用。例如，假设每个员工都有一个唯一的整数id，你希望根据员工ID号进行排序，那么可以直接返回 <code>id - other.id</code>。如果第一个ID号小于另一个ID，这个值将是一个负值；如果两个ID相等，这个值就是0；否则，这将是一个正值。但有一点需要注意：整数的范围要足够小，以避免减法运算溢出。如果能够确信ID为非负数，或者它们的绝对值不会超过 <code>(Integer.MAX_VALUE - 1) / 2</code>，就不会出现问题。否则，可以调用静态 <code>Integer.compare</code> 方法。</p>
+</blockquote>
+<p>当然，这里的相减技巧不适用于浮点数。因为如果 salary 和 other.salary 很接近但又不相等，它们的差经过四舍五入后有可能变成0。如果 x &lt; y，<code>Double.compare(x, y)</code> 调用会返回 -1；如果 x &gt; y 则返回1。</p>
+<blockquote>
+<p>注释：Comparable接口的文档建议compareTo方法应当与equals方法兼容。也就是说，当 <code>x.equals(y)</code> 时，<code>x.compareTo(y)</code> 就应当等于0。Java API中大多数实现Comparable接口的类都遵从了这个建议。不过有一个重要的例外，就是BigDecimal。考虑 <code>x = new BigDecimal(&quot;1.0&quot;)</code> 和 <code>y = new BigDecimal(&quot;1.00&quot;)</code>。这里 <code>x.equals(y)</code> 为false，因为两个数的精度不同。不过 <code>x.compareTo(y)</code> 为0。理想情况下应该不返回0，但是没有明确的方法能够确定这两个数哪一个更大。</p>
+</blockquote>
+<p>现在，我们已经看到，要让一个类使用排序服务必须让它实现compareTo方法。这是理所当然的，因为要向sort方法提供对象的比较方式。但是为什么不能在Employee类中直接提供一个compareTo方法（而不实现Comparable接口）呢？</p>
+<p>使用接口的主要原因在于：Java程序设计语言是一种强类型（strongly typed）语言。调用方法时，编译器要能检查这个方法确实存在。在sort方法中可能会有类似下面的语句：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (a[i].compareTo(a[j]) &gt; <span class="hljs-number">0</span>)<br>&#123;<br>    <span class="hljs-comment">//rearrange a[i] and a[j]</span><br>    . . .<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>编译器必须确认 <code>a[i]</code> 一定有一个 <code>compareTo</code> 方法。如果 <code>a</code> 是一个 <code>Comparable</code> 对象的数组，就可以确保肯定有 <code>compareTo</code> 方法，因为每个实现 <code>Comparable</code> 接口的类都必须提供这个方法。</p>
+<blockquote>
+<p>自注释：你可能认为，如果将 <code>Arrays</code> 类中的 <code>sort</code> 方法定义为接受一个 <code>Comparable</code> 数组，倘若有人调用 <code>sort</code> 方法时所提供数组的元素类型没有实现 <code>Comparable</code> 接口，编译器就能报错。遗憾的是，事实并非如此。实际上，<code>sort</code> 方法接受一个 <code>Object</code> 数组，并使用一个笨拙的强制类型转换：  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"> <span class="hljs-comment">// approach used in the standard library -- not recommended</span><br><span class="hljs-keyword">if</span> (((Comparable) a[i]).compareTo(a[j]) &gt; <span class="hljs-number">0</span>)<br>&#123;<br> <span class="hljs-comment">//rearrange a[i] and a[j]</span><br>    . . .<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果 <code>a[i]</code> 不属于一个实现了 <code>Comparable</code> 接口的类，虚拟机就会抛出一个异常。</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>《Java核心技术卷一》第六章</div>
+      <div>http://example.com/2025/11/11/《Java核心技术卷一》第六章/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Under1ines</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年11月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/10/30/%E3%80%8AJava%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7%E4%B8%80%E3%80%8B%E7%AC%AC%E5%9B%9B%E7%AB%A0/" title="《Java核心技术卷一》第四章">
+                        <span class="hidden-mobile">《Java核心技术卷一》第四章</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"emn3PvyiOCx6egBxwdtmWVVQ-gzGzoHsz","appKey":"zGrReu0ZhBUMcc7YzNOvfEd3","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/stars.js"></script>
+<script src="/js/love.js"></script>
+<script src="/js/read-progress.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/love.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
+
+
