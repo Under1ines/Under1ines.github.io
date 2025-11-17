@@ -28,8 +28,13 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E5%85%AD%E7%AB%A0/image-20251112162316224.png">
 <meta property="og:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E5%85%AD%E7%AB%A0/image-20251114112834579.png">
+<meta property="og:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E5%85%AD%E7%AB%A0/image-20251117155511784.png">
+<meta property="og:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E5%85%AD%E7%AB%A0/image-20251117155518998.png">
+<meta property="og:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E5%85%AD%E7%AB%A0/image-20251117155701856.png">
+<meta property="og:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E5%85%AD%E7%AB%A0/image-20251117155714497.png">
+<meta property="og:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E5%85%AD%E7%AB%A0/image-20251117225059058.png">
 <meta property="article:published_time" content="2025-11-11T12:41:58.000Z">
-<meta property="article:modified_time" content="2025-11-16T09:00:05.596Z">
+<meta property="article:modified_time" content="2025-11-17T15:07:00.910Z">
 <meta property="article:author" content="Under1ines">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E5%85%AD%E7%AB%A0/image-20251112162316224.png">
@@ -262,7 +267,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          12k 字
+          18k 字
         
       </span>
     
@@ -273,7 +278,7 @@
         
         
         
-          105 分钟
+          149 分钟
         
       </span>
     
@@ -738,7 +743,6 @@
 <p>在第 1 种情况下，方法引用等价于一个 lambda 表达式，其参数要传递到方法。对于 <code>System.out::println</code>，对象是 <code>System.out</code>，所以这个方法引用等价于 <code>x -&gt; System.out.println(x)</code>。</p>
 <p>对于第 2 种情况，第 1 个参数会成为方法的隐式参数。例如，<code>String::compareToIgnoreCase</code>等同于<code>(x, y) -&gt; x.compareToIgnoreCase(y)</code>。</p>
 <p>在第3种情况下，所有参数都传递到静态方法：<code>Math::pow</code> 等价于 <code>(x, y) -&gt; Math.pow(x, y)</code>。</p>
-<p>表6-1 提供了更多示例。</p>
 <p>注意，只有当 lambda 表达式的体只调用一个方法而不做其他操作时，才能把 lambda 表达式重写为方法引用。考虑以下 lambda 表达式：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">s -&gt; s.length() == <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
 
@@ -764,9 +768,244 @@
 <h4 id="6-2-5-构造器引用"><a href="#6-2-5-构造器引用" class="headerlink" title="6.2.5 构造器引用"></a>6.2.5 构造器引用</h4><p>构造器引用与方法引用很类似，只不过方法名为 <code>new</code>。例如，<code>Person::new</code> 是 <code>Person</code> 构造器的一个引用。哪一个构造器呢？这取决于上下文。假设你有一个字符串列表。可以在各个字符串上调用构造器，把这个字符串列表转换为一个 <code>Person</code> 对象数组，调用如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">ArrayList&lt;String&gt; names = ...;<br>Stream&lt;Person&gt; stream = names.stream().map(Person::<span class="hljs-keyword">new</span>);<br>List&lt;Person&gt; people = stream.toList();<br></code></pre></td></tr></table></figure>
 
-<p>我们将在卷 II 的第 1 章讨论 <code>stream</code>、<code>map</code> 和 <code>toList</code> 方法的详细内容。就现在来说，重点是 <code>map</code> 方法会为各个列表元素调用 <code>Person(String)</code> 构造器。如果有多个 <code>Person</code> 构造器，编译器会选择有一个 <code>String</code> 参数的构造器，因为它从上下文推导出这是在调用带一个字符串的构造器。</p>
+<p> <code>map</code> 方法会为各个列表元素调用 <code>Person(String)</code> 构造器。如果有多个 <code>Person</code> 构造器，编译器会选择有一个 <code>String</code> 参数的构造器，因为它从上下文推导出这是在调用带一个字符串的构造器。</p>
 <p>可以用数组类型建立构造器引用。例如，<code>int[]::new</code> 是一个构造器引用，它有一个参数：数组的长度。这等价于 lambda 表达式 <code>x -&gt; new int[x]</code>。</p>
-<p>第 8 章中将会看到，Java 有一个限制：无法构造泛型类型 <code>T</code> 的数组。数组构造器引用对于解决这类问题很有用。</p>
+<p>**Java 有一个限制：无法构造泛型类型 <code>T</code> 的数组。**数组构造器引用对于克服这个限制很有用。（表达式 <code>new T[n]</code> 会产生错误，因为这会“擦除”为 <code>new Object[n]</code>）。</p>
+<p>对于开发类库的人来说，这是一个问题。例如，假设我们需要一个 Person 对象数组。Stream 接口有一个 <code>toArray</code> 方法可以返回 Object 数组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Object[] people = stream.toArray();<br></code></pre></td></tr></table></figure>
+
+<p>用户希望得到一个 Person 引用数组，而不是 Object 引用数组。</p>
+<p>流库利用构造器引用解决了这个问题。可以把 <code>Person[]::new</code> 传入 <code>toArray</code> 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Person[] people = stream.toArray(Person[]::<span class="hljs-keyword">new</span>);<br></code></pre></td></tr></table></figure>
+
+<p><code>toArray</code> 方法调用这个构造器来得到一个有正确类型的数组。然后填充并返回这个数组。</p>
+<h4 id="6-2-6-变量作用域"><a href="#6-2-6-变量作用域" class="headerlink" title="6.2.6 变量作用域"></a>6.2.6 变量作用域</h4><p>你可能希望能够在 lambda 表达式中访问外围方法或类中的变量。考虑下面这个例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">repeatMessage</span><span class="hljs-params">(String text, <span class="hljs-type">int</span> delay)</span> &#123;<br>    <span class="hljs-type">ActionListener</span> <span class="hljs-variable">listener</span> <span class="hljs-operator">=</span> event -&gt; &#123;<br>        System.out.println(text);<br>        Toolkit.getDefaultToolkit().beep();<br>    &#125;;<br>    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timer</span>(delay, listener).start();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>来看这样一个调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">repeatMessage(<span class="hljs-string">&quot;Hello&quot;</span>, <span class="hljs-number">1000</span>); <span class="hljs-comment">// prints Hello every 1000 milliseconds</span><br></code></pre></td></tr></table></figure>
+
+<p>现在来看 lambda 表达式中的变量 <code>text</code>。注意这个变量并不是在这个 lambda 表达式中定义的。实际上，这是 <code>repeatMessage</code> 方法的一个参数变量。</p>
+<p>lambda 表达式的代码可能在 <code>repeatMessage</code> 调用返回很久以后才运行，而那时这个参数变量已经不存在了。<code>text</code> 变量是如何保留下来的呢？</p>
+<p>lambda 表达式的组成：</p>
+<ol>
+<li>一个代码块；  </li>
+<li>参数；  </li>
+<li>自由变量的值，这是指非参数而且不在代码中定义的变量。</li>
+</ol>
+<p>在我们的例子中，这个 lambda 表达式有一个自由变量 <code>text</code>。表示 lambda 表达式的数据结构必须存储自由变量的值，在这里就是字符串 <code>&quot;Hello&quot;</code>。我们说这些值被 lambda 表达式<strong>捕获（captured）</strong>。</p>
+<blockquote>
+<p><strong>注释</strong>：关于代码块连同自由变量值有一个术语：闭包（closure）。在 Java 中，lambda 表达式就是闭包。</p>
+</blockquote>
+<p>**可以看到，lambda 表达式可以捕获外围作用域中变量的值。**在 Java 中，为了确保所捕获的值是明确定义的，这里有一个重要的限制。**在 lambda 表达式中，只能引用值不会改变的变量。**例如，下面的做法是不合法的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">countDown</span><span class="hljs-params">(<span class="hljs-type">int</span> start, <span class="hljs-type">int</span> delay)</span> &#123;<br>    <span class="hljs-type">ActionListener</span> <span class="hljs-variable">listener</span> <span class="hljs-operator">=</span> event -&gt; &#123;<br>        start--; <span class="hljs-comment">// ERROR: Can&#x27;t mutate captured variable</span><br>        System.out.println(start);<br>    &#125;;<br>    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timer</span>(delay, listener).start();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果在 lambda 表达式中更改变量，并发执行多个动作时就会不安全。</p>
+<p>另外，**如果在 lambda 表达式中引用一个变量，而这个变量可能在外部改变，这也是不合法的。**例如，下面就是不合法的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">repeat</span><span class="hljs-params">(String text, <span class="hljs-type">int</span> count)</span> &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= count; i++) &#123;<br>        <span class="hljs-type">ActionListener</span> <span class="hljs-variable">listener</span> <span class="hljs-operator">=</span> event -&gt;<br>            System.out.println(i + <span class="hljs-string">&quot;:&quot;</span> + text); <span class="hljs-comment">// ERROR: Cannot refer to changing i</span><br>        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timer</span>(<span class="hljs-number">1000</span>, listener).start();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里有一条规则：<strong>lambda 表达式中捕获的变量必须是事实最终变量（effectively final）</strong>。**事实最终变量是指，这个变量初始化之后就不会再为它赋新值。**在这里，<code>text</code> 总是指示同一个 String 对象，所以捕获这个变量是可以的。不过，<code>i</code> 的值会改变，因此不能捕获 <code>i</code>。</p>
+<p>lambda 表达式的体与嵌套块有相同的作用域。这里同样适用命名冲突和遮蔽的有关规则。<strong>在 lambda 表达式中声明与一个局部变量同名的参数或局部变量是不合法的。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Path</span> <span class="hljs-variable">first</span> <span class="hljs-operator">=</span> Path.of(<span class="hljs-string">&quot;/usr/bin&quot;</span>);<br>Comparator&lt;String&gt; comp =<br>    (first, second) -&gt; first.length() - second.length(); <span class="hljs-comment">// ERROR: Variable first already defined</span><br></code></pre></td></tr></table></figure>
+
+<p>在一个方法中，不能有两个同名的局部变量，因此，<strong>lambda 表达式中同样也不能有同名的局部变量。</strong></p>
+<p>**在一个 lambda 表达式中使用 <code>this</code> 关键字时，是指创建这个 lambda 表达式的方法的 <code>this</code> 参数。**例如，考虑下面的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Application</span> <br>&#123;<br>   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">init</span><span class="hljs-params">()</span> <br>   &#123;<br>    <span class="hljs-type">ActionListener</span> <span class="hljs-variable">listener</span> <span class="hljs-operator">=</span> event -&gt;&#123;<br>        System.out.println(<span class="hljs-built_in">this</span>.toString());<br>        ...<br>    	&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>表达式 <code>this.toString()</code> 会调用 <code>Application</code> 对象的 <code>toString</code> 方法，而不是 <code>ActionListener</code> 实例的方法。在 lambda 表达式中，<code>this</code> 的使用并没有任何特殊之处。lambda 表达式的作用域嵌套在 <code>init</code> 方法中，不论 <code>this</code> 在 lambda 表达式中，还是出现在这个方法中的其他位置，其含义并没有不同。</p>
+<h4 id="6-2-7-处理-lambda-表达式"><a href="#6-2-7-处理-lambda-表达式" class="headerlink" title="6.2.7 处理 lambda 表达式"></a>6.2.7 处理 lambda 表达式</h4><p>下面来看如何编写方法处理 lambda 表达式。</p>
+<p>使用 lambda 表达式的重点是<strong>延迟执行（deferred execution）</strong>。毕竟，如果想要立即执行代码，完全可以直接执行，而无须把它包装在一个 lambda 表达式中。之所以希望以后再执行代码，这有很多原因，如：</p>
+<ul>
+<li>在一个单独的线程中运行代码；</li>
+<li>多次运行代码；</li>
+<li>在算法的适当位置运行代码（例如，排序中的比较操作）；</li>
+<li>发生某种情况时运行代码（如，点击了一个按钮，数据已经到达，等等）；</li>
+<li>只在必要时才运行代码。</li>
+</ul>
+<p>假设你想要重复一个动作 n 次。将这个动作和重复次数传递到一个 <code>repeat</code> 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">repeat(<span class="hljs-number">10</span>, () -&gt; System.out.println(<span class="hljs-string">&quot;Hello, World!&quot;</span>));<br></code></pre></td></tr></table></figure>
+
+<p>要接受这个 lambda 表达式，需要选择（偶尔可能需要提供）一个函数式接口。表6-2列出了 Java API 中提供的最重要的函数式接口。在这里，我们可以使用 <code>Runnable</code> 接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">repeat</span><span class="hljs-params">(<span class="hljs-type">int</span> n, Runnable action)</span> <br>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++) action.run();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2025/05/04/hello-world/%E7%AC%AC%E5%85%AD%E7%AB%A0/image-20251117155511784.png" srcset="/img/loading.gif" lazyload alt="image-20251117155511784"></p>
+<p><img src="/2025/05/04/hello-world/%E7%AC%AC%E5%85%AD%E7%AB%A0/image-20251117155518998.png" srcset="/img/loading.gif" lazyload alt="image-20251117155518998"></p>
+<p>需要说明，调用 <code>action.run()</code> 时会执行这个 lambda 表达式的主体。</p>
+<p>我们希望告诉这个动作它出现在哪一次迭代中。为此，需要选择一个合适的函数式接口，其中要包含一个方法，这个方法有一个 <code>int</code> 参数而且返回类型为 <code>void</code>。处理 <code>int</code> 值的标准接口如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">IntConsumer</span> &#123;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">accept</span><span class="hljs-params">(<span class="hljs-type">int</span> value)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>下面给出 <code>repeat</code> 方法的改进版本：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">repeat</span><span class="hljs-params">(<span class="hljs-type">int</span> n, IntConsumer action)</span> &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++) action.accept(i);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以如下调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">repeat(<span class="hljs-number">10</span>, i -&gt; System.out.println(<span class="hljs-string">&quot;Countdown: &quot;</span> + (<span class="hljs-number">9</span> - i)));<br></code></pre></td></tr></table></figure>
+
+<p>表6-3列出了基本类型 <code>int</code>、<code>long</code> 和 <code>double</code> 的 34 个可用的特殊化接口。使用这些特殊化接口比使用通用接口更高效。</p>
+<p><img src="/2025/05/04/hello-world/%E7%AC%AC%E5%85%AD%E7%AB%A0/image-20251117155701856.png" srcset="/img/loading.gif" lazyload alt="image-20251117155701856"></p>
+<p><img src="/2025/05/04/hello-world/%E7%AC%AC%E5%85%AD%E7%AB%A0/image-20251117155714497.png" srcset="/img/loading.gif" lazyload alt="image-20251117155714497"></p>
+<blockquote>
+<p><strong>提示</strong>：最好使用表6-2或表6-3中的接口。例如，假设要编写一个方法来处理满足某个特定条件的文件。对此有一个遗留接口 <code>java.io.FileFilter</code>，不过最好使用标准的 <code>Predicate&lt;File&gt;</code>。只有一种情况下可以不这么做，那就是你已经有很多有用的方法可以产生 <code>FileFilter</code> 实例。</p>
+</blockquote>
+<blockquote>
+<p><strong>注释</strong>：**大多数标准函数式接口都提供了非抽象方法来生成或合并函数。**例如：</p>
+<ul>
+<li><code>Predicate.isEqual(a)</code> 等同于 <code>a::equals</code>，不过如果 <code>a</code> 为 <code>null</code> 也能正常工作。</li>
+<li>已经提供了默认方法 <code>and</code>、<code>or</code> 和 <code>negate</code> 来合并谓词。例如：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Predicate.isEqual(a).or(Predicate.isEqual(b))<br></code></pre></td></tr></table></figure>
+
+<p>就等同于：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">x -&gt; a.equals(x) || b.equals(x)<br></code></pre></td></tr></table></figure></blockquote>
+<blockquote>
+<p><strong>注释</strong>：如果你设计你自己的接口，其中只有一个抽象方法，可以用 <code>@FunctionalInterface</code> 注解来标记这个接口。这样做有两个优点：</p>
+<ol>
+<li>如果你无意中增加了另一个抽象方法，编译器会给出一个错误消息。</li>
+<li>另外 javadoc 页中会指出你的接口是一个函数式接口。</li>
+</ol>
+<p>并不是必须使用注解。根据定义，任何只有一个抽象方法的接口都是函数式接口。不过使用 <code>@FunctionalInterface</code> 注解确实是一个好主意。</p>
+</blockquote>
+<blockquote>
+<p><strong>注释</strong>：有些程序员喜欢将方法调用串起来，如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">String</span> <span class="hljs-variable">input</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;618970019642690137449562111&quot;</span>;<br><span class="hljs-type">boolean</span> <span class="hljs-variable">isPrime</span> <span class="hljs-operator">=</span> input.strip()<br>                       .transform(BigInteger::<span class="hljs-keyword">new</span>)<br>                       .isProbablePrime(<span class="hljs-number">20</span>);<br></code></pre></td></tr></table></figure>
+
+<p><code>String</code> 类的 <code>transform</code> 方法（Java 12 中新增）对字符串应用一个 <code>Function</code>，并生成结果。同样地，这些调用也可以写为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">boolean</span> <span class="hljs-variable">prime</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BigInteger</span>(input.strip()).isProbablePrime(<span class="hljs-number">20</span>);<br></code></pre></td></tr></table></figure>
+
+<p>不过这样一来，你的视线必须左右跳来跳去，要找出哪一个先执行，哪一个后执行：首先调用 <code>strip</code>，然后构造 <code>BigInteger</code>，最后检测它是否是一个可能的素数。</p>
+<p>遗憾的是，它只适用于字符串。</p>
+</blockquote>
+<h4 id="6-2-8-再谈-Comparator"><a href="#6-2-8-再谈-Comparator" class="headerlink" title="6.2.8 再谈 Comparator"></a>6.2.8 再谈 Comparator</h4><p><code>Comparator</code> 接口包含很多方便的静态方法来创建比较器。这些方法可以用于 lambda 表达式或方法引用。</p>
+<p>静态 <code>comparing</code> 方法接受一个“键提取器”函数，它将类型 T 映射为一个可比较的类型（如 String）。对要比较的对象应用这个函数，然后对返回的键完成比较。例如，假设有一个 <code>Person</code> 对象数组，可以如下按姓名对这些对象进行排序：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Arrays.sort(people, Comparator.comparing(Person::getName));<br></code></pre></td></tr></table></figure>
+
+<p>可以把比较器与 <code>thenComparing</code> 方法串起来，来处理比较结果相同的情况。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">Arrays.sort(people,<br>    Comparator.comparing(Person::getLastName)<br>              .thenComparing(Person::getFirstName));<br></code></pre></td></tr></table></figure>
+
+<p>如果两个人的姓相同，就会使用第二个比较器。</p>
+<p>这些方法有很多变体形式。可以为 <code>comparing</code> 和 <code>thenComparing</code> 方法提取的键指定一个比较器。例如，可以如下根据人名长度完成排序：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Arrays.sort(people, Comparator.comparing(Person::getName,<br>    (s, t) -&gt; Integer.compare(s.length(), t.length())));<br></code></pre></td></tr></table></figure>
+
+<p>另外，<code>comparing</code> 和 <code>thenComparing</code> 方法都有变体形式，可以避免 <code>int</code>、<code>long</code> 或 <code>double</code> 值的装箱。要完成前一个操作，还有一种更容易的做法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Arrays.sort(people, Comparator.comparingInt(p -&gt; p.getName().length()));<br></code></pre></td></tr></table></figure>
+
+<p>如果键函数可能返回 <code>null</code>，可能就要用到 <code>nullsFirst</code> 和 <code>nullsLast</code> 适配器。这些静态方法会修改现有的比较器，从而在遇到 <code>null</code> 值时不会抛出异常，而是将这个值标记为小于或大于正常值。例如，假设一个人没有中名时 <code>getMiddleName</code> 会返回一个 <code>null</code>，就可以使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Comparator.comparing(Person::getMiddleName, Comparator.nullsFirst(...));<br></code></pre></td></tr></table></figure>
+
+<p><code>nullsFirst</code> 方法需要一个比较器，在这里就是比较两个字符串的比较器。<code>naturalOrder</code> 方法可以为任何实现了 <code>Comparable</code> 的类建立一个比较器。在这里，<code>Comparator.&lt;String&gt;naturalOrder()</code> 正是我们需要的。下面是一个完整的调用，可以按可能为 <code>null</code> 的中名进行排序。这里使用了静态导入 <code>java.util.Comparator.*</code>，使这个表达式更为简洁，更便于阅读。注意 <code>naturalOrder</code> 的类型会推导得出：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Arrays.sort(people, comparing(Person::getMiddleName, nullsFirst(naturalOrder())));<br></code></pre></td></tr></table></figure>
+
+<p>静态 <code>reverseOrder</code> 方法会提供自然顺序的逆序。要让比较器逆序比较，可以使用 <code>reversed</code> 实例方法。例如 <code>naturalOrder().reversed()</code> 等同于 <code>reverseOrder()</code>。</p>
+<h3 id="6-3-内部类"><a href="#6-3-内部类" class="headerlink" title="6.3 内部类"></a>6.3 内部类</h3><p><strong>内部类（inner class）是定义在另一个类中的类</strong>。为什么需要使用内部类呢？主要有两个原因：</p>
+<ul>
+<li>内部类可以对同一个包中的其他类隐藏。</li>
+<li>内部类方法可以访问定义这些方法的作用域中的数据，包括原本私有的数据。</li>
+</ul>
+<p>内部类的对象会有一个隐式引用，指向实例化这个对象的外部类对象。通过这个指针，它可以访问外部对象的全部状态。例如，在 Java 中，<code>Iterator</code> 类不需要它所指的 <code>LinkedList</code> 的一个显式指针。</p>
+<p>在 Java 中，静态内部类没有这个附加的指针，所以 Java 的静态内部类就相当于 C++ 中的嵌套类。</p>
+<h4 id="6-3-1-使用内部类访问对象状态"><a href="#6-3-1-使用内部类访问对象状态" class="headerlink" title="6.3.1 使用内部类访问对象状态"></a>6.3.1 使用内部类访问对象状态</h4><p>我们将重构 <code>TimerTest</code> 示例，提取出一个 <code>TalkingClock</code> 类。构造一个语音时钟时需要提供两个参数：发出通知的间隔和开关铃声的标志。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TalkingClock</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> interval;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> beep;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">TalkingClock</span><span class="hljs-params">(<span class="hljs-type">int</span> interval, <span class="hljs-type">boolean</span> beep)</span> &#123; ... &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">start</span><span class="hljs-params">()</span> &#123; ... &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TimePrinter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ActionListener</span> &#123;<br>        <span class="hljs-comment">// an inner class</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>需要注意，这里的 <code>TimePrinter</code> 类位于 <code>TalkingClock</code> 类内部。这并不意味着每个 <code>TalkingClock</code> 都有一个 <code>TimePrinter</code> 实例字段。如前所示，<code>TimePrinter</code> 对象是由 <code>TalkingClock</code> 类的方法构造的。</p>
+<p>下面是 <code>TimePrinter</code> 类的详细内容。需要注意一点，<code>actionPerformed</code> 方法在发出铃声之前会检查 <code>beep</code> 标志。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TimePrinter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ActionListener</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">actionPerformed</span><span class="hljs-params">(ActionEvent event)</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;At the tone, the time is &quot;</span><br>            + Instant.ofEpochMilli(event.getWhen()));<br>        <span class="hljs-keyword">if</span> (beep) Toolkit.getDefaultToolkit().beep();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>令人惊讶的事情发生了。<code>TimePrinter</code> 类没有实例字段或者名为 <code>beep</code> 的变量，实际上，<code>beep</code> 指示创建这个 <code>TimePrinter</code> 的 <code>TalkingClock</code> 对象中的字段。可以看到，一个内部类方法可以访问自身的实例字段，也可以访问创建它的外部类对象的实例字段。</p>
+<p>为此，内部类的对象总有一个隐式引用，指向创建它的外部类对象，如图6-3所示。</p>
+<p><img src="/2025/05/04/hello-world/%E7%AC%AC%E5%85%AD%E7%AB%A0/image-20251117225059058.png" srcset="/img/loading.gif" lazyload alt="image-20251117225059058"></p>
+<p>这个引用在内部类的定义中是不可见的。不过，为了说明这个概念，我们将外部类对象的引用称为 <code>outer</code>。于是 <code>actionPerformed</code> 方法将等价于以下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">actionPerformed</span><span class="hljs-params">(ActionEvent event)</span> &#123;<br>    System.out.println(<span class="hljs-string">&quot;At the tone, the time is &quot;</span><br>        + Instant.ofEpochMilli(event.getWhen()));<br>    <span class="hljs-keyword">if</span> (outer.beep) Toolkit.getDefaultToolkit().beep();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>外部类的引用在构造器中设置。编译器会修改所有的内部类构造器，添加一个对应外部类引用的参数。因为 <code>TimePrinter</code> 类没有定义构造器，所以编译器为这个类生成了一个无参数构造器，生成的代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">TimePrinter</span><span class="hljs-params">(TalkingClock clock)</span> &#123; <span class="hljs-comment">// automatically generated code</span><br>    outer = clock;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>再次强调，注意 <code>outer</code> 不是 Java 的关键字。我们只是用它说明内部类的有关机制。</p>
+<p>在 <code>start</code> 方法中构造一个 <code>TimePrinter</code> 对象后，编译器就会将当前语音时钟的 <code>this</code> 引用传递给这个构造器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">var</span> <span class="hljs-variable">listener</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TimePrinter</span>(<span class="hljs-built_in">this</span>); <span class="hljs-comment">// parameter automatically added</span><br></code></pre></td></tr></table></figure>
+
+<p>下面我们再来看访问控制。如果 <code>TimePrinter</code> 类是一个普通的类，它就需要通过 <code>TalkingClock</code> 类的公共方法访问 <code>beep</code> 标志，而使用内部类是一个改进，现在就不再需要提供只有另外一个类感兴趣的访问器了。</p>
+<blockquote>
+<p><strong>注释</strong>：我们也可以把 <code>TimePrinter</code> 类声明为私有（<code>private</code>）。这样一来，只有 <code>TalkingClock</code> 方法才能够构造 <code>TimePrinter</code> 对象。只有内部类可以是私有的，而常规类可以有包可见性或公共可见性。</p>
+</blockquote>
+<h4 id="6-3-2-内部类的特殊语法规则"><a href="#6-3-2-内部类的特殊语法规则" class="headerlink" title="6.3.2 内部类的特殊语法规则"></a>6.3.2 内部类的特殊语法规则</h4><p>我们解释了内部类有一个外部类的引用，我们把它叫作 <code>outer</code>。表达式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">OuterClass.<span class="hljs-built_in">this</span><br></code></pre></td></tr></table></figure>
+
+<p>表示外部类引用。例如，可以像下面这样编写 <code>TimePrinter</code> 内部类的 <code>actionPerformed</code> 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">actionPerformed</span><span class="hljs-params">(ActionEvent event)</span> &#123;<br>    <span class="hljs-keyword">if</span> (TalkingClock.<span class="hljs-built_in">this</span>.beep) Toolkit.getDefaultToolkit().beep();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>反过来，可以采用以下语法更加明确地编写内部类对象的构造器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">outerObject.<span class="hljs-keyword">new</span> <span class="hljs-title class_">InnerClass</span>(construction parameters)<br></code></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">ActionListener</span> <span class="hljs-variable">listener</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.<span class="hljs-keyword">new</span> <span class="hljs-title class_">TimePrinter</span>();<br></code></pre></td></tr></table></figure>
+
+<p>在这里，新构造的 <code>TimePrinter</code> 对象的外部类引用被设置为创建内部类对象的方法的 <code>this</code> 引用。这是最常见的情况。通常，<code>this.</code> 限定符是多余的。不过，也有可能通过显式地命名将外部类引用设置为其他对象。例如，由于 <code>TimePrinter</code> 是一个公共内部类，可以为任意的语音时钟构造一个 <code>TimePrinter</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">var</span> <span class="hljs-variable">jabberer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TalkingClock</span>(<span class="hljs-number">1000</span>, <span class="hljs-literal">true</span>);<br>TalkingClock.<span class="hljs-type">TimePrinter</span> <span class="hljs-variable">listener</span> <span class="hljs-operator">=</span> jabberer.<span class="hljs-keyword">new</span> <span class="hljs-title class_">TimePrinter</span>();<br></code></pre></td></tr></table></figure>
+
+<p>需要注意，在外部类的作用域之外，可以这样引用内部类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">OuterClass.InnerClass<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注释</strong>：<strong>内部类中声明的所有静态字段都必须是 <code>final</code></strong>，并初始化为一个编译时常量。如果这个字段不是一个常量，就可能不唯一。</p>
+<p>内部类不能有 <code>static</code> 方法。Java 语言规范对这个限制没有做任何解释。</p>
+</blockquote>
+<h4 id="6-3-3-内部类是否有用、必要和安全"><a href="#6-3-3-内部类是否有用、必要和安全" class="headerlink" title="6.3.3 内部类是否有用、必要和安全"></a>6.3.3 内部类是否有用、必要和安全</h4><p>内部类将转换为常规的类文件，用 <code>$</code>（美元符号）分隔外部类名与内部类名。例如，<code>TalkingClock</code> 类内部的 <code>TimePrinter</code> 类将转换成类文件 <code>TalkingClock$TimePrinter.class</code>。为了查看它的实际工作，可以尝试下面的实验：运行第 5 章中的程序 <code>ReflectionTest</code>，并提供类 <code>TalkingClock$TimePrinter</code> 来完成反射。或者，也可以直接使用 <code>javap</code> 工具，如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">javap -private ClassName<br></code></pre></td></tr></table></figure>
+
+<p>会得到以下输出结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">innerClass</span>.TalkingClock$TimePrinter<br>  <span class="hljs-keyword">implements</span> <span class="hljs-title class_">java</span>.awt.event.ActionListener<br>&#123;<br>  <span class="hljs-keyword">final</span> innerClass.TalkingClock <span class="hljs-built_in">this</span>$<span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">public</span> innerClass.TalkingClock$TimePrinter(innerClass.TalkingClock);<br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">actionPerformed</span><span class="hljs-params">(java.awt.event.ActionEvent)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以清楚地看到，编译器生成了一个额外的实例字段 <code>this$0</code>，对应外部类的引用。（名字 <code>this$0</code> 是编译器合成的，在你自己编写的代码中不能引用这个字段。）另外，还可以看到构造器的 <code>TalkingClock</code> 参数。</p>
+<p>如果编译器能够自动完成这个转换，那么能不能自己编写程序实现这种机制呢？让我们试试看。将 <code>TimePrinter</code> 定义成一个常规类，把它置于 <code>TalkingClock</code> 类的外部。在构造 <code>TimePrinter</code> 对象的时候，传入创建它的对象的 <code>this</code> 指针。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">TalkingClock</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">start</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">var</span> <span class="hljs-variable">listener</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TimePrinter</span>(<span class="hljs-built_in">this</span>);<br>        <span class="hljs-type">var</span> <span class="hljs-variable">timer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timer</span>(interval, listener);<br>        timer.start();<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TimePrinter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ActionListener</span> &#123;<br>    <span class="hljs-keyword">private</span> TalkingClock outer;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">TimePrinter</span><span class="hljs-params">(TalkingClock clock)</span> &#123;<br>        outer = clock;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>现在来看 <code>actionPerformed</code> 方法，它需要访问 <code>outer.beep</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (outer.beep) ... <span class="hljs-comment">// ERROR</span><br></code></pre></td></tr></table></figure>
+
+<p>这就遇到了一个问题。内部类可以访问外部类的私有数据，但我们的外部 <code>TimePrinter</code> 类则不行。</p>
+<p>在 Java 11 之前，内部类纯粹是一种编译器现象，虚拟机对它们并没有任何特别的了解。那时，如果用 <code>ReflectionTest</code> 程序查看 <code>TalkingClock</code> 类，或者使用 <code>javap</code> 并提供 <code>-private</code> 选项来查看，会显示以下结果：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-keyword">class</span> <span class="hljs-title class_">TalkingClock</span><br>&#123;<br>  <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> interval;<br>  <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> beep;<br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">TalkingClock</span><span class="hljs-params">(<span class="hljs-type">int</span>, <span class="hljs-type">boolean</span>)</span></span>;<br>  <span class="hljs-type">static</span> <span class="hljs-type">boolean</span> access$<span class="hljs-number">0</span>(TalkingClock); <span class="hljs-comment">// Prior to Java 11</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title">start</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>请注意编译器在外部类中添加的静态方法 <code>access$0</code>。它将返回作为参数传递的那个对象的 <code>beep</code> 字段。（方法名可能稍有不同，如可能是 <code>access$000</code>，这取决于你的编译器。）</p>
+<p>在 Java 11 中，虚拟机了解类之间的嵌套关系，不再生成访问方法。</p>
+<h4 id="6-3-4-局部内部类"><a href="#6-3-4-局部内部类" class="headerlink" title="6.3.4 局部内部类"></a>6.3.4 局部内部类</h4><p>如果仔细查看 <code>TalkingClock</code> 示例的代码就会发现，类型 <code>TimePrinter</code> 的名字只出现了一次：就是在 <code>start</code> 方法中创建这个类型的对象时使用了一次。</p>
+<p>在类似这样的情况下，可以在一个方法中局部地定义这个类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">start</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">class</span> <span class="hljs-title class_">TimePrinter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ActionListener</span> &#123;<br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">actionPerformed</span><span class="hljs-params">(ActionEvent event)</span> &#123;<br>            System.out.println(<span class="hljs-string">&quot;At the tone, the time is &quot;</span><br>                + Instant.ofEpochMilli(event.getWhen()));<br>            <span class="hljs-keyword">if</span> (beep) Toolkit.getDefaultToolkit().beep();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-type">var</span> <span class="hljs-variable">listener</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TimePrinter</span>();<br>    <span class="hljs-type">var</span> <span class="hljs-variable">timer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timer</span>(interval, listener);<br>    timer.start();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>声明局部类时不能有访问说明符（即 <code>public</code> 或 <code>private</code>）。局部类的作用域总是限定在声明这个局部类的块中。</strong></p>
+<p>局部类有一个很大的优势，即对外部世界完全隐藏，甚至 <code>TalkingClock</code> 类中的其他代码也不能访问它。除 <code>start</code> 方法之外，没有任何方法知道 <code>TimePrinter</code> 类的存在。</p>
+<h4 id="6-3-5-由外部方法访问变量"><a href="#6-3-5-由外部方法访问变量" class="headerlink" title="6.3.5 由外部方法访问变量"></a>6.3.5 由外部方法访问变量</h4><p>与其他内部类相比较，局部类还有另外一个优点。它们不仅能够访问外部类的字段，还可以访问局部变量！不过，那些局部变量必须是<strong>事实最终变量（effectively final）</strong>。这说明，<strong>它们一旦赋值就绝不会改变。</strong></p>
+<p>下面是一个典型的示例。这里，将 <code>TalkingClock</code> 构造器的参数 <code>interval</code> 和 <code>beep</code> 移至 <code>start</code> 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">start</span><span class="hljs-params">(<span class="hljs-type">int</span> interval, <span class="hljs-type">boolean</span> beep)</span> &#123;<br>    <span class="hljs-keyword">class</span> <span class="hljs-title class_">TimePrinter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ActionListener</span> &#123;<br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">actionPerformed</span><span class="hljs-params">(ActionEvent event)</span> &#123;<br>            System.out.println(<span class="hljs-string">&quot;At the tone, the time is &quot;</span><br>                + Instant.ofEpochMilli(event.getWhen()));<br>            <span class="hljs-keyword">if</span> (beep) Toolkit.getDefaultToolkit().beep();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-type">var</span> <span class="hljs-variable">listener</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TimePrinter</span>();<br>    <span class="hljs-type">var</span> <span class="hljs-variable">timer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timer</span>(interval, listener);<br>    timer.start();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>请注意，<code>TalkingClock</code> 类不再需要存储 <code>beep</code> 实例字段。它只是引用 <code>start</code> 方法的 <code>beep</code> 参数变量。</p>
+<p>这看起来好像没什么值得大惊小怪的。毕竟，下面这行代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (beep) ...<br></code></pre></td></tr></table></figure>
+
+<p>最后总会在 <code>start</code> 方法中，为什么不能访问 <code>beep</code> 变量的值呢？</p>
+<p>为了能够清楚地看到这里一个微妙的问题，让我们仔细考虑这个控制流程：</p>
+<ol>
+<li>调用 <code>start</code> 方法。  </li>
+<li>调用内部类 <code>TimePrinter</code> 的构造器，从而初始化对象变量 <code>listener</code>。  </li>
+<li>将 <code>listener</code> 引用传递给 <code>Timer</code> 构造器，定时器开始计时，<code>start</code> 方法退出。此时，<code>start</code> 方法的 <code>beep</code> 参数变量不复存在。  </li>
+<li>1 秒之后，<code>actionPerformed</code> 方法执行 <code>if (beep)</code>…</li>
+</ol>
+<p>要让 <code>actionPerformed</code> 方法中的代码正常工作，<code>TimePrinter</code> 类必须在 <code>beep</code> 参数值消失之前将 <code>beep</code> 字段复制为 <code>start</code> 方法的一个局部变量。实际上也是这样做的。在我们的例子中，编译器为局部内部类合成了名字 <code>TalkingClock$1TimePrinter</code>。如果再次使用 <code>ReflectionTest</code> 程序或者 <code>javap</code> 工具查看 <code>TalkingClock$1TimePrinter</code> 类，就会看到以下结果：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">class</span> <span class="hljs-symbol">TalkingClock</span>$<span class="hljs-symbol">1TimePrinter</span> &#123;<br>    TalkingClock$<span class="hljs-number">1</span>TimePrinter(<span class="hljs-built_in">bool</span>ean);<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> actionPerformed(java.awt.event.ActionEvent);<br>    <span class="hljs-keyword">final</span> <span class="hljs-built_in">bool</span>ean val$beep;<br>    <span class="hljs-keyword">final</span> TalkingClock <span class="hljs-keyword">this</span>$<span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>创建一个对象的时候，<code>beep</code> 变量的当前值会存储在 <code>val$beep</code> 字段中。在 Java 11 中，可以利用“嵌套伴侣”（nestmate）访问来实现。之前，内部类构造器有一个额外的参数来设置这个字段。不论采用哪种方法，即使局部变量出了作用域，内部类字段都将持久保存。</p>
+<h4 id="6-3-6-匿名内部类"><a href="#6-3-6-匿名内部类" class="headerlink" title="6.3.6 匿名内部类"></a>6.3.6 匿名内部类</h4><p>使用局部内部类时，通常还可以再进一步。假如只想创建这个类的一个对象，甚至不需要为类指定名字。这样一个类被称为<strong>匿名内部类（anonymous inner class）</strong>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">start</span><span class="hljs-params">(<span class="hljs-type">int</span> interval, <span class="hljs-type">boolean</span> beep)</span> &#123;<br>    <span class="hljs-type">var</span> <span class="hljs-variable">listener</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActionListener</span>() &#123;<br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">actionPerformed</span><span class="hljs-params">(ActionEvent event)</span> &#123;<br>            System.out.println(<span class="hljs-string">&quot;At the tone, the time is &quot;</span><br>                + Instant.ofEpochMilli(event.getWhen()));<br>            <span class="hljs-keyword">if</span> (beep) Toolkit.getDefaultToolkit().beep();<br>        &#125;<br>    &#125;;<br>    <span class="hljs-type">var</span> <span class="hljs-variable">timer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timer</span>(interval, listener);<br>    timer.start();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个语法确实很晦涩难懂。它的含义是：创建一个类的新对象，这个类实现了 <code>ActionListener</code> 接口，需要实现的方法 <code>actionPerformed</code> 是在大括号 <code>&#123;&#125;</code> 中定义的方法。</p>
+<p>一般地，语法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">new</span> <span class="hljs-title class_">SuperType</span>(construction parameters) &#123;<br>    inner <span class="hljs-keyword">class</span> <span class="hljs-title class_">methods</span> and data<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在这里，<code>SuperType</code> 可以是接口，如 <code>ActionListener</code>，如果是这样，内部类就要实现这个接口。<code>SuperType</code> 也可以是一个类，如果是这样，内部类就要扩展这个类。</p>
+<p>由于构造器的名字必须与类名相同，而匿名内部类没有类名，所以，匿名内部类不能有构造器。实际上，构造参数要传递给超类（superclass）构造器。具体地，只要内部类实现一个接口，就不能有任何构造参数。不过，仍然要提供一组小括号，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">new</span> <span class="hljs-title class_">InterfaceType</span>() &#123;<br>    methods and data<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>必须仔细研究构造一个类的新对象与构造一个匿名内部类（扩展了那个类）的对象之间有什么区别。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">var</span> <span class="hljs-variable">queen</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Person</span>(<span class="hljs-string">&quot;Mary&quot;</span>);         <span class="hljs-comment">// a Person object</span><br><span class="hljs-type">var</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Person</span>(<span class="hljs-string">&quot;Dracula&quot;</span>) &#123; ... &#125;; <span class="hljs-comment">// an object of an inner class extending Person</span><br></code></pre></td></tr></table></figure>
 
                 
               </div>
