@@ -26,10 +26,13 @@
 <meta property="og:site_name" content="Under1ines">
 <meta property="og:description" content="第6章 接口、lambda 表达式与内部类首先介绍第一种技术，即接口（interface），接口用来描述类应该做什么，而不指定它们具体应该如何做。一个类可以实现（implement）一个或多个接口。只要符合所要求的接口，就可以使用实现了这个接口的类（即实现类）的对象。讨论接口以后，我们会继续介绍 lambda 表达式，这是一种简洁的方法，用来创建可以在将来某个时间点执行的代码块。通过使用 lamb">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E5%85%AD%E7%AB%A0/image-20251112162316224.png">
+<meta property="og:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E5%85%AD%E7%AB%A0/image-20251114112834579.png">
 <meta property="article:published_time" content="2025-11-11T12:41:58.000Z">
-<meta property="article:modified_time" content="2025-11-11T13:09:22.299Z">
+<meta property="article:modified_time" content="2025-11-16T09:00:05.596Z">
 <meta property="article:author" content="Under1ines">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2025/05/04/hello-world/%E7%AC%AC%E5%85%AD%E7%AB%A0/image-20251112162316224.png">
   
   
   
@@ -259,7 +262,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          12k 字
         
       </span>
     
@@ -270,7 +273,7 @@
         
         
         
-          18 分钟
+          105 分钟
         
       </span>
     
@@ -354,30 +357,416 @@
 
 <p>在这里，我们使用了静态 <code>Double.compare</code> 方法。如果第一个参数小于第二个参数，它会返回一个负值；如果二者相等则返回 0；否则返回一个正值。</p>
 <blockquote>
-<p>⚠️ 警告：在接口声明中，没有将 compareTo 方法声明为 public ，这是因为，接口中的所有方法都自动是 public 方法。不过，在实现接口时，必须把方法声明为 public，否则，编译器将认为这个方法的访问属性是包可访问，这是类中默认的访问属性，之后编译器就会报错，指出你试图提供更严格的访问权限。</p>
+<p>⚠️ <strong>警告</strong>：在接口声明中，没有将 compareTo 方法声明为 public ，这是因为，接口中的所有方法都自动是 public 方法。不过，<strong>在实现接口时，必须把方法声明为 public</strong>，否则，编译器将认为这个方法的访问属性是包可访问，这是类中默认的访问属性，之后编译器就会报错，指出你试图提供更严格的访问权限。</p>
 </blockquote>
 <p>我们可以做得更好一些。可以为泛型 Comparable 接口提供一个类型参数：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Comparable</span>&lt;Employee&gt; &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compareTo</span><span class="hljs-params">(Employee other)</span> &#123;<br>        <span class="hljs-keyword">return</span> Double.compare(salary, other.salary);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>请注意，对Object参数进行强制类型转换总是让人感觉不太顺眼，但现在已经不见了。</p>
+<p>请注意，对 Object 参数进行强制类型转换总是让人感觉不太顺眼，但现在已经不见了。</p>
 <blockquote>
-<p>提示：Comparable接口中的compareTo方法将返回一个整数。如果两个对象不相等，返回哪个正值或者负值并不重要。在对两个整数字段进行比较时，这种灵活性非常有用。例如，假设每个员工都有一个唯一的整数id，你希望根据员工ID号进行排序，那么可以直接返回 <code>id - other.id</code>。如果第一个ID号小于另一个ID，这个值将是一个负值；如果两个ID相等，这个值就是0；否则，这将是一个正值。但有一点需要注意：整数的范围要足够小，以避免减法运算溢出。如果能够确信ID为非负数，或者它们的绝对值不会超过 <code>(Integer.MAX_VALUE - 1) / 2</code>，就不会出现问题。否则，可以调用静态 <code>Integer.compare</code> 方法。</p>
+<p><strong>提示</strong>：Comparable 接口中的 compareTo 方法将返回一个整数。如果两个对象不相等，返回哪个正值或者负值并不重要。在对两个整数字段进行比较时，这种灵活性非常有用。例如，假设每个员工都有一个唯一的整数id，你希望根据员工ID号进行排序，那么可以直接返回 <code>id - other.id</code>。如果第一个ID号小于另一个ID，这个值将是一个负值；如果两个ID相等，这个值就是0；否则，这将是一个正值。但有一点需要注意：整数的范围要足够小，以避免减法运算溢出。如果能够确信ID为非负数，或者它们的绝对值不会超过 <code>(Integer.MAX_VALUE - 1) / 2</code>，就不会出现问题。否则，可以调用静态 <code>Integer.compare</code> 方法。</p>
 </blockquote>
-<p>当然，这里的相减技巧不适用于浮点数。因为如果 salary 和 other.salary 很接近但又不相等，它们的差经过四舍五入后有可能变成0。如果 x &lt; y，<code>Double.compare(x, y)</code> 调用会返回 -1；如果 x &gt; y 则返回1。</p>
+<p>当然，这里的相减技巧不适用于浮点数。因为如果 salary 和 other.salary 很接近但又不相等，它们的差经过四舍五入后有可能变成 0。如果 x &lt; y，<code>Double.compare(x, y)</code> 调用会返回 -1；如果 x &gt; y 则返回1。</p>
 <blockquote>
-<p>注释：Comparable接口的文档建议compareTo方法应当与equals方法兼容。也就是说，当 <code>x.equals(y)</code> 时，<code>x.compareTo(y)</code> 就应当等于0。Java API中大多数实现Comparable接口的类都遵从了这个建议。不过有一个重要的例外，就是BigDecimal。考虑 <code>x = new BigDecimal(&quot;1.0&quot;)</code> 和 <code>y = new BigDecimal(&quot;1.00&quot;)</code>。这里 <code>x.equals(y)</code> 为false，因为两个数的精度不同。不过 <code>x.compareTo(y)</code> 为0。理想情况下应该不返回0，但是没有明确的方法能够确定这两个数哪一个更大。</p>
+<p><strong>注释</strong>：Comparable 接口的文档建议 compareTo 方法应当与 equals 方法兼容。也就是说，当 <code>x.equals(y)</code> 时，<code>x.compareTo(y)</code> 就应当等于0。Java API 中大多数实现 Comparable 接口的类都遵从了这个建议。不过有一个重要的例外，就是 <code>BigDecimal</code> 。考虑 <code>x = new BigDecimal(&quot;1.0&quot;)</code> 和 <code>y = new BigDecimal(&quot;1.00&quot;)</code>。这里 <code>x.equals(y)</code> 为false，因为两个数的精度不同。不过 <code>x.compareTo(y)</code> 为0。理想情况下应该不返回0，但是没有明确的方法能够确定这两个数哪一个更大。</p>
 </blockquote>
-<p>现在，我们已经看到，要让一个类使用排序服务必须让它实现compareTo方法。这是理所当然的，因为要向sort方法提供对象的比较方式。但是为什么不能在Employee类中直接提供一个compareTo方法（而不实现Comparable接口）呢？</p>
-<p>使用接口的主要原因在于：Java程序设计语言是一种强类型（strongly typed）语言。调用方法时，编译器要能检查这个方法确实存在。在sort方法中可能会有类似下面的语句：</p>
+<p>现在，我们已经看到，要让一个类使用排序服务必须让它实现 compareTo 方法。这是理所当然的，因为要向 sort 方法提供对象的比较方式。但是为什么不能在 Employee 类中直接提供一个 compareTo 方法（而不实现Comparable接口）呢？</p>
+<p>使用接口的主要原因在于：Java程序设计语言是一种<strong>强类型（strongly typed）语言</strong>。调用方法时，编译器要能检查这个方法确实存在。在 sort 方法中可能会有类似下面的语句：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (a[i].compareTo(a[j]) &gt; <span class="hljs-number">0</span>)<br>&#123;<br>    <span class="hljs-comment">//rearrange a[i] and a[j]</span><br>    . . .<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>编译器必须确认 <code>a[i]</code> 一定有一个 <code>compareTo</code> 方法。如果 <code>a</code> 是一个 <code>Comparable</code> 对象的数组，就可以确保肯定有 <code>compareTo</code> 方法，因为每个实现 <code>Comparable</code> 接口的类都必须提供这个方法。</p>
 <blockquote>
-<p>自注释：你可能认为，如果将 <code>Arrays</code> 类中的 <code>sort</code> 方法定义为接受一个 <code>Comparable</code> 数组，倘若有人调用 <code>sort</code> 方法时所提供数组的元素类型没有实现 <code>Comparable</code> 接口，编译器就能报错。遗憾的是，事实并非如此。实际上，<code>sort</code> 方法接受一个 <code>Object</code> 数组，并使用一个笨拙的强制类型转换：  </p>
+<p><strong>注释</strong>：你可能认为，如果将 <code>Arrays</code> 类中的 <code>sort</code> 方法定义为接受一个 <code>Comparable</code> 数组，倘若有人调用 <code>sort</code> 方法时所提供数组的元素类型没有实现 <code>Comparable</code> 接口，编译器就能报错。遗憾的是，事实并非如此。实际上，<code>sort</code> 方法接受一个 <code>Object</code> 数组，并使用一个笨拙的强制类型转换：  </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"> <span class="hljs-comment">// approach used in the standard library -- not recommended</span><br><span class="hljs-keyword">if</span> (((Comparable) a[i]).compareTo(a[j]) &gt; <span class="hljs-number">0</span>)<br>&#123;<br> <span class="hljs-comment">//rearrange a[i] and a[j]</span><br>    . . .<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>如果 <code>a[i]</code> 不属于一个实现了 <code>Comparable</code> 接口的类，虚拟机就会抛出一个异常。</p>
 </blockquote>
+<blockquote>
+<p><strong>注释</strong>：语言标准规定：“对于任意的 x 和 y，实现者必须确保 <code>sgn（x.compareTo(y））= -sgn(y.compareTo（x））</code>（也就是说，如果 y.compareTo（x）抛出一个异常，那么 x.compareTo（y）也应该抛出一个异常。）”这里的 sgn 是一个数的<strong>符号</strong>：如果 n 是负值，sgn(n）为 -1；如果 n 等于 0，sgn（n）为 0 ；如果 n 是正值，sgn(n）为 1。简单地讲，如果翻转 compareTo 的参数，结果的符号也应该翻转（但具体值不一定）。</p>
+<p>与 equals 方法一样，使用继承时有可能会出现问题。</p>
+<p>这是因为 Manager 扩展了 Employee，而 Employee 实现了 <code>Comparable&lt;Employee&gt;</code>，而不是 <code>Comparable&lt;Manager&gt;</code>。如果 Manager 要盖 compareTo，就必须做好准备比较经理与员工，绝不能简单地将员工强制转换成经理：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Manager</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Employee</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compareTo</span><span class="hljs-params">(Employee other)</span> &#123;<br>        <span class="hljs-type">Manager</span> <span class="hljs-variable">otherManager</span> <span class="hljs-operator">=</span> (Manager) other; <span class="hljs-comment">// No</span><br>        ...<br>    &#125;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>违反了 “ 反对称 ” 规则。如果 x 是一个 Employee 对象，y 是一个 Manager 对象，调用 x.compareTo(y）不会抛出异常，它只是将 x 和 y 都作为员工进行比较。但是反过来，y.compareTo（x）将会抛出一个ClassCastException。</p>
+<p>这种情况与第5章中讨论的 equals 方法一样，补救方式也一样。有两种不同的情况。</p>
+<p>如果不同子类中的比较有不同的含义，就应该将属于不同类的对象之间的比较视为非法。每个 compareTo 方法首先都应该进行以下检测：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (getClass() != other.getClass()) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ClassCastException</span>();<br></code></pre></td></tr></table></figure>
+
+<p>如果存在一个比较子类对象的通用算法，那么只需要在超类中提供一个 compareTo 方法，并将这个方法声明为final。</p>
+<p>例如，假设你希望经理大于普通员工，而不论薪水多少，那么诸如 Executive 和 Secretary 等其他子类呢？如果要按照职位排序，那就应该在 Employee 类中提供一个rank方法。让每个子类覆盖 rank，并实现一个考虑 rank值的 compareTo 方法。</p>
+</blockquote>
+<h4 id="6-1-2-接口的属性"><a href="#6-1-2-接口的属性" class="headerlink" title="6.1.2 接口的属性"></a>6.1.2 接口的属性</h4><p>**接口不是类。**具体来说，不能使用 <code>new</code> 操作符实例化一个接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">x = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Comparable</span>(...); <span class="hljs-comment">// ERROR</span><br></code></pre></td></tr></table></figure>
+
+<p>尽管不能构造接口对象，但仍然<strong>能声明接口变量</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Comparable x; <span class="hljs-comment">// OK</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>接口变量必须引用实现了这个接口的一个类对象</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">x = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Employee</span>(...); <span class="hljs-comment">// OK provided Employee implements Comparable</span><br></code></pre></td></tr></table></figure>
+
+<p>如同使用 <code>instanceof</code> 检查一个对象是否属于某个特定类一样，也<strong>可以使用 <code>instanceof</code> 检查一个对象是否实现了某个特定的接口</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (anObject <span class="hljs-keyword">instanceof</span> Comparable) &#123; ... &#125;<br></code></pre></td></tr></table></figure>
+
+<p>与建立类的继承层次结构一样，也可以扩展接口。这允许有多条接口链，从通用性较高的接口扩展到专用性较高的接口。例如，假设有一个名为 <code>Moveable</code> 的接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Moveable</span> &#123;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">move</span><span class="hljs-params">(<span class="hljs-type">double</span> x, <span class="hljs-type">double</span> y)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后，可以假设一个名为 <code>Powered</code> 的接口扩展了以上 <code>Moveable</code> 接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Powered</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Moveable</span> &#123;<br>    <span class="hljs-type">double</span> <span class="hljs-title function_">milesPerGallon</span><span class="hljs-params">()</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>虽然接口中不能包含实例字段，但是可以包含常量</strong>。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Powered</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Moveable</span> &#123;<br>    <span class="hljs-type">double</span> <span class="hljs-title function_">milesPerGallon</span><span class="hljs-params">()</span>;<br>    <span class="hljs-type">double</span> <span class="hljs-variable">SPEED_LIMIT</span> <span class="hljs-operator">=</span> <span class="hljs-number">95</span>; <span class="hljs-comment">// a public static final constant</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>接口中的方法都自动为 <code>public</code>，类似地，接口中的字段总是 <code>public static final</code>。</p>
+<blockquote>
+<p>**注释：**可以将接口方法显式标记为 <code>public</code>，将字段标记为 <code>public static final</code>，这是合法的。有些程序员出于习惯或者提高清晰度的考虑，可能会这样做。但 Java 语言规范建议不要提供冗余的关键字，本书也采纳了这个建议。</p>
+</blockquote>
+<p>尽管每个类只能有一个超类，但可以实现多个接口。这就为定义类的行为提供了极大的灵活性。例如，Java 程序设计语言有一个非常重要的内置接口，名为 <code>Cloneable</code>。如果你的类实现了这个 <code>Cloneable</code> 接口，<code>Object</code> 类中的 <code>clone</code> 方法就可以创建你的类对象的一个完全副本。如果你希望自己设计的类既能够克隆又能够比较，只要实现这两个接口就可以了。可以使用逗号将想要实现的各个接口分隔开。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cloneable</span>, Comparable<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注释</strong>： <strong>记录和枚举类不能扩展其他类</strong>（因为它们隐式地扩展了 <code>Record</code> 和 <code>Enum</code> 类）。不过，它们可以实现接口。</p>
+</blockquote>
+<blockquote>
+<p><strong>注释</strong>： <strong>接口可以是密封的</strong>（<code>sealed</code>）。与密封类一样，直接子类型（可以是类或接口）必须在 <code>permits</code> 子句中声明，或者要放在同一个源文件中。</p>
+</blockquote>
+<h4 id="6-1-3-接口与抽象类"><a href="#6-1-3-接口与抽象类" class="headerlink" title="6.1.3 接口与抽象类"></a>6.1.3 接口与抽象类</h4><p>如果阅读了第5章中有关抽象类的那一节，可能会产生这样一个疑问：为什么 Java 程序设计语言的设计者要那么麻烦地引入接口概念呢？为什么不将 <code>Comparable</code> 直接设计成一个抽象类呢？如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Comparable</span> &#123; <span class="hljs-comment">// why not?</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compareTo</span><span class="hljs-params">(Object other)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样一来，<code>Employee</code> 类只需要扩展这个抽象类，并提供 <code>compareTo</code> 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Comparable</span> &#123; <span class="hljs-comment">// why not?</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compareTo</span><span class="hljs-params">(Object other)</span> &#123; ... &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>非常遗憾，使用抽象基类表示通用属性存在一个严重的问题。每个类只能扩展一个类。假设 <code>Employee</code> 类已经扩展了另一个类，例如 <code>Person</code>，它就不能再扩展第二个类了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Person</span>, Comparable <span class="hljs-comment">// ERROR</span><br></code></pre></td></tr></table></figure>
+
+<p>但每个类可以实现任意多个接口，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Person</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Comparable</span> <span class="hljs-comment">// OK</span><br></code></pre></td></tr></table></figure>
+
+<p>其他程序设计语言（尤其是 C++）允许一个类有多个超类。这个特性称为<strong>多重继承（multiple inheritance）</strong>。Java 的设计者选择不支持多重继承，其主要原因是多重继承会让语言变得非常复杂（如 C++），或者效率会降低（如 Eiffel）。</p>
+<p>实际上，接口可以提供多重继承的大多数好处，同时还能避免多重继承的复杂性和低效性。</p>
+<h4 id="6-1-4-静态和私有方法"><a href="#6-1-4-静态和私有方法" class="headerlink" title="6.1.4 静态和私有方法"></a>6.1.4 静态和私有方法</h4><p>在 Java 8 中，允许在接口中增加静态方法。理论上讲，没有任何理由认为这是不合法的。只是这似乎有违于将接口作为抽象规范的初衷。</p>
+<p>目前为止，通常的做法都是将静态方法放在伴随类中。在标准库中，你会看到成对出现的接口和实用工具类，如 <code>Collection</code>&#x2F;<code>Collections</code> 或 <code>Path</code>&#x2F;<code>Paths</code>。</p>
+<p>可以由一个 URI 或者字符串序列构造一个文件或目录的路径，如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Paths.get(<span class="hljs-string">&quot;jdk-17&quot;</span>, <span class="hljs-string">&quot;conf&quot;</span>, <span class="hljs-string">&quot;security&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>在 Java 11 中，<code>Path</code> 接口提供了等价的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Path</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Path <span class="hljs-title function_">of</span><span class="hljs-params">(URI uri)</span> &#123; ... &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Path <span class="hljs-title function_">of</span><span class="hljs-params">(String first, String... more)</span> &#123; ... &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样一来，<code>Paths</code> 类就不再是必要的了。</p>
+<p>类似地，实现你自己的接口时，没有理由再为实用工具方法另外提供一个伴随类。</p>
+<p>在 Java 9 中，接口中的方法可以是 <code>private</code> 方法。<code>private</code> 方法可以是静态方法或实例方法。由于私有方法只能在接口本身的方法中使用，所以它们的用途很有限，只是作为接口中其他方法的辅助方法。</p>
+<h4 id="6-1-5-默认方法"><a href="#6-1-5-默认方法" class="headerlink" title="6.1.5 默认方法"></a>6.1.5 默认方法</h4><p>可以为任何接口方法提供一个默认实现。必须用 <code>default</code> 修饰符标记这样一个方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Comparable</span>&lt;T&gt; &#123;<br>    <span class="hljs-keyword">default</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compareTo</span><span class="hljs-params">(T other)</span> &#123; <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; &#125;  <span class="hljs-comment">// by default, all elements are the same</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当然，这并没有太大用处，因为 <code>Comparable</code> 的每一个具体实现都会覆盖这个方法。不过有些情况下，默认方法可能很有用。例如，在第9章会看到一个 <code>Iterator</code> 接口，用于访问一个数据结构中的元素。这个接口声明了一个 <code>remove</code> 方法，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Iterator</span>&lt;E&gt; &#123;<br>    <span class="hljs-type">boolean</span> <span class="hljs-title function_">hasNext</span><span class="hljs-params">()</span>;<br>    E <span class="hljs-title function_">next</span><span class="hljs-params">()</span>;<br>	<span class="hljs-keyword">default</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">remove</span><span class="hljs-params">()</span> &#123; <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UnsupportedOperationException</span>(<span class="hljs-string">&quot;remove&quot;</span>); &#125;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果你要实现一个迭代器，就需要提供 <code>hasNext</code> 和 <code>next</code> 方法。这些方法没有默认实现——它们依赖于你要遍历访问的数据结构。不过，如果你的迭代器是只读的，就不用操心实现 <code>remove</code> 方法。</p>
+<p><strong>默认方法可以调用其他方法</strong>。例如，<code>Collection</code> 接口可以定义一个便利方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Collection</span> &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span>; <span class="hljs-comment">// an abstract method</span><br>    <span class="hljs-keyword">default</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isEmpty</span><span class="hljs-params">()</span> &#123; <span class="hljs-keyword">return</span> size() == <span class="hljs-number">0</span>; &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样实现 <code>Collection</code> 的程序员就不用再操心实现 <code>isEmpty</code> 方法了。</p>
+<blockquote>
+<p><strong>注释</strong>：Java API 中的 <code>Collection</code> 接口并没有这样做。实际上，有一个 <code>AbstractCollection</code> 类实现了 <code>Collection</code>，并利用 <code>size</code> 定义了 <code>isEmpty</code>。建议实现集合的程序员扩展 <code>AbstractCollection</code>。不过那个技术已经过时，现在可以直接在接口中实现方法。</p>
+</blockquote>
+<p>默认方法的一个重要用法是 <strong>“ 接口演化 ”（interface evolution）</strong>。以 <code>Collection</code> 接口为例，这个接口作为 Java 的一部分已经有很多年了。假设很久以前你提供了这样一个类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Bag</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Collection</span> &#123;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>后来，在 Java 8 中，又为这个接口增加了一个 <code>stream</code> 方法。</p>
+<p>假设 <code>stream</code> 方法不是一个默认方法，那么 <code>Bag</code> 类将不能编译，因为它没有实现这个新方法。为接口增加一个非默认方法不能保证 <strong>“ 源代码兼容 ”（source compatible）</strong>。</p>
+<p>不过，假设不重新编译这个类，而只是使用原先的一个包含这个类的 JAR 文件。这个类仍能正常加载，尽管没有这个新方法。程序仍然可以正常构造 <code>Bag</code> 实例，不会有意外发生。（为接口增加方法可以做到“二进制兼容”。）不过，如果一个程序在一个 <code>Bag</code> 实例上调用 <code>stream</code> 方法，就会出现一个 <code>AbstractMethodError</code>。</p>
+<p>将方法实现为一个默认（default）方法就可以解决这两个问题。<code>Bag</code> 类又能正常编译了。另外如果没有重新编译而直接加载这个类，并在一个 <code>Bag</code> 实例上调用 <code>stream</code> 方法，则会调用 <code>Collection.stream</code> 方法。</p>
+<h4 id="6-1-6-解决默认方法冲突"><a href="#6-1-6-解决默认方法冲突" class="headerlink" title="6.1.6 解决默认方法冲突"></a>6.1.6 解决默认方法冲突</h4><p>如果先在一个接口中将一个方法定义为默认方法，然后又在超类或另一个接口中定义了同样的方法，会发生什么情况？诸如 Scala 和 C++ 等语言对于解决这种二义性有一些复杂的规则。幸运的是，Java 的相应规则要简单得多。规则如下：</p>
+<ol>
+<li><p><strong>超类优先</strong>。如果超类提供了一个具体方法，同名而且有相同参数类型的默认方法会被忽略。</p>
+</li>
+<li><p><strong>接口冲突</strong>。如果一个接口提供了一个默认方法，另一个接口提供了一个同名而且参数类型相同的方法（不论是否是默认方法），必须覆盖这个方法来解决冲突。</p>
+</li>
+</ol>
+<p>下面来看第二个规则。考虑两个包含 <code>getName</code> 方法的接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Person</span> &#123;<br>    <span class="hljs-keyword">default</span> String <span class="hljs-title function_">getName</span><span class="hljs-params">()</span> &#123; <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>; &#125;<br>&#125;<br><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Named</span> &#123;<br>    <span class="hljs-keyword">default</span> String <span class="hljs-title function_">getName</span><span class="hljs-params">()</span> &#123; <span class="hljs-keyword">return</span> getClass().getName() + <span class="hljs-string">&quot;_&quot;</span> + hashCode(); &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果有一个类同时实现了这两个接口会怎么样呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Person</span>, Named &#123; ... &#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个类会继承 <code>Person</code> 和 <code>Named</code> 接口提供的两个不一致的 <code>getName</code> 方法。并不是从中选择一个，Java 编译器会报告一个错误，让程序员来解决这个二义性问题。只需要在 <code>Student</code> 类中提供一个 <code>getName</code> 方法即可。在这个方法中，可以选择两个冲突方法中的一个，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Person</span>, Named &#123;<br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getName</span><span class="hljs-params">()</span> &#123; <span class="hljs-keyword">return</span> Person.<span class="hljs-built_in">super</span>.getName(); &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>现在假设 <code>Named</code> 接口没有为 <code>getName</code> 提供默认实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Named</span> &#123;<br>    String <span class="hljs-title function_">getName</span><span class="hljs-params">()</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>Student</code> 类会从 <code>Person</code> 接口继承默认方法吗？这好像挺合理，不过，Java 设计者决定更强凋一致性。两个接口如何冲突并不重要。如果至少有一个接口提供了一个实现，编译器就会报告错误，必须由程序员解决这个二义性。</p>
+<blockquote>
+<p><strong>注释</strong>：当然，如果两个接口都没有为共享方法提供默认实现，那么就与 Java 8 之前的情况一样，这里不存在冲突。实现类可以有两个选择：实现这个方法，或者干脆不实现。如果是后一种情况，这个类本身就是抽象的。</p>
+</blockquote>
+<p>我们只讨论了两个接口的命名冲突。现在来考虑另一种情况，一个类扩展了一个超类，同时实现了一个接口，并从超类和接口继承了相同的方法。例如，假设 <code>Person</code> 是一个类，<code>Student</code> 定义为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Person</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Named</span> &#123; ... &#125;<br></code></pre></td></tr></table></figure>
+
+<p>在这种情况下，只会考虑超类方法，接口的所有默认方法都会被忽略。在我们的例子中，<code>Student</code> 从 <code>Person</code> 继承了 <code>getName</code> 方法，<code>Named</code> 接口是否为 <code>getName</code> 提供了默认实现并不会带来什么区别。这正是 <strong>“ 类优先 ”</strong> 规则。</p>
+<p>“ 类优先 ” 规则可以确保与 Java 7 的兼容性。如果为一个接口增加默认方法，这对于有默认方法之前能正常工作的代码不会有任何影响。</p>
+<blockquote>
+<p><strong>警告</strong>： 绝对不能创建一个默认方法重新定义 <code>Object</code> 类中的某个方法。例如，不能为 <code>toString</code> 或 <code>equals</code> 定义默认方法，尽管对于 <code>List</code> 之类的接口这可能很有吸引力。由于“类优先”规则，这样的方法绝对无法超越 <code>Object.toString</code> 或 <code>Object.equals</code>。</p>
+</blockquote>
+<h4 id="6-1-7-接口与回调"><a href="#6-1-7-接口与回调" class="headerlink" title="6.1.7 接口与回调"></a>6.1.7 接口与回调</h4><p>**回调（callback）**是一种常见的程序设计模式。在这种模式中，可以指定某个特定事件发生时应该采取的动作。例如，点击一个按钮或选择某个菜单项时，你可能希望完成某个特定的动作。不过，由于目前还没有介绍如何实现用户界面，所以我们来考虑一种类似但更简单的情况。</p>
+<p>在 <code>javax.swing</code> 包中有一个 <code>Timer</code> 类，如果希望经过一定时间间隔就得到通知，<code>Timer</code> 类就很有用。例如，假如程序中有一个时钟，你可以请求每秒通知一次，以便更新时钟的表盘。</p>
+<p>构造定时器时，需要设置一个时间间隔，并告诉定时器经过这个时间间隔时要做些什么。</p>
+<p>如何告诉定时器要做什么呢？在很多程序设计语言中，可以提供一个函数名，定时器要定期地调用这个函数。但是，Java 标准类库中的类采用了一种面向对象方法。你可以向定时器传入某个类的对象，然后，定时器调用这个对象的某个方法。由于对象可以携带额外的信息，所以传递一个对象比传递一个函数要灵活得多。</p>
+<p>当然，定时器需要知道要调用哪一个方法。它要求你指定一个类的对象，这个类要实现 <code>java.awt.event</code> 包中的 <code>ActionListener</code> 接口。下面是这个接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">ActionListener</span> &#123;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">actionPerformed</span><span class="hljs-params">(ActionEvent event)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当达到指定的时间间隔时，定时器就调用 <code>actionPerformed</code> 方法。</p>
+<p>假设你希望每秒打印一条消息 “At the tone, the time is”，然后响一声，那么可以定义一个实现 <code>ActionListener</code> 接口的类，然后将想要执行的语句放在 <code>actionPerformed</code> 方法中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">TimePrinter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ActionListener</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">actionPerformed</span><span class="hljs-params">(ActionEvent event)</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;At the tone, the time is &quot;</span><br>            + Instant.ofEpochMilli(event.getWhen()));<br>        Toolkit.getDefaultToolkit().beep();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>需要注意 <code>actionPerformed</code> 方法的 <code>ActionEvent</code> 参数。这个参数提供了事件的相关信息，例如，发生这个事件的时间。<code>event.getWhen()</code> 调用会返回这个事件时间，表示为“纪元”（1970年 1 月 1 日）以来的毫秒数。如果把它传入静态方法 <code>Instant.ofEpochMilli</code>，可以得到一个更可读的描述。</p>
+<p>接下来，构造这个类的一个对象，并将它传递到 <code>Timer</code> 构造器。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">var</span> <span class="hljs-variable">listener</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TimePrinter</span>();<br><span class="hljs-type">Timer</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timer</span>(<span class="hljs-number">1000</span>, listener);<br></code></pre></td></tr></table></figure>
+
+<p><code>Timer</code> 构造器的第一个参数是一个时间间隔（单位是毫秒），即经过多长时间通知一次。这里希望每秒通知一次。第二个参数是监听器对象。</p>
+<p>最后，启动定时器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">t.start();<br></code></pre></td></tr></table></figure>
+
+<p>每过 1 秒就会显示下面的消息，然后响一声铃：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">At</span> the tone, the time is <span class="hljs-number">2017</span>-<span class="hljs-number">12</span>-<span class="hljs-number">16</span>T05:<span class="hljs-number">01</span>:<span class="hljs-number">49</span>.<span class="hljs-number">550</span>Z<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>警告</strong>： 一定要导入 <code>javax.swing.Timer</code>。另外还有一个稍有区别的 <code>java.util.Timer</code> 类。</p>
+</blockquote>
+<h4 id="6-1-8-Comparator-接口"><a href="#6-1-8-Comparator-接口" class="headerlink" title="6.1.8 Comparator 接口"></a>6.1.8 Comparator 接口</h4><p>6.1.1 节中，我们已经了解了如何对一个对象数组进行排序，前提是这些对象是实现了 <code>Comparable</code> 接口的类的实例。例如，可以对一个字符串数组排序，因为 <code>String</code> 类实现了 <code>Comparable&lt;String&gt;</code>，而且 <code>String.compareTo</code> 方法可以按字典顺序比较字符串。</p>
+<p>现在假设我们希望按长度递增的顺序对字符串进行排序，而不是按字典顺序进行排序。</p>
+<p>肯定不能让 <code>String</code> 类用两种不同的方式实现 <code>compareTo</code> 方法——更何况，<code>String</code> 类也不应由我们来修改。</p>
+<p>要处理这种情况，<code>Arrays.sort</code> 方法还有第二个版本，接受一个数组和一个比较器（comparator）作为参数，比较器是实现了 <code>Comparator</code> 接口的类的实例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Comparator</span>&lt;T&gt; &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-title function_">compare</span><span class="hljs-params">(T first, T second)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>要按长度比较字符串，可以如下定义一个实现 <code>Comparator&lt;String&gt;</code> 的类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">LengthComparator</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Comparator</span>&lt;String&gt; &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compare</span><span class="hljs-params">(String first, String second)</span> &#123;<br>        <span class="hljs-keyword">return</span> first.length() - second.length();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>具体完成比较时，需要建立一个实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">var</span> <span class="hljs-variable">comp</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LengthComparator</span>();<br><span class="hljs-keyword">if</span> (comp.compare(words[i], words[j]) &gt; <span class="hljs-number">0</span>) ...<br></code></pre></td></tr></table></figure>
+
+<p>将这个调用与 <code>words[i].compareTo(words[j])</code> 做个比较。这个 <code>compare</code> 方法要在比较器对象上调用，而不是在字符串本身调用。</p>
+<blockquote>
+<p><strong>注释</strong>：尽管 <code>LengthComparator</code> 对象没有状态，不过还是需要创建一个对象实例。我们需要这个实例来调用 <code>compare</code> 方法——它不是一个静态方法。</p>
+</blockquote>
+<p>要对一个数组排序，需要为 <code>Arrays.sort</code> 方法传入一个 <code>LengthComparator</code> 对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">String[] friends = &#123; <span class="hljs-string">&quot;Peter&quot;</span>, <span class="hljs-string">&quot;Paul&quot;</span>, <span class="hljs-string">&quot;Mary&quot;</span> &#125;;<br>Arrays.sort(friends, <span class="hljs-keyword">new</span> <span class="hljs-title class_">LengthComparator</span>());<br></code></pre></td></tr></table></figure>
+
+<p>现在这个数组可能是 <code>[&quot;Paul&quot;, &quot;Mary&quot;, &quot;Peter&quot;]</code> 或 <code>[&quot;Mary&quot;, &quot;Paul&quot;, &quot;Peter&quot;]</code>。</p>
+<h4 id="6-1-9-对象克隆"><a href="#6-1-9-对象克隆" class="headerlink" title="6.1.9 对象克隆"></a>6.1.9 对象克隆</h4><p>本节我们会讨论 <code>Cloneable</code> 接口，这个接口表示一个类提供了一个安全的 <code>clone</code> 方法。</p>
+<p>要了解克隆的具体含义，先来回忆为一个包含对象引用的变量建立副本时会发生什么（这就是拷贝）。<strong>拷贝原变量和副本都是同一个对象的引用</strong>（见图 6-1）。这说明，任何一个变量的改变都会影响另一个变量。</p>
+<p><img src="/2025/05/04/hello-world/%E7%AC%AC%E5%85%AD%E7%AB%A0/image-20251112162316224.png" srcset="/img/loading.gif" lazyload alt="image-20251112162316224"></p>
+<p>​										<strong>图 6-1 拷贝和克隆</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">var</span> <span class="hljs-variable">original</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Employee</span>(<span class="hljs-string">&quot;John Public&quot;</span>, <span class="hljs-number">50000</span>);<br><span class="hljs-type">Employee</span> <span class="hljs-variable">copy</span> <span class="hljs-operator">=</span> original;<br>copy.raiseSalary(<span class="hljs-number">10</span>); <span class="hljs-comment">// oops--also changed original</span><br></code></pre></td></tr></table></figure>
+
+<p>如果希望 <code>copy</code> 是一个新对象，它的初始状态与 <code>original</code> 相同，但是之后它们的状态可能不同，这种情况下就要使用 <code>clone</code> 方法（即克隆）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Employee</span> <span class="hljs-variable">copy</span> <span class="hljs-operator">=</span> original.clone();<br>copy.raiseSalary(<span class="hljs-number">10</span>); <span class="hljs-comment">// OK--original unchanged</span><br></code></pre></td></tr></table></figure>
+
+<p>不过并没有这么简单。<strong><code>clone</code> 方法是 <code>Object</code> 的一个 <code>protected</code> 方法</strong>，这说明你的代码不能直接调用这个方法。只有 <code>Employee</code> 类可以克隆 <code>Employee</code> 对象。这个限制是有原因的。想想看 <code>Object</code> 类如何实现 <code>clone</code>。它对于这个对象一无所知，所以只能逐个字段地进行拷贝。如果对象中的所有实例字段都是数值或其他基本类型，拷贝这些字段没有任何问题。但是如果对象包含子对象的引用，拷贝字段就会得到相同子对象的另一个引用，这样一来，原对象和克隆的对象仍然会共享一些信息。</p>
+<p>为了更直观地说明这个问题，考虑第 4 章介绍过的 <code>Employee</code> 类。图 6-2 显示了使用 <code>Object</code> 类的 <code>clone</code> 方法克隆这样一个 <code>Employee</code> 对象会发生什么。可以看到，默认的克隆操作是“浅拷贝”，并没有克隆对象中引用的其他对象。（这个图显示了一个共享的 <code>Date</code> 对象。出于某种原因（稍后就会解释这个原因），这个例子使用了 <code>Employee</code> 类的老版本，其中的雇佣日期仍用 <code>Date</code> 表示。）</p>
+<p><img src="/2025/05/04/hello-world/%E7%AC%AC%E5%85%AD%E7%AB%A0/image-20251114112834579.png" srcset="/img/loading.gif" lazyload alt="image-20251114112834579"></p>
+<p>​										<strong>图 6-2 浅拷贝</strong></p>
+<p>浅拷贝会有什么影响吗？这要看具体情况。如果原对象和浅克隆对象共享的子对象是不可变的，那么这种共享就是安全的。如果子对象属于一个不可变的类，如 <code>String</code>，就是这种情况；或者，在对象的生命期中，子对象一直保持不变，没有更改器方法改变它，也没有方法会生成它的引用，这种情况下同样是安全的。</p>
+<p>不过，通常子对象都是可变的，必须重新定义 <code>clone</code> 方法来建立一个<strong>深拷贝（deep copy）</strong>。</p>
+<p>这会克隆所有子对象。在这个例子中，<code>hireDay</code> 字段是一个 <code>Date</code>，这是可变的，所以它也必须克隆。（正是由于这个原因，这个例子使用 <code>Date</code> 类型的字段而不是 <code>LocalDate</code> 来展示克隆过程。如果 <code>hireDay</code> 是不可变的 <code>LocalDate</code> 类的一个实例，就无须我们做任何操作了。  ）</p>
+<p>对于每一个类，需要确定以下选项是否成立：  </p>
+<ol>
+<li><strong>默认的<code>clone</code>方法就能满足要求；</strong>  </li>
+<li><strong>可以在可变的子对象上调用<code>clone</code>来弥补默认的<code>clone</code>方法；</strong>  </li>
+<li><strong>不该使用<code>clone</code>。</strong></li>
+</ol>
+<p>实际上第3个选项是默认选项。如果选择第1项或第2项，类必须：  </p>
+<ol>
+<li>实现<code>Cloneable</code>接口；  </li>
+<li>重新定义<code>clone</code>方法，并指定<code>public</code>访问修饰符。</li>
+</ol>
+<blockquote>
+<p><strong>注释</strong>：<code>Object</code>类中的<code>clone</code>方法声明为<code>protected</code>，所以你的代码不能直接调用<code>anObject.clone</code>。但是，不是所有子类都能访问受保护方法吗？不是所有类都是<code>Object</code>的子类吗？幸运的是，受保护访问的规则比较微妙（见第5章）。子类只能调用受保护的<code>clone</code>方法来克隆它自己的对象。必须重新定义<code>clone</code>为<code>public</code>才允许所有方法克隆对象。  </p>
+</blockquote>
+<p>在这里，<code>Cloneable</code>接口的出现与接口的正常使用并没有关系。具体来说，它没有指定<code>clone</code>方法，这个方法是从<code>Object</code>类继承的。这个接口只是作为一个标记，指示类设计者了解克隆过程。对象对于克隆很“偏执”，如果一个对象请求克隆，但是没有实现这个接口，就会生成一个检查型异常。  </p>
+<blockquote>
+<p><strong>注释</strong>：<code>Cloneable</code>接口是 Java 提供的少数标记接口（tagging interface）之一。（有些程序员称之为记号接口（marker interface）。）应该记得，<code>Comparable</code>等接口的通常用途是确保一个类实现一个特定的方法或一组方法。标记接口不包含任何方法，它唯一的作用</p>
+<p>就是允许在类型查询中使用<code>instanceof</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (obj <span class="hljs-keyword">instanceof</span> Cloneable)  <br></code></pre></td></tr></table></figure>
+
+<p><strong>建议你自己的程序中不要使用标记接口。</strong>  </p>
+</blockquote>
+<p>即使<code>clone</code>的默认（浅拷贝）实现能够满足要求，还是需要实现<code>Cloneable</code>接口，将<code>clone</code>重新定义为<code>public</code>，再调用<code>super.clone()</code>。下面给出一个例子：  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cloneable</span> &#123;<br>    <span class="hljs-comment">// public access, change return type</span><br>    <span class="hljs-keyword">public</span> Employee <span class="hljs-title function_">clone</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> CloneNotSupportedException &#123;<br>        <span class="hljs-keyword">return</span> (Employee) <span class="hljs-built_in">super</span>.clone();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注释</strong>：在 Java 1.4 之前，<code>clone</code> 方法的返回类型总是<code>Object</code>，而现在可以为你的<code>clone</code>方法指定正确的返回类型。这是协变返回类型的一个例子（参见第5章）。</p>
+</blockquote>
+<p>与 <code>Object.clone</code> 提供的浅拷贝相比，前面看到的 <code>clone</code> 方法并没有增加任何功能。这里只是让这个方法是的公共的。要建立深拷贝，还需要做更多工作，克隆对象中可变的实例字段。</p>
+<p>下面来看创建深拷贝的 <code>clone</code> 方法的一个例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cloneable</span> &#123;<br>    <span class="hljs-keyword">public</span> Employee <span class="hljs-title function_">clone</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> CloneNotSupportedException &#123;<br>        <span class="hljs-comment">// call Object.clone()</span><br>        <span class="hljs-type">Employee</span> <span class="hljs-variable">cloned</span> <span class="hljs-operator">=</span> (Employee) <span class="hljs-built_in">super</span>.clone();<br><br>        <span class="hljs-comment">// clone mutable fields</span><br>        cloned.hireDay = (Date) hireDay.clone();<br><br>        <span class="hljs-keyword">return</span> cloned;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>Object</code> 类的 <code>clone</code> 方法有可能抛出一个 <code>CloneNotSupportedException</code>，如果在一个对象上调用 <code>clone</code>，但这个对象的类并没有实现 <code>Cloneable</code> 接口，就会发生这种情况。当然，<code>Employee</code> 和 <code>Date</code> 类实现了 <code>Cloneable</code> 接口，所以不会抛出这个异常。不过，编译器并不知道这一点，因此，我们声明了这个异常：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Employee <span class="hljs-title function_">clone</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> CloneNotSupportedException<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注释</strong>：捕获这个异常是不是更好一些？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Employee <span class="hljs-title function_">clone</span><span class="hljs-params">()</span> <br>&#123;<br> <span class="hljs-keyword">try</span> <br> &#123;<br>     <span class="hljs-type">Employee</span> <span class="hljs-variable">cloned</span> <span class="hljs-operator">=</span> (Employee) <span class="hljs-built_in">super</span>.clone();<br>     ...<br> &#125;<br>    <span class="hljs-keyword">catch</span> (CloneNotSupportedException e) &#123;<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;&#125;<br>    <span class="hljs-comment">// this won&#x27;t happen, since we are Cloneable</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这适用于 <code>final</code> 类。否则，最好还是保留 <code>throws</code> 说明符。这样就允许子类在不支持克隆时选择抛出一个 <code>CloneNotSupportedException</code>。</p>
+</blockquote>
+<p>必须当心子类的克隆。例如，一旦为 <code>Employee</code> 类定义了 <code>clone</code> 方法，任何人都可能用它来克隆 <code>Manager</code> 对象。<code>Employee</code> 的克隆方法能完成这个任务吗？这取决于 <code>Manager</code> 类的字段。在这里是没有问题的，因为 <code>bonus</code> 字段是基本类型。但是 <code>Manager</code> 可能有需要深拷贝的字段或者不可克隆的字段。不能保证子类的实现者一定会修正 <code>clone</code> 方法让它正确地完成工作。出于这个原因，在 <code>Object</code> 类中 <code>clone</code> 方法声明为 <code>protected</code>。不过，如果希望你的类的使用者调用 <code>clone</code>，这就做不到了。</p>
+<p>要不要在自己的类中实现 <code>clone</code> 呢？如果你的客户需要建立深拷贝，可能就应当实现这个方法。有些人认为应该完全避免使用 <code>clone</code>，而实现另一个方法来达到同样的目的。<code>clone</code>相当别扭，这一点我们也同意，不过如果让另一个方法来完成这个工作，还是会遇到同样的问题。毕竟，克隆没有你想象中那么常用。标准库中只有不到 5% 的类实现了 <code>clone</code>。</p>
+<blockquote>
+<p><strong>注释</strong>：所有数组类型都有一个公共的 <code>clone</code> 方法，而不是受保护的。可以用这个方法建立一个新数组，包含原数组所有元素的副本。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span>[] luckyNumbers = &#123; <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">13</span> &#125;;<br><span class="hljs-type">int</span>[] cloned = luckyNumbers.clone();<br>cloned[<span class="hljs-number">5</span>] = <span class="hljs-number">12</span>; <span class="hljs-comment">// doesn&#x27;t change luckyNumbers[5]</span><br></code></pre></td></tr></table></figure></blockquote>
+<h3 id="6-2-lambda表达式"><a href="#6-2-lambda表达式" class="headerlink" title="6.2 lambda表达式"></a>6.2 lambda表达式</h3><p>接下来几节中，你会了解如何使用 lambda 表达式采用一种简洁的语法定义代码块，以及如何编写处理 lambda 表达式的代码。</p>
+<h4 id="6-2-1-为什么引入-lambda-表达式"><a href="#6-2-1-为什么引入-lambda-表达式" class="headerlink" title="6.2.1 为什么引入 lambda 表达式"></a>6.2.1 为什么引入 lambda 表达式</h4><p>lambda 表达式是一个可传递的代码块，可以在以后执行一次或多次。在具体介绍语法（甚至解释这个让人好奇的名字）之前，下面先退一步，观察一下我们在 Java 中的哪些地方用过这种代码块。</p>
+<p>在 6.1.7 节中，你已经了解了如何按指定时间间隔完成工作。将这个工作放在一个 <code>ActionListener</code> 的 <code>actionPerformed</code> 方法中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Worker</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ActionListener</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">actionPerformed</span><span class="hljs-params">(ActionEvent event)</span> &#123;<br>        <span class="hljs-comment">// do some work</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后，想要反复执行这个代码时，可以构造 <code>Worker</code> 类的一个实例，再把这个实例提交到一个 <code>Timer</code> 对象。</p>
+<p>这里的重点是：<code>actionPerformed</code> 方法包含希望以后执行的代码。</p>
+<p>或者可以考虑如何用一个定制比较器完成排序。如果想按长度而不是默认的字典顺序对字符串进行排序，可以向 <code>sort</code> 方法传入一个 <code>Comparator</code> 对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">LengthComparator</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Comparator</span>&lt;String&gt; &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compare</span><span class="hljs-params">(String first, String second)</span> &#123;<br>        <span class="hljs-keyword">return</span> first.length() - second.length();<br>    &#125;<br>&#125;<br><br>Arrays.sort(strings, <span class="hljs-keyword">new</span> <span class="hljs-title class_">LengthComparator</span>());<br></code></pre></td></tr></table></figure>
+
+<p><code>compare</code> 方法并不是立即调用。实际上，在数组完成排序之前，<code>sort</code> 方法会一直调用 <code>compare</code> 方法，只要元素的顺序不正确就会重新排列元素。将比较元素所需的代码段放在 <code>sort</code> 方法中，这个代码将与其余的排序逻辑集成（你可能不打算重新实现其余的这部分逻辑）。</p>
+<p>这两个例子有一些共同点：都是将一个代码块传递到某个目标（一个定时器，或者一个 <code>sort</code> 方法）。这个代码块会在将来某个时间调用。</p>
+<p>到目前为止，在 Java 中传递一个代码段并不容易，你不能直接传递代码段。Java 是一种面向对象语言，所以必须构造一个对象，这个对象的类要有一个方法包含所需的代码。</p>
+<p>在其他语言中，可以直接处理代码块。Java 设计者很长时间以来一直拒绝增加这个特性。毕竟，Java 的强大之处就在于其简单性和一致性。倘若只要一个特性能够让代码稍简洁一些，就把这个特性增加到语言中，那么这个语言很快就会变得一团糟，无法管理。不过，在另外那些语言中，并不只是创建线程或注册按钮点击事件处理器更容易；它们的大部分 API 都更简单、更一致而且更强大。在 Java 中，也可以编写类似的 API 处理实现了某个特定接口的类对象，不过这种 API 使用可能很不方便。</p>
+<h4 id="6-2-2-lambda-表达式的语法"><a href="#6-2-2-lambda-表达式的语法" class="headerlink" title="6.2.2 lambda 表达式的语法"></a>6.2.2 lambda 表达式的语法</h4><p>再来考虑上一节讨论的排序例子。我们传入代码来检查一个字符串是否比另一个字符串短。</p>
+<p>这里要计算：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><span class="hljs-keyword">first</span>.<span class="hljs-built_in">length</span>() - <span class="hljs-keyword">second</span>.<span class="hljs-built_in">length</span>()<br></code></pre></td></tr></table></figure>
+
+<p><code>first</code> 和 <code>second</code> 是什么？它们都是字符串。Java 是一种强类型语言，所以我们还要指定它们的类型：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">(String first, String second) -&gt;<br>    first.length() - second.length()<br></code></pre></td></tr></table></figure>
+
+<p>这就是你看到的第一个 lambda 表达式。lambda 表达式就是一个代码块，以及必须传入代码的所有变量的规范。</p>
+<p>逻辑学家 Alonzo Church 想要形式化地表示能有效计算的数学函数。他使用了希腊字母 lambda（λ）来标记参数。如果他知道 Java API，可能就会写为</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">λ<span class="hljs-keyword">first</span>.λ<span class="hljs-keyword">second</span>.<span class="hljs-keyword">first</span>.<span class="hljs-built_in">length</span>() - <span class="hljs-keyword">second</span>.<span class="hljs-built_in">length</span>()<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注释</strong>：为什么是字母 λ？Church 已经把字母表里的所有其他字母都用完了吗？实际上，权威的《数学原理》（Principia Mathematica）一书中就使用重音符 ^ 来表示自由变量，受此启发，Church 使用大写 lambda（Λ）表示参数。不过，最后他还是改为使用小写的 lambda（λ）。从那以后，带参数变量的表达式就被称为 lambda 表达式。</p>
+</blockquote>
+<p>你已经见过 Java 中一种<strong>简单的 lambda 表达式形式：参数，箭头（-&gt;）以及一个表达式。</strong></p>
+<p>如果代码要完成的计算无法放在一个表达式中，就可以像写方法一样，把这些代码放在 <code>&#123;&#125;</code> 中，并包含显式的 return 语句。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">(String first, String second) -&gt; &#123;<br>    <span class="hljs-keyword">if</span> (first.length() &lt; second.length()) <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (first.length() &gt; second.length()) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>即使 lambda 表达式没有参数，仍然要提供空括号，就像无参数方法一样：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">() -&gt; &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">100</span>; i &gt;= <span class="hljs-number">0</span>; i--) System.out.println(i);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>如果可以推导出一个 lambda 表达式的参数类型，则可以忽略其类型</strong>。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">Comparator&lt;String&gt; comp =<br>    (first, second)    <span class="hljs-comment">// same as (String first, String second) -&gt;</span><br>        first.length() - second.length();<br></code></pre></td></tr></table></figure>
+
+<p>在这里，编译器可以推导出 <code>first</code> 和 <code>second</code> 必然是字符串，因为这个 lambda 表达式将赋给一个字符串比较器。（下一节会更详细地分析这个赋值。）</p>
+<p><strong>如果方法只有一个参数，而且这个参数的类型可以推导得出，那么甚至还可以省略小括号</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">ActionListener</span> <span class="hljs-variable">listener</span> <span class="hljs-operator">=</span> event -&gt;<br>    System.out.println(<span class="hljs-string">&quot;The time is &quot;</span> +<br>        Instant.ofEpochMilli(event.getWhen()));<br></code></pre></td></tr></table></figure>
+
+<p>instead of <code>(event)-&gt;...</code> or <code>(ActionEvent event)-&gt;...</code>。</p>
+<p>**无须指定 lambda 表达式的返回类型。lambda 表达式的返回类型总是会由上下文推导得出。**例如，下面的表达式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">(String first, String second) -&gt; first.length() - second.length()<br></code></pre></td></tr></table></figure>
+
+<p>可以在需要 <code>int</code> 类型结果的上下文中使用。</p>
+<p>最后，<strong>可以使用 <code>var</code> 指示一个推导的类型</strong>。这不常见，发明这个语法是为了关联注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">(<span class="hljs-meta">@NonNull</span> <span class="hljs-keyword">var</span> first, <span class="hljs-meta">@NonNull</span> <span class="hljs-keyword">var</span> second) -&gt; first.length() - second.length()<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>**注释：如果一个 lambda 表达式只在某些分支返回一个值，而另外一些分支不返回值，这是不合法的。**例如，<code>(int x)-&gt; &#123; if (x &gt;= 0) return 1; &#125;</code> 就不合法。</p>
+</blockquote>
+<h4 id="6-2-3-函数式接口"><a href="#6-2-3-函数式接口" class="headerlink" title="6.2.3 函数式接口"></a>6.2.3 函数式接口</h4><p>前面已经讨论过，Java 中有很多封装代码块的接口，如 <code>ActionListener</code> 或 <code>Comparator</code>。lambda 表达式与这些接口是兼容的。</p>
+<p><strong>对于只有一个抽象方法的接口，需要这种接口的对象时，就可以提供一个 lambda 表达式。这种接口称为函数式接口（functional interface）。</strong></p>
+<blockquote>
+<p>**注释：**你可能想知道为什么函数式接口必须有一个抽象方法。不是接口中的所有方法都是抽象的吗？实际上，接口完全有可能重新声明 Object 类的方法，如 <code>toString</code> 或 <code>clone</code>，这些声明有可能会让方法不再是抽象的。（Java API 中的一些接口会重新声明 Object 方法来附加 javadoc 注释。<code>Comparator</code> API 就是这样一个例子。）更重要的是，正如 6.1.5 节所述，接口可以声明非抽象方法。</p>
+</blockquote>
+<p>为了展示如何转换为函数式接口，下面考虑 <code>Arrays.sort</code> 方法。它的第二个参数需要一个 <code>Comparator</code> 实例，<code>Comparator</code> 就是只有一个方法的接口，所以可以提供一个 lambda 表达式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Arrays.sort(words,<br>    (first, second) -&gt; first.length() - second.length());<br></code></pre></td></tr></table></figure>
+
+<p>在底层，<code>Arrays.sort</code> 方法会接收实现了 <code>Comparator&lt;String&gt;</code> 的某个类的对象。在这个对象上调用 <code>compare</code> 方法会执行这个 lambda 表达式的体。这些对象和类的管理完全取决于具体实现，与使用传统的内联类相比，这样可能要高效得多。最好把 lambda 表达式看作是一个函数，而不是一个对象，另外要接受一个事实：<strong>lambda 表达式可以传递到函数式接口。</strong></p>
+<p><strong>lambda 表达式可以转换为接口</strong>，这一点让 lambda 表达式很有吸引力。具体的语法很简短。下面再来看一个例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">var</span> <span class="hljs-variable">timer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timer</span>(<span class="hljs-number">1000</span>, event -&gt;<br>    System.out.println(<span class="hljs-string">&quot;At the tone, the time is &quot;</span> +<br>        Instant.ofEpochMilli(event.getWhen()));<br>Toolkit.getDefaultToolkit().beep();<br></code></pre></td></tr></table></figure>
+
+<p>与使用实现了 <code>ActionListener</code> 接口的类相比，这段代码的可读性要好得多。</p>
+<p>实际上，在 Java 中，对 lambda 表达式所能做的也只是转换为函数式接口。在其他支持函数字面量的程序设计语言中，可以声明函数类型（如 <code>(String, String) -&gt; int</code>），声明这些类型的变量，还可以使用变量保存函数表达式。不过，Java 设计者还是决定保持我们熟悉的接口概念，而没有为 Java 语言增加函数类型。</p>
+<blockquote>
+<p><strong>注释</strong>：<strong>甚至不能把 lambda 表达式赋给类型为 Object 的变量，Object 不是一个函数式接口。</strong></p>
+</blockquote>
+<p>Java API 在 <code>java.util.function</code> 包中定义了很多非常通用的函数式接口。其中一个接口 <code>BiFunction&lt;T, U, R&gt;</code> 描述了参数类型为 T 和 U 而且返回类型为 R 的函数。可以把我们的字符串比较 lambda 表达式保存在这个类型的变量中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">BiFunction&lt;String, String, Integer&gt; comp =<br>    (first, second) -&gt; first.length() - second.length();<br></code></pre></td></tr></table></figure>
+
+<p>不过，这对于排序并没有帮助。没有哪个 <code>Arrays.sort</code> 方法想要接收一个 <code>BiFunction</code>。如果你之前用过某种函数式编程语言，可能会发现这很奇怪。不过，对于 Java 程序员而言，这非常自然。类似 <code>Comparator</code> 的接口往往有一个特定的用途，而不只是提供一个有指定参数和返回类型的方法。想要用 lambda 表达式做某些处理时，还是希望谨记表达式的用途，为它建立一个特定的函数式接口。</p>
+<p><code>java.util.function</code> 包中有一个尤其有用的接口 <code>Predicate</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Predicate</span>&lt;T&gt; &#123;<br>    <span class="hljs-type">boolean</span> <span class="hljs-title function_">test</span><span class="hljs-params">(T t)</span>;<br>    <span class="hljs-comment">// additional default and static methods</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>ArrayList</code> 类有一个 <code>removeIf</code> 方法，它的参数就是一个 <code>Predicate</code>。这个接口专门用来传递 lambda 表达式。例如，下面的语句将从一个数组列表删除所有 null 值：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">list.removeIf(e -&gt; e == <span class="hljs-literal">null</span>);<br></code></pre></td></tr></table></figure>
+
+<p>另一个有用的函数式接口是 <code>Supplier&lt;T&gt;</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Supplier</span>&lt;T&gt; &#123;<br>    T <span class="hljs-title function_">get</span><span class="hljs-params">()</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>供应者（supplier）没有参数，调用时会生成一个 <code>T</code> 类型的值。供应者用于实现懒计算（lazy evaluation）。例如，考虑以下调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">LocalDate</span> <span class="hljs-variable">hireDay</span> <span class="hljs-operator">=</span> Objects.requireNonNullElse(day,<br>                                 LocalDate.of(<span class="hljs-number">1970</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>));<br></code></pre></td></tr></table></figure>
+
+<p>这不是最优的。我们预计 <code>day</code> 很少为 null，所以希望只在必要时才构造默认的 <code>LocalDate</code>。通过使用供应者，我们就能延迟这个计算：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">LocalDate</span> <span class="hljs-variable">hireDay</span> <span class="hljs-operator">=</span> Objects.requireNonNullElseGet(day,<br>                                 () -&gt; LocalDate.of(<span class="hljs-number">1970</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>));<br></code></pre></td></tr></table></figure>
+
+<p><code>requireNonNullElseGet</code> 方法只在需要值时才调用供应者。</p>
+<h4 id="6-2-4-方法引用"><a href="#6-2-4-方法引用" class="headerlink" title="6.2.4 方法引用"></a>6.2.4 方法引用</h4><p>有时，lambda 表达式涉及一个方法。例如，假设你希望只要出现一个定时器事件就打印这个事件对象。当然，为此也可以调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">var</span> <span class="hljs-variable">timer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timer</span>(<span class="hljs-number">1000</span>, event -&gt; System.out.println(event));<br></code></pre></td></tr></table></figure>
+
+<p>但是，如果直接把 <code>println</code> 方法传递到 <code>Timer</code> 构造器就更好了。具体做法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">var</span> <span class="hljs-variable">timer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timer</span>(<span class="hljs-number">1000</span>, System.out::println);<br></code></pre></td></tr></table></figure>
+
+<p>表达式 <code>System.out::println</code> 是一个<strong>方法引用（method reference）</strong>，它指示编译器生成一个函数式接口的实例，覆盖这个接口的抽象方法来调用给定的方法。在这个例子中，会生成一个 <code>ActionListener</code>，它的 <code>actionPerformed(ActionEvent e)</code> 方法要调用 <code>System.out.println(e)</code>。</p>
+<blockquote>
+<p>**注释：类似于 lambda 表达式，方法引用也不是一个对象。**不过，为一个类型为函数式接口的变量赋值时会生成一个对象。</p>
+</blockquote>
+<blockquote>
+<p><strong>注释：</strong><code>PrintStream</code> 类（<code>System.out</code> 就是 <code>PrintStream</code> 类的一个实例）中有 10 个重载的 <code>println</code> 方法。编译器需要根据上下文确定使用哪一个方法。在我们的例子中，方法引用 <code>System.out::println</code> 必须转换为一个包含以下方法的 <code>ActionListener</code> 实例：  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">void</span> <span class="hljs-title function_">actionPerformed</span><span class="hljs-params">(ActionEvent e)</span><br></code></pre></td></tr></table></figure>
+
+<p>这样会从 10 个重载的 <code>println</code> 方法中选出 <code>println(Object x)</code> 方法，因为 <code>Object</code> 与 <code>ActionEvent</code> 最匹配。调用 <code>actionPerformed</code> 方法时，就会打印这个事件对象。</p>
+<p>现在假设我们把同样的这个方法引用赋给另一个函数式接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Runnable</span> <span class="hljs-variable">task</span> <span class="hljs-operator">=</span> System.out::println;<br></code></pre></td></tr></table></figure>
+
+<p>这个 <code>Runnable</code> 函数式接口有一个无参数的抽象方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span>;<br></code></pre></td></tr></table></figure>
+
+<p>在这种情况下，会选择无参数的 <code>println</code> 方法。调用 <code>task.run()</code> 会向 <code>System.out</code> 打印一个空行。</p>
+</blockquote>
+<p>再来看一个例子，假设你想对字符串进行排序，而不考虑字母的大小写。可以传递以下方法引用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Arrays.sort(strings, String::compareToIgnoreCase);<br></code></pre></td></tr></table></figure>
+
+<p>从这些例子可以看出，要用 <code>::</code> 操作符分隔方法名与对象或类名。主要有 3 种情况：</p>
+<ol>
+<li><code>object::instanceMethod</code>  </li>
+<li><code>Class::instanceMethod</code>  </li>
+<li><code>Class::staticMethod</code></li>
+</ol>
+<p>在第 1 种情况下，方法引用等价于一个 lambda 表达式，其参数要传递到方法。对于 <code>System.out::println</code>，对象是 <code>System.out</code>，所以这个方法引用等价于 <code>x -&gt; System.out.println(x)</code>。</p>
+<p>对于第 2 种情况，第 1 个参数会成为方法的隐式参数。例如，<code>String::compareToIgnoreCase</code>等同于<code>(x, y) -&gt; x.compareToIgnoreCase(y)</code>。</p>
+<p>在第3种情况下，所有参数都传递到静态方法：<code>Math::pow</code> 等价于 <code>(x, y) -&gt; Math.pow(x, y)</code>。</p>
+<p>表6-1 提供了更多示例。</p>
+<p>注意，只有当 lambda 表达式的体只调用一个方法而不做其他操作时，才能把 lambda 表达式重写为方法引用。考虑以下 lambda 表达式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">s -&gt; s.length() == <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+
+<p>这里有一个方法调用。但是还有一个比较，所以这里不能使用方法引用。</p>
+<blockquote>
+<p><strong>注释</strong>：</p>
+<ul>
+<li><p>如果有多个同名的重载方法，编译器就会尝试从上下文中找出你指的是哪一个方法。例如，<code>Math.max</code> 方法有两个版本，一个用于整数，另一个用于 <code>double</code> 值。选择哪一个版本取决于 <code>Math::max</code> 转换为哪个函数式接口的方法参数。类似于 lambda 表达式，方法引用不会独立存在，总是会转换为函数式接口的实例。</p>
+</li>
+<li><p>有时 API 包含一些专门用作方法引用的方法。例如，<code>Objects</code> 类有一个方法 <code>isNull</code>，用于测试一个对象引用是否为 <code>null</code>。乍看上去这好像没有什么用，因为测试 <code>obj == null</code> 比 <code>Objects.isNull(obj)</code> 更有可读性。不过可以把方法引用传递到任何有 <code>Predicate</code> 参数的方法。例如，要从一个列表删除所有 <code>null</code> 引用，就可以调用：</p>
+</li>
+<li><pre><code class="language-java">  list.removeIf(Objects::isNull);
+  //这比 list.removeIf(e -&gt; e == null)更易读。
+  <figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey"><br>![image-<span class="hljs-number">20251116165653881</span>](image-<span class="hljs-number">20251116165653881</span>.png)<br><br><span class="hljs-title">**注释：**包含对象的方法引用与等价的 lambda 表达式还有一个细微的差别。考虑一个方法引用，如 `separator::equals`。如果 `separator` 为 `null`，构造 `separator::</span>equals` 时就会立即抛出一个 `NullPointerException` 异常。而 lambda 表达式 `x -&gt; separator.equals(x)` 只在调用时才会抛出 `NullPointerException`。<br><br><span class="hljs-title">可以在方法引用中使用 `this` 参数。例如，`this::</span>equals` 等同于 `x -&gt; this.equals(x)`。使用 `super` 也是合法的。下面的方法表达式：<br><br>```java<br><span class="hljs-title">super::</span>instanceMethod<br></code></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</blockquote>
+<p>使用 <code>this</code> 作为目标，会调用给定方法的超类版本。为了展示这一点，下面给出一个假想的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Greeter</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">greet</span><span class="hljs-params">(ActionEvent event)</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;Hello, the time is &quot;</span><br>            + Instant.ofEpochMilli(event.getWhen()));<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">RepeatedGreeter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Greeter</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">greet</span><span class="hljs-params">(ActionEvent event)</span> &#123;<br>        <span class="hljs-type">var</span> <span class="hljs-variable">timer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timer</span>(<span class="hljs-number">1000</span>, <span class="hljs-built_in">super</span>::greet);<br>        timer.start();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>RepeatedGreeter.greet</code> 方法开始执行时，会构造一个 <code>Timer</code>，每次定时器滴答时会执行 <code>super::greet</code> 方法。</p>
+<h4 id="6-2-5-构造器引用"><a href="#6-2-5-构造器引用" class="headerlink" title="6.2.5 构造器引用"></a>6.2.5 构造器引用</h4><p>构造器引用与方法引用很类似，只不过方法名为 <code>new</code>。例如，<code>Person::new</code> 是 <code>Person</code> 构造器的一个引用。哪一个构造器呢？这取决于上下文。假设你有一个字符串列表。可以在各个字符串上调用构造器，把这个字符串列表转换为一个 <code>Person</code> 对象数组，调用如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">ArrayList&lt;String&gt; names = ...;<br>Stream&lt;Person&gt; stream = names.stream().map(Person::<span class="hljs-keyword">new</span>);<br>List&lt;Person&gt; people = stream.toList();<br></code></pre></td></tr></table></figure>
+
+<p>我们将在卷 II 的第 1 章讨论 <code>stream</code>、<code>map</code> 和 <code>toList</code> 方法的详细内容。就现在来说，重点是 <code>map</code> 方法会为各个列表元素调用 <code>Person(String)</code> 构造器。如果有多个 <code>Person</code> 构造器，编译器会选择有一个 <code>String</code> 参数的构造器，因为它从上下文推导出这是在调用带一个字符串的构造器。</p>
+<p>可以用数组类型建立构造器引用。例如，<code>int[]::new</code> 是一个构造器引用，它有一个参数：数组的长度。这等价于 lambda 表达式 <code>x -&gt; new int[x]</code>。</p>
+<p>第 8 章中将会看到，Java 有一个限制：无法构造泛型类型 <code>T</code> 的数组。数组构造器引用对于解决这类问题很有用。</p>
 
                 
               </div>

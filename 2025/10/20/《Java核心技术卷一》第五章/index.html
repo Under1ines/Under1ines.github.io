@@ -29,7 +29,7 @@
 <meta property="og:image" content="http://example.com/2025/10/20/%E3%80%8AJava%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7%E4%B8%80%E3%80%8B%E7%AC%AC%E4%BA%94%E7%AB%A0/image-20251104162723467.png">
 <meta property="og:image" content="http://example.com/2025/10/20/%E3%80%8AJava%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7%E4%B8%80%E3%80%8B%E7%AC%AC%E4%BA%94%E7%AB%A0/image-20251104163123122.png">
 <meta property="article:published_time" content="2025-10-20T07:50:33.000Z">
-<meta property="article:modified_time" content="2025-11-11T12:37:56.512Z">
+<meta property="article:modified_time" content="2025-11-15T06:53:48.817Z">
 <meta property="article:author" content="Under1ines">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
@@ -328,15 +328,15 @@
                 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Manager</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Employee</span><br>&#123;<br>    added methods and fields<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>在Java中，所有的继承都是公共继承。</p>
-<p>关键字extends指示正在构造的新类派生于一个已存在的类。</p>
+<p><strong>关键字extends指示正在构造的新类派生于一个已存在的类。</strong></p>
 <p>这个已存在的类称为超类、基类或父类；新类称为子类或派生类。</p>
 <p>子类比超类拥有的功能更多。所有员工组成的集合包含所有经理组成的集合，员工集合是经理集合的超集，经理集合是员工集合的子集。</p>
 <p>声明为私有的类成员不会被这个类的子类继承。（私有字段不会继承，因为子类不能直接访问这些私有字段，子类拥有这些字段）</p>
-<p>记录，就是状态完全由构造器参数定义的类，不能扩展记录，而且记录也不能扩展其他类。</p>
-<p>关键字super 指示编译器调用超类方法</p>
-<p>super(name, salary,…);  “调用超类中带有name，salary等参数的构造器的简写形式”</p>
+<p><strong>记录，就是状态完全由构造器参数定义的类，不能扩展记录，而且记录也不能扩展其他类。</strong></p>
+<p>关键字 super 指示编译器调用超类方法</p>
+<p><code>super(name, salary,...);</code>  “调用超类中带有name，salary等参数的构造器的简写形式”</p>
 <p>由于子类的构造器不能访问超类的私有字段，所以必须通过一个构造器来初始化这些私有字段，可以利用特殊的super语法调用这个构造器，使用super调用构造器的语句必须是子类构造器的第一条语句。</p>
-<p>如果构造子类对象时没有显式的调用超类的构造器，那么超类必须有一个无参数构造器，这个构造器要在子类构造之前调用。</p>
+<p><strong>如果构造子类对象时没有显式的调用超类的构造器，那么超类必须有一个无参数构造器，这个构造器要在子类构造之前调用。</strong></p>
 <p> this 的两个含义：一是指示隐式参数的引用；二是调用该类的其他构造器</p>
 <p> super 的两个含义：一是调用超类的方法；二是调用超类的构造器</p>
 <p>总结：核心逻辑链</p>
@@ -344,7 +344,7 @@
 <p>一个对象变量可以指示多种实际类型，这一点称为多态，在运行时能够自动地选择适当的方法，这称为动态绑定。</p>
 <p>继承并不仅限于一个层次。</p>
 <p>由一个公共超类派生出来的所有类的集合称为继承层次结构，在继承层次结构中，从某个特定的类到其祖先的路径称为该类的继承链。</p>
-<p>Java不支持多重继承。（多重继承允许一个类同时继承多个父类的属性和方法）</p>
+<p><strong>Java不支持多重继承。</strong>（多重继承允许一个类同时继承多个父类的属性和方法）</p>
 <p>有一个简单的规则可以用来判断是否应该将数据设计为继承关系，这就是“is－a”规则，它指出子类的每个对象也是超类的对象。</p>
 <p>“is－a”规则的另一种表述是替换原则。它指出程序中需要超类对象的任何地方都可以使用子类对象替换。</p>
 <p>在java中，对象变量是多态的。一个Employee类型的变量既可以引用一个Employee类型的对象，也可以引用Employee类的任何一个子类的对象。</p>
